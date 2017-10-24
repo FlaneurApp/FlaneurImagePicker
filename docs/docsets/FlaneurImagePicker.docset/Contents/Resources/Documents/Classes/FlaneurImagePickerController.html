@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>FlaneurImagePickerController Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/FlaneurImagePickerController" class="dashAnchor"></a>
+    <a title="FlaneurImagePickerController Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">FlaneurImagePicker Docs</a> (100% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">FlaneurImagePicker Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        FlaneurImagePickerController Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/FlaneurImageDescription.html">FlaneurImageDescription</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FlaneurImagePickerController.html">FlaneurImagePickerController</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/FlaneurImageDescriptionSourceType.html">FlaneurImageDescriptionSourceType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/FlaneurImagePickerSection.html">FlaneurImagePickerSection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/FlaneurImageSource.html">FlaneurImageSource</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/FlaneurAuthorizationView.html">FlaneurAuthorizationView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/FlaneurImagePickerControllerDelegate.html">FlaneurImagePickerControllerDelegate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/FlaneurImagePickerConfig.html">FlaneurImagePickerConfig</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>FlaneurImagePickerController</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">FlaneurImagePickerController</span><span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
+
+                </div>
+              </div>
+            <p>An Image Picker that allows users to pick images from different sources (ex: user&rsquo;s library,
+user&rsquo;s camera, instagram &hellip;)</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Initializers"></a>
+                <a name="//apple_ref/swift/Section/Initializers" class="dashAnchor"></a>
+                <a href="#/Initializers">
+                  <h3 class="section-name">Initializers</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC18FlaneurImagePicker28FlaneurImagePickerController8delegateGSqPS_36FlaneurImagePickerControllerDelegate__"></a>
+                    <a name="//apple_ref/swift/Property/delegate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC18FlaneurImagePicker28FlaneurImagePickerController8delegateGSqPS_36FlaneurImagePickerControllerDelegate__">delegate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delegate property, should be set to whatever object you want to be notified in of the ImagePicker&rsquo;s events and
+which is conforming to <em>FlaneurImagePickerControllerDelegate</em></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/FlaneurImagePickerControllerDelegate.html">FlaneurImagePickerControllerDelegate</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC18FlaneurImagePicker28FlaneurImagePickerController6configVS_24FlaneurImagePickerConfig"></a>
+                    <a name="//apple_ref/swift/Property/config" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC18FlaneurImagePicker28FlaneurImagePickerController6configVS_24FlaneurImagePickerConfig">config</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Contains all the Image Picker&rsquo;s configurations, you can override those configs by setting their public properties
+from inside that object</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">config</span><span class="p">:</span> <span class="kt"><a href="../Structs/FlaneurImagePickerConfig.html">FlaneurImagePickerConfig</a></span> <span class="o">=</span> <span class="kt"><a href="../Structs/FlaneurImagePickerConfig.html">FlaneurImagePickerConfig</a></span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Initializers2"></a>
+                <a name="//apple_ref/swift/Section/Initializers" class="dashAnchor"></a>
+                <a href="#/Initializers2">
+                  <h3 class="section-name">Initializers</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC18FlaneurImagePicker28FlaneurImagePickerControllercFT25maxNumberOfSelectedImagesSi8userInfoGSqP__15sourcesDelegateGSaOS_18FlaneurImageSource_14selectedImagesGSaCS_23FlaneurImageDescription__S0_"></a>
+                    <a name="//apple_ref/swift/Method/init(maxNumberOfSelectedImages:userInfo:sourcesDelegate:selectedImages:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC18FlaneurImagePicker28FlaneurImagePickerControllercFT25maxNumberOfSelectedImagesSi8userInfoGSqP__15sourcesDelegateGSaOS_18FlaneurImageSource_14selectedImagesGSaCS_23FlaneurImageDescription__S0_">init(maxNumberOfSelectedImages:userInfo:sourcesDelegate:selectedImages:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Init</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">maxNumberOfSelectedImages</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+         <span class="nv">userInfo</span><span class="p">:</span> <span class="kt">Any</span><span class="p">?,</span>
+         <span class="nv">sourcesDelegate</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/FlaneurImageSource.html">FlaneurImageSource</a></span><span class="p">],</span>
+         <span class="nv">selectedImages</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/FlaneurImageDescription.html">FlaneurImageDescription</a></span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>maxNumberOfSelectedImages</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Maximum number of pickable images</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>userInfo</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Arbitrary data</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sourcesDelegate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Array of image sources, aka: FlaneurImageSource</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>selectedImages</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of already selected images</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC18FlaneurImagePicker28FlaneurImagePickerControllercFT5coderCSo7NSCoder_GSqS0__"></a>
+                    <a name="//apple_ref/swift/Method/init(coder:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC18FlaneurImagePicker28FlaneurImagePickerControllercFT5coderCSo7NSCoder_GSqS0__">init(coder:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A required init</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">required</span> <span class="kd">public</span> <span class="nf">init</span><span class="p">?(</span><span class="n">coder</span> <span class="nv">aDecoder</span><span class="p">:</span> <span class="kt">NSCoder</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Lifecyle%20callbacks"></a>
+                <a name="//apple_ref/swift/Section/Lifecyle callbacks" class="dashAnchor"></a>
+                <a href="#/Lifecyle%20callbacks">
+                  <h3 class="section-name">Lifecyle callbacks</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC18FlaneurImagePicker28FlaneurImagePickerController11viewDidLoadFT_T_"></a>
+                    <a name="//apple_ref/swift/Method/viewDidLoad()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC18FlaneurImagePicker28FlaneurImagePickerController11viewDidLoadFT_T_">viewDidLoad()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>viewDidLoad Lifecyle callback</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">override</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC18FlaneurImagePicker28FlaneurImagePickerController21viewDidLayoutSubviewsFT_T_"></a>
+                    <a name="//apple_ref/swift/Method/viewDidLayoutSubviews()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC18FlaneurImagePicker28FlaneurImagePickerController21viewDidLayoutSubviewsFT_T_">viewDidLayoutSubviews()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>viewDidLayoutSubviews Lifecyle callback</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">override</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">viewDidLayoutSubviews</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC18FlaneurImagePicker28FlaneurImagePickerController7objectsFT3forCSo11ListAdapter_GSaPSo12ListDiffable__"></a>
+                    <a name="//apple_ref/swift/Method/objects(for:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC18FlaneurImagePicker28FlaneurImagePickerController7objectsFT3forCSo11ListAdapter_GSaPSo12ListDiffable__">objects(for:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A DataSource method used to feed the collection with data for a
+particular list adapter</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">objects</span><span class="p">(</span><span class="k">for</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt">ListAdapter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">ListDiffable</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>listAdapter</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The adapter asking for the data</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of <em>ListDiffable</em> data</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC18FlaneurImagePicker28FlaneurImagePickerController11listAdapterFTCSo11ListAdapter20sectionControllerForP__CSo21ListSectionController"></a>
+                    <a name="//apple_ref/swift/Method/listAdapter(_:sectionControllerFor:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC18FlaneurImagePicker28FlaneurImagePickerController11listAdapterFTCSo11ListAdapter20sectionControllerForP__CSo21ListSectionController">listAdapter(_:sectionControllerFor:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A DataSource method used to associate a section controller
+to object of an adapter</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">listAdapter</span><span class="p">(</span><span class="n">_</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt">ListAdapter</span><span class="p">,</span> <span class="n">sectionControllerFor</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ListSectionController</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>listAdapter</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The adapter asking for the section controller</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>object</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The current object to be associated with a section controller</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The section controller for the object</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC18FlaneurImagePicker28FlaneurImagePickerController9emptyViewFT3forCSo11ListAdapter_GSqCSo6UIView_"></a>
+                    <a name="//apple_ref/swift/Method/emptyView(for:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC18FlaneurImagePicker28FlaneurImagePickerController9emptyViewFT3forCSo11ListAdapter_GSqCSo6UIView_">emptyView(for:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A DataSource method used to show an empty view in the collection
+ when data for an adapter are empty</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">emptyView</span><span class="p">(</span><span class="k">for</span> <span class="nv">listAdapter</span><span class="p">:</span> <span class="kt">ListAdapter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIView</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>listAapter</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The adapter asking for the empty view</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A custom empty view of type UIView</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2017 <a class="link" href="https://github.com/toto/FlaneurImagePicker" target="_blank" rel="external">Matthieu Luci</a>. All rights reserved. (Last updated: 2017-08-02)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

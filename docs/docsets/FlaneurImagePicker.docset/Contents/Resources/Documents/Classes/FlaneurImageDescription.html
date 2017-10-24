@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>FlaneurImageDescription Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/FlaneurImageDescription" class="dashAnchor"></a>
+    <a title="FlaneurImageDescription Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">FlaneurImagePicker Docs</a> (100% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">FlaneurImagePicker Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        FlaneurImageDescription Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/FlaneurImageDescription.html">FlaneurImageDescription</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FlaneurImagePickerController.html">FlaneurImagePickerController</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/FlaneurImageDescriptionSourceType.html">FlaneurImageDescriptionSourceType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/FlaneurImagePickerSection.html">FlaneurImagePickerSection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/FlaneurImageSource.html">FlaneurImageSource</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/FlaneurAuthorizationView.html">FlaneurAuthorizationView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/FlaneurImagePickerControllerDelegate.html">FlaneurImagePickerControllerDelegate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/FlaneurImagePickerConfig.html">FlaneurImagePickerConfig</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>FlaneurImageDescription</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">FlaneurImageDescription</span><span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                </div>
+              </div>
+            <p>FlaneurImageDescription is a model used to store an image.
+The image can either be defined by an URL, a PHAsset or an actuel UIImage.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Properties"></a>
+                <a name="//apple_ref/swift/Section/Properties" class="dashAnchor"></a>
+                <a href="#/Properties">
+                  <h3 class="section-name">Properties</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC18FlaneurImagePicker23FlaneurImageDescription8imageURLGSQV10Foundation3URL_"></a>
+                    <a name="//apple_ref/swift/Property/imageURL" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC18FlaneurImagePicker23FlaneurImageDescription8imageURLGSQV10Foundation3URL_">imageURL</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Url of the image contained in the description.
+It can be null but an <strong>image</strong> or an <strong>associatedPHAsset</strong> should be set in this case</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">imageURL</span><span class="p">:</span> <span class="kt">URL</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC18FlaneurImagePicker23FlaneurImageDescription5imageGSQCSo7UIImage_"></a>
+                    <a name="//apple_ref/swift/Property/image" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC18FlaneurImagePicker23FlaneurImageDescription5imageGSQCSo7UIImage_">image</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The image contained in the description.
+It can be null but an <strong>imageURL</strong> or an <strong>associatedPHAsset</strong> should be set in this case</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">image</span><span class="p">:</span> <span class="kt">UIImage</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC18FlaneurImagePicker23FlaneurImageDescription17associatedPHAssetGSQCSo7PHAsset_"></a>
+                    <a name="//apple_ref/swift/Property/associatedPHAsset" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC18FlaneurImagePicker23FlaneurImageDescription17associatedPHAssetGSQCSo7PHAsset_">associatedPHAsset</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The PHAsset contained in the description.
+It can be null but an <strong>imageURL</strong> or an <strong>image</strong> should be set in this case</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">associatedPHAsset</span><span class="p">:</span> <span class="kt">PHAsset</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC18FlaneurImagePicker23FlaneurImageDescription11imageSourceGSQOS_33FlaneurImageDescriptionSourceType_"></a>
+                    <a name="//apple_ref/swift/Property/imageSource" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC18FlaneurImagePicker23FlaneurImageDescription11imageSourceGSQOS_33FlaneurImageDescriptionSourceType_">imageSource</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Depending on the type, an image can be accessed through the
+<strong>imageURL</strong> property, the <strong>associatedPHAsset</strong> property (by fetching it first), or the <strong>image</strong> property</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">imageSource</span><span class="p">:</span> <span class="kt"><a href="../Enums/FlaneurImageDescriptionSourceType.html">FlaneurImageDescriptionSourceType</a></span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Initializers%20methods"></a>
+                <a name="//apple_ref/swift/Section/Initializers methods" class="dashAnchor"></a>
+                <a href="#/Initializers%20methods">
+                  <h3 class="section-name">Initializers methods</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC18FlaneurImagePicker23FlaneurImageDescriptioncFT8imageURLGSqV10Foundation3URL__GSqS0__"></a>
+                    <a name="//apple_ref/swift/Method/init(imageURL:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC18FlaneurImagePicker23FlaneurImageDescriptioncFT8imageURLGSqV10Foundation3URL__GSqS0__">init(imageURL:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Init with a URL</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">?(</span><span class="nv">imageURL</span><span class="p">:</span> <span class="kt">URL</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>imageURL</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A URL pointing on the image with which you want to initialize the FlaneurImageDescription</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new FlaneurImageDescription</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC18FlaneurImagePicker23FlaneurImageDescriptioncFT5imageGSqCSo7UIImage__GSqS0__"></a>
+                    <a name="//apple_ref/swift/Method/init(image:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC18FlaneurImagePicker23FlaneurImageDescriptioncFT5imageGSqCSo7UIImage__GSqS0__">init(image:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Init with a UIImage</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">?(</span><span class="nv">image</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>image</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An image with which you want to initialize the FlaneurImageDescription</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new FlaneurImageDescription</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC18FlaneurImagePicker23FlaneurImageDescriptioncFT5assetGSqCSo7PHAsset__GSqS0__"></a>
+                    <a name="//apple_ref/swift/Method/init(asset:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC18FlaneurImagePicker23FlaneurImageDescriptioncFT5assetGSqCSo7PHAsset__GSqS0__">init(asset:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Init with a PHAsset</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">?(</span><span class="nv">asset</span><span class="p">:</span> <span class="kt">PHAsset</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>asset</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An asset referencing the image with which you want to initialize the FlaneurImageDescription</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new FlaneurImageDescription</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC18FlaneurImagePicker23FlaneurImageDescriptioncFT14imageURLStringGSqSS__GSqS0__"></a>
+                    <a name="//apple_ref/swift/Method/init(imageURLString:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC18FlaneurImagePicker23FlaneurImageDescriptioncFT14imageURLStringGSqSS__GSqS0__">init(imageURLString:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Init with a URL String</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">?(</span><span class="nv">imageURLString</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>imageURLString</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A string representing the URL pointing on the image with which you want to initialize the FlaneurImageDescription</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new FlaneurImageDescription</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC18FlaneurImagePicker23FlaneurImageDescription9hashValueSi"></a>
+                    <a name="//apple_ref/swift/Property/hashValue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC18FlaneurImagePicker23FlaneurImageDescription9hashValueSi">hashValue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A unique identifier for each object</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">override</span> <span class="kd">public</span> <span class="k">var</span> <span class="nv">hashValue</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC18FlaneurImagePicker23FlaneurImageDescriptionoi2eeFTS0_S0__Sb"></a>
+                    <a name="//apple_ref/swift/Method/==(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC18FlaneurImagePicker23FlaneurImageDescriptionoi2eeFTS0_S0__Sb">==(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Overloads the operator <strong>==</strong> to compare two objects of the FlaneurImageDescription&rsquo;s type</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">FlaneurImageDescription</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">FlaneurImageDescription</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>lhs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Object at the left of the operand</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>rhs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Object at the right of the operand</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A boolean value indicating whether or not the two objects are equal</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC18FlaneurImagePicker23FlaneurImageDescription14diffIdentifierFT_PSo16NSObjectProtocol_"></a>
+                    <a name="//apple_ref/swift/Method/diffIdentifier()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC18FlaneurImagePicker23FlaneurImageDescription14diffIdentifierFT_PSo16NSObjectProtocol_">diffIdentifier()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produce a unique identifier for each object</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">diffIdentifier</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">NSObjectProtocol</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>a unique identifier for each object</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC18FlaneurImagePicker23FlaneurImageDescription7isEqualFT16toDiffableObjectGSqPSo12ListDiffable___Sb"></a>
+                    <a name="//apple_ref/swift/Method/isEqual(toDiffableObject:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC18FlaneurImagePicker23FlaneurImageDescription7isEqualFT16toDiffableObjectGSqPSo12ListDiffable___Sb">isEqual(toDiffableObject:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Check if two objects of the same type are equal</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">isEqual</span><span class="p">(</span><span class="n">toDiffableObject</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">ListDiffable</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>object</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The object with which it is compared</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A Boolean value indicating whether or not the objects are equal</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2017 <a class="link" href="https://github.com/toto/FlaneurImagePicker" target="_blank" rel="external">Matthieu Luci</a>. All rights reserved. (Last updated: 2017-08-02)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

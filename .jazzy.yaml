@@ -1,0 +1,7 @@
+author: Flâneur
+module: FlaneurImagePicker
+github_url: https://github.com/FlaneurApp/FlaneurImagePicker
+documentation: Guides/*.md
+clean: true
+author_url: http://flaneurapp.com
+podspec: FlaneurImagePicker.podspec

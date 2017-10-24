@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>FlaneurAuthorizationView Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/FlaneurAuthorizationView" class="dashAnchor"></a>
+    <a title="FlaneurAuthorizationView Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">FlaneurImagePicker Docs</a> (100% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">FlaneurImagePicker Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        FlaneurAuthorizationView Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/FlaneurImageDescription.html">FlaneurImageDescription</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FlaneurImagePickerController.html">FlaneurImagePickerController</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/FlaneurImageDescriptionSourceType.html">FlaneurImageDescriptionSourceType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/FlaneurImagePickerSection.html">FlaneurImagePickerSection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/FlaneurImageSource.html">FlaneurImageSource</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/FlaneurAuthorizationView.html">FlaneurAuthorizationView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/FlaneurImagePickerControllerDelegate.html">FlaneurImagePickerControllerDelegate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/FlaneurImagePickerConfig.html">FlaneurImagePickerConfig</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>FlaneurAuthorizationView</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">FlaneurAuthorizationView</span></code></pre>
+
+                </div>
+              </div>
+            <p>Inherit from this protocol and UIView in order to provide a custom authorization view (Views displayed
+instead of pickerView when source is not allowed already. You need to include ActionKit in order to work
+with the mandatory <strong>authorizeClosure</strong> which is of type <em>ActionKitVoidClosure</em></p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP18FlaneurImagePicker24FlaneurAuthorizationViewcFT14withSourceNameSS16authorizeClosureFT_T__x"></a>
+                    <a name="//apple_ref/swift/Method/init(withSourceName:authorizeClosure:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP18FlaneurImagePicker24FlaneurAuthorizationViewcFT14withSourceNameSS16authorizeClosureFT_T__x">init(withSourceName:authorizeClosure:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Init with sourceName et authorizeClosure</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="nf">init</span><span class="p">(</span><span class="n">withSourceName</span> <span class="nv">sourceName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">authorizeClosure</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ActionKitVoidClosure</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sourceName</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the source (ex: Instagram) will be given to you through this parameter</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>closure</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure to attach to your UIButton in order to launch the authorization popup, you need to include ActionKit in order to do that.<a href="https://github.com/ActionKit/ActionKit">linked text</a></p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2017 <a class="link" href="https://github.com/toto/FlaneurImagePicker" target="_blank" rel="external">Matthieu Luci</a>. All rights reserved. (Last updated: 2017-08-02)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
