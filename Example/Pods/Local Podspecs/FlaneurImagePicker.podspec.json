@@ -1,33 +1,28 @@
 {
   "name": "FlaneurImagePicker",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "summary": "FlaneurImagePicker is an iOS image picker",
-  "description": "FlaneurImagePicker is an iOS image picker that allows users to pick images from different sources (ex: user's library, user's camera, instagram ...).\nIt's highly customizable.",
-  "homepage": "https://github.com/toto/FlaneurImagePicker",
-  "screenshots": "https://raw.githubusercontent.com/toto/FlaneurImagePicker/master/images/logo.png",
+  "description": "FlaneurImagePicker is an iOS image picker that allows users to pick images from different sources (ex: user's library, user's camera, Instagram...).\nIt's highly customizable.",
+  "homepage": "https://github.com/FlaneurApp/FlaneurImagePicker",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "Matthieu Luci": "matthieu.luci@gmail.com"
+    "Flâneur": "flaneurdev@bootstragram.com"
+  },
+  "source": {
+    "git": "https://github.com/FlaneurApp/FlaneurImagePicker.git",
+    "tag": "0.1.0"
   },
   "platforms": {
     "ios": "9.0"
   },
-  "source": {
-    "git": "https://github.com/toto/FlaneurImagePicker.git",
-    "tag": "1.0.0"
-  },
   "module_name": "FlaneurImagePicker",
-  "source_files": [
-    "Sources/**/*.swift",
-    "Sources/**/**/*.swift"
-  ],
+  "source_files": "Sources/**/*",
   "resource_bundles": {
     "FlaneurImagePicker": "Sources/Assets/*"
   },
-  "requires_arc": true,
   "frameworks": [
     "UIKit",
     "Photos"
@@ -42,8 +37,5 @@
     "Kingfisher": [
       "~> 3.10"
     ]
-  },
-  "pod_target_xcconfig": {
-    "SWIFT_VERSION": "3.0"
   }
 }

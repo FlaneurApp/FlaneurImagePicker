@@ -4,6 +4,7 @@
 [![Version](https://img.shields.io/cocoapods/v/FlaneurImagePicker.svg?style=flat)](http://cocoapods.org/pods/FlaneurImagePicker)
 [![License](https://img.shields.io/cocoapods/l/FlaneurImagePicker.svg?style=flat)](http://cocoapods.org/pods/FlaneurImagePicker)
 [![Platform](https://img.shields.io/cocoapods/p/FlaneurImagePicker.svg?style=flat)](http://cocoapods.org/pods/FlaneurImagePicker)
+[![Downloads](https://img.shields.io/cocoapods/at/FlaneurImagePicker.svg?style=flat)](http://cocoapods.org/pods/FlaneurImagePicker)
 
 ## Video Preview
 
