@@ -10,7 +10,7 @@ language: swift
 # - gem install cocoapods # Since Travis is not always on latest version
 # - pod install --project-directory=Example
 script:
-  - set -o pipefail && xcodebuild clean | xcpretty
+  - set -o pipefail && xcodebuild clean -workspace Example/FlaneurImagePicker.xcworkspace -scheme FlaneurImagePicker-Example | xcpretty
   - set -o pipefail && xcodebuild -workspace Example/FlaneurImagePicker.xcworkspace -scheme FlaneurImagePicker-Example | xcpretty
   - set -o pipefail && xcodebuild test -workspace Example/FlaneurImagePicker.xcworkspace -scheme FlaneurImagePicker-Example -sdk iphonesimulator11.0 ONLY_ACTIVE_ARCH=NO | xcpretty
 - pod lib lint
