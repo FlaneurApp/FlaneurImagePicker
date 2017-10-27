@@ -32,7 +32,7 @@ final public class FlaneurImageDescription: NSObject {
 
     /// Url of the image contained in the description.
     /// It can be null but an **image** or an **associatedPHAsset** should be set in this case
-    public var imageURL: URL! {
+    public var imageURL: URL? {
         didSet {
             self.imageSource = .urlBased
         }
@@ -40,7 +40,7 @@ final public class FlaneurImageDescription: NSObject {
     
     /// The image contained in the description.
     /// It can be null but an **imageURL** or an **associatedPHAsset** should be set in this case
-    public var image: UIImage! {
+    public var image: UIImage? {
         didSet {
             if self.imageSource == nil || self.imageSource != .phassetBased {
                 self.imageSource = .imageBased
@@ -50,7 +50,7 @@ final public class FlaneurImageDescription: NSObject {
     
     /// The PHAsset contained in the description.
     /// It can be null but an **imageURL** or an **image** should be set in this case
-    public var associatedPHAsset: PHAsset! {
+    public var associatedPHAsset: PHAsset? {
         didSet {
             self.imageSource = .phassetBased
         }
@@ -59,8 +59,6 @@ final public class FlaneurImageDescription: NSObject {
     /// Depending on the type, an image can be accessed through the
     /// **imageURL** property, the **associatedPHAsset** property (by fetching it first), or the **image** property
     public var imageSource: FlaneurImageDescriptionSourceType!
-    
-    
     
     // MARK: - Initializers methods
     
@@ -137,11 +135,11 @@ extension FlaneurImageDescription {
     override public var hashValue: Int {
         switch imageSource! {
         case .urlBased:
-            return imageURL.absoluteString.hashValue
+            return imageURL!.absoluteString.hashValue
         case .imageBased:
-            return image.hashValue
+            return image!.hashValue
         case .phassetBased:
-            return associatedPHAsset.hashValue
+            return associatedPHAsset!.hashValue
         }
     }
     
@@ -157,11 +155,11 @@ extension FlaneurImageDescription {
         }
         switch other.imageSource! {
         case .urlBased:
-            return self.imageURL.absoluteString.hashValue == other.imageURL.absoluteString.hashValue
+            return self.imageURL == other.imageURL
         case .imageBased:
-            return UIImagePNGRepresentation(self.image) == UIImagePNGRepresentation(other.image)
+            return self.image! == other.image!
         case .phassetBased:
-            return self.associatedPHAsset.hashValue == other.associatedPHAsset.hashValue
+            return self.associatedPHAsset == other.associatedPHAsset
         }
     }
 }

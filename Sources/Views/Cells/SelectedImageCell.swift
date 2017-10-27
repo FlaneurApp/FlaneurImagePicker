@@ -10,7 +10,6 @@ import UIKit
 import ActionKit
 
 final class SelectedImageCell: UICollectionViewCell {
-    
     lazy var imageView: UIImageView = {
         let view = UIImageView()
         view.clipsToBounds = true
@@ -23,8 +22,7 @@ final class SelectedImageCell: UICollectionViewCell {
         self.contentView.insertSubview(button, aboveSubview: self.imageView)
         return button
     }()
-    
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -33,12 +31,10 @@ final class SelectedImageCell: UICollectionViewCell {
         imageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         imageView.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
         imageView.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
-        
-        
+
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         deleteButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10).isActive = true
         deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        
     }
 
     func configure(with imageDescription: FlaneurImageDescription!,
@@ -61,7 +57,7 @@ final class SelectedImageCell: UICollectionViewCell {
                 imageView.image = image
                 return
             }
-            let _ = imageView.setImageFromPHAsset(asset: imageDescription.associatedPHAsset,
+            let _ = imageView.setImageFromPHAsset(asset: imageDescription.associatedPHAsset!,
                                                   thumbnail:  false,
                                                   deliveryMode: .highQualityFormat,
                                                   completion: { image in
@@ -74,5 +70,4 @@ final class SelectedImageCell: UICollectionViewCell {
         deleteButton.tag = imageDescription.hashValue
         deleteButton.addControlEvent(.touchUpInside, removeClosure)
     }
-    
 }

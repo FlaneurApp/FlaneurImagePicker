@@ -49,16 +49,16 @@ final class PickerCell: UICollectionViewCell {
         case .urlBased:
             imageView.kf.indicatorType = .activity
             imageView.kf.setImage(with: imageDescription.imageURL)
-        
+
         case .imageBased:
             imageView.image = imageDescription.image
-        
+
         case .phassetBased:
             if let image = imageDescription.image {
                 imageView.image = image
                 return
             }
-            requestID = imageView.setImageFromPHAsset(asset: imageDescription.associatedPHAsset,
+            requestID = imageView.setImageFromPHAsset(asset: imageDescription.associatedPHAsset!,
                                                       thumbnail: true,
                                                       deliveryMode: .opportunistic,
                                                       completion:  nil)
