@@ -11,13 +11,29 @@ import UIKit
 import Photos
 
 extension UIImageView {
-    func setImageFromPHAsset(asset: PHAsset, thumbnail: Bool, deliveryMode: PHImageRequestOptionsDeliveryMode, completion: ((UIImage?) -> Void)?) -> PHImageRequestID {
+    /// Asynchronously sets the image displayed in the image view, from a `PHAsset` instance.
+    ///
+    /// - Parameters:
+    ///   - asset: A representation of an image, video or Live Photo in the Photos library.
+    ///   - thumbnail: If `true` the target image size will be 150⨉150. Otherwise it will be the default size of the asset.
+    ///   - deliveryMode: The requested image quality and delivery priority.
+    ///   - completion: The completion block when an image is available.
+    /// - Returns: A numeric identifier for the request. If you need to cancel the request before it completes, pass this identifier to the cancelImageRequest(_:) method.
+    func setImageFromPHAsset(asset: PHAsset,
+                             thumbnail: Bool,
+                             deliveryMode: PHImageRequestOptionsDeliveryMode,
+                             completion: ((UIImage?) -> Void)?) -> PHImageRequestID {
         let manager = PHImageManager.default()
+
         let options = PHImageRequestOptions()
+        // Request the most recent version of the image asset (the one that reflects all edits).
         options.version = .current
+        // If the requested image is not stored on the local device, Photos downloads the image from iCloud.
         options.isNetworkAccessAllowed = true
         options.isSynchronous = false
         options.deliveryMode = deliveryMode
+
+        // Add a spinner while the download happens
 
         // Delete previous activityIndicatorView since cells are reused
         for subview in self.subviews {
@@ -27,39 +43,35 @@ extension UIImageView {
         }
         
         let indicatorView = UIActivityIndicatorView(activityIndicatorStyle: .white)
-        
         self.addSubview(indicatorView)
-
         indicatorView.translatesAutoresizingMaskIntoConstraints = false
-        
         indicatorView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         indicatorView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        
         indicatorView.startAnimating()
         
         var size: CGSize
         if thumbnail {
-            size = CGSize(width: 150, height: 150)
+            size = CGSize(width: 150.0, height: 150.0)
         } else {
             size = CGSize(width: asset.pixelWidth, height: asset.pixelHeight)
         }
         
         return manager.requestImage(for: asset,
-                             targetSize: size,
-                             contentMode: .default,
-                             options: options,
-                             resultHandler: { [weak self] (image, infos) in
-                                guard let existingSelf = self,
-                                      let image = image else {
+                                    targetSize: size,
+                                    contentMode: .default,
+                                    options: options,
+                                    resultHandler: { [weak self] (image, infos) in
+                                        guard let existingSelf = self,
+                                            let image = image else {
+                                                indicatorView.stopAnimating()
+                                                indicatorView.removeFromSuperview()
+                                                return
+                                        }
+                                        completion?(image)
                                         indicatorView.stopAnimating()
                                         indicatorView.removeFromSuperview()
-                                    return
-                                }
-                                completion?(image)
-                                indicatorView.stopAnimating()
-                                indicatorView.removeFromSuperview()
 
-                                existingSelf.image = image
+                                        existingSelf.image = image
         })
     }
 }
