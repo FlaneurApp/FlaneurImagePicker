@@ -8,7 +8,9 @@
 import UIKit
 import Photos
 
-class FlaneurImageView: UIImageView {
+final public class FlaneurImageView: UIImageView {
+    public var assetThumbnailMode: Bool = false
+
     enum AsynchronousState {
         case none
         case kingfisher
@@ -17,9 +19,7 @@ class FlaneurImageView: UIImageView {
 
     private var asynchronousState: AsynchronousState = .none
 
-    var assetThumbnailMode: Bool = false
-
-    func setImage(with imageDescription: FlaneurImageDescription) {
+    public func setImage(with imageDescription: FlaneurImageDescription) {
         switch imageDescription.sourceType {
         case .url(let imageURL):
             asynchronousState = .kingfisher
@@ -46,7 +46,7 @@ class FlaneurImageView: UIImageView {
         }
     }
 
-    func prepareForReuse() {
+    public func prepareForReuse() {
         switch asynchronousState {
         case .kingfisher:
             self.kf.cancelDownloadTask()
