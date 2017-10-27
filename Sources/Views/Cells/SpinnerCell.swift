@@ -20,5 +20,4 @@ final class SpinnerCell: UICollectionViewCell {
         super.layoutSubviews()
         activityIndicator.center = contentView.center
     }
-    
 }
