@@ -14,4 +14,4 @@ script:
   - set -o pipefail && xcodebuild clean -workspace Example/FlaneurImagePicker.xcworkspace -scheme FlaneurImagePicker-Example | xcpretty
   - set -o pipefail && xcodebuild -workspace Example/FlaneurImagePicker.xcworkspace -scheme FlaneurImagePicker-Example | xcpretty
   - set -o pipefail && xcodebuild test -workspace Example/FlaneurImagePicker.xcworkspace -scheme FlaneurImagePicker-Example -sdk iphonesimulator11.0 ONLY_ACTIVE_ARCH=NO | xcpretty
-  - pod lib lint
+  - pod lib lint --allow-warnings
