@@ -20,6 +20,9 @@ final public class FlaneurImageView: UIImageView {
     private var asynchronousState: AsynchronousState = .none
 
     public func setImage(with imageDescription: FlaneurImageDescription) {
+        self.contentMode = .scaleAspectFill
+        self.clipsToBounds = true
+
         switch imageDescription.sourceType {
         case .url(let imageURL):
             asynchronousState = .kingfisher

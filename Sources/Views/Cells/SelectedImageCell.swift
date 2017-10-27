@@ -12,7 +12,6 @@ import ActionKit
 final class SelectedImageCell: UICollectionViewCell {
     lazy var imageView: FlaneurImageView = {
         let view = FlaneurImageView()
-        view.clipsToBounds = true
         view.assetThumbnailMode = false
         self.contentView.addSubview(view)
         return view

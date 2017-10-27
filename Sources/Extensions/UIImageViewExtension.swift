@@ -23,16 +23,6 @@ extension UIImageView {
                              thumbnail: Bool,
                              deliveryMode: PHImageRequestOptionsDeliveryMode,
                              completion: ((UIImage?) -> Void)?) -> PHImageRequestID {
-        let manager = PHImageManager.default()
-
-        let options = PHImageRequestOptions()
-        // Request the most recent version of the image asset (the one that reflects all edits).
-        options.version = .current
-        // If the requested image is not stored on the local device, Photos downloads the image from iCloud.
-        options.isNetworkAccessAllowed = true
-        options.isSynchronous = false
-        options.deliveryMode = deliveryMode
-
         // Add a spinner while the download happens
 
         // Delete previous activityIndicatorView since cells are reused
@@ -55,23 +45,48 @@ extension UIImageView {
         } else {
             size = CGSize(width: asset.pixelWidth, height: asset.pixelHeight)
         }
-        
-        return manager.requestImage(for: asset,
-                                    targetSize: size,
+
+        return asset.requestImage(targetSize: size,
+                                  deliveryMode: deliveryMode,
+                                  resultHandler: { [weak self] (image, info) in
+                                    guard let existingSelf = self,
+                                        let image = image else {
+                                            indicatorView.stopAnimating()
+                                            indicatorView.removeFromSuperview()
+                                            return
+                                    }
+                                    completion?(image)
+                                    indicatorView.stopAnimating()
+                                    indicatorView.removeFromSuperview()
+
+                                    existingSelf.image = image
+        })
+    }
+}
+
+internal extension PHAsset {
+    func requestImage(targetSize: CGSize,
+                      deliveryMode: PHImageRequestOptionsDeliveryMode,
+                      resultHandler: @escaping(UIImage?, Error?) -> ()) -> PHImageRequestID {
+        let manager = PHImageManager.default()
+
+        let options = PHImageRequestOptions()
+
+        // Request the most recent version of the image asset (the one that reflects all edits).
+        options.version = .current
+
+        // If the requested image is not stored on the local device, Photos downloads the image from iCloud.
+        options.isNetworkAccessAllowed = true
+
+        options.isSynchronous = false
+        options.deliveryMode = deliveryMode
+
+        return manager.requestImage(for: self,
+                                    targetSize: targetSize,
                                     contentMode: .default,
                                     options: options,
-                                    resultHandler: { [weak self] (image, infos) in
-                                        guard let existingSelf = self,
-                                            let image = image else {
-                                                indicatorView.stopAnimating()
-                                                indicatorView.removeFromSuperview()
-                                                return
-                                        }
-                                        completion?(image)
-                                        indicatorView.stopAnimating()
-                                        indicatorView.removeFromSuperview()
-
-                                        existingSelf.image = image
+                                    resultHandler: { (image, info) in
+                                        resultHandler(image, nil)
         })
     }
 }

@@ -9,6 +9,7 @@
 import UIKit
 import IGListKit
 import Photos
+import Kingfisher
 
 
 /// Defines whether a FlaneurImageDescription is accessible
@@ -173,6 +174,25 @@ extension FlaneurImageDescription: CustomStringConvertible {
             return "Image.image(\(image))"
         case .phAsset(let asset):
             return "Image.phAsset(\(asset))"
+        }
+    }
+}
+
+extension FlaneurImageDescription {
+    public func requestImage(resultHandler: @escaping(UIImage?, Error?) -> ()) -> () {
+        switch sourceType {
+        case .url(let imageURL):
+            ImageDownloader.default.downloadImage(with: imageURL,
+                                                  completionHandler: { image, error, url, data in
+                                                    resultHandler(image, error)
+            })
+        case .image(let image):
+            resultHandler(image, nil)
+        case .phAsset(let asset):
+            let size = CGSize(width: asset.pixelWidth, height: asset.pixelHeight)
+            _ = asset.requestImage(targetSize: size,
+                                   deliveryMode: .highQualityFormat,
+                                   resultHandler: resultHandler)
         }
     }
 }

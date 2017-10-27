@@ -13,8 +13,6 @@ final class PickerCell: UICollectionViewCell {
     lazy var imageView: FlaneurImageView = {
         let view = FlaneurImageView()
         view.backgroundColor = .black
-        view.contentMode = .scaleAspectFill
-        view.clipsToBounds = true
         view.assetThumbnailMode = true
         self.contentView.addSubview(view)
         return view
