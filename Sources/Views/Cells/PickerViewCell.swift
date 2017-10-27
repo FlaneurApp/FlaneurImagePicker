@@ -10,14 +10,12 @@ import UIKit
 import Photos
 
 final class PickerCell: UICollectionViewCell {
-    
-    var requestID: PHImageRequestID?
-    
-    lazy var imageView: UIImageView = {
-        let view = UIImageView()
+    lazy var imageView: FlaneurImageView = {
+        let view = FlaneurImageView()
         view.backgroundColor = .black
         view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
+        view.assetThumbnailMode = true
         self.contentView.addSubview(view)
         return view
     }()
@@ -26,42 +24,17 @@ final class PickerCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-
         imageView.frame = contentView.bounds
     }
     
-    func cancelCurrentRequestIfExist() {
-        if let requestID = requestID {
-            let manager = PHImageManager.default()
-            manager.cancelImageRequest(requestID)
-            self.requestID = nil
-        }
+    override func prepareForReuse() {
+        imageView.prepareForReuse()
+        super.prepareForReuse()
     }
     
-    func configure(with config: FlaneurImagePickerConfig, andImageDescription imageDescription: FlaneurImageDescription) {
-
-        cancelCurrentRequestIfExist()
-
+    func configure(with config: FlaneurImagePickerConfig,
+                   andImageDescription imageDescription: FlaneurImageDescription) {
         self.imageDescription = imageDescription
-
-        self.imageView.image = nil
-        switch imageDescription.imageSource! {
-        case .urlBased:
-            imageView.kf.indicatorType = .activity
-            imageView.kf.setImage(with: imageDescription.imageURL)
-
-        case .imageBased:
-            imageView.image = imageDescription.image
-
-        case .phassetBased:
-            if let image = imageDescription.image {
-                imageView.image = image
-                return
-            }
-            requestID = imageView.setImageFromPHAsset(asset: imageDescription.associatedPHAsset!,
-                                                      thumbnail: true,
-                                                      deliveryMode: .opportunistic,
-                                                      completion:  nil)
-        }
+        self.imageView.setImage(with: imageDescription)
     }
 }

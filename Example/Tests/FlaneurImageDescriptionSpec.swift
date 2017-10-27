@@ -27,7 +27,13 @@ class FlaneurImageDescriptionSpec: QuickSpec {
             it("Should be created if url points to a jpg file and set to .urlBased") {
                 let flaneurImageDescription = FlaneurImageDescription(imageURLString: self.testJPGImageURL)
                 expect(flaneurImageDescription).toNot(beNil())
-                expect(flaneurImageDescription?.imageSource).to(equal(FlaneurImageDescriptionSourceType.urlBased))
+                expect({
+                    guard case .url = flaneurImageDescription!.sourceType else {
+                        return .failed(reason: "wrong enum case")
+                    }
+
+                    return .succeeded
+                }).to(succeed())
             }
             
             it("Should not be created on nil image") {
@@ -38,14 +44,26 @@ class FlaneurImageDescriptionSpec: QuickSpec {
             it("Should be created on existing image and set to .imageBased") {
                 let flaneurImageDescription = FlaneurImageDescription(image: UIImage())
                 expect(flaneurImageDescription).toNot(beNil())
-                expect(flaneurImageDescription?.imageSource).to(equal(FlaneurImageDescriptionSourceType.imageBased))
+                expect({
+                    guard case .image = flaneurImageDescription!.sourceType else {
+                        return .failed(reason: "wrong enum case")
+                    }
+
+                    return .succeeded
+                }).to(succeed())
             }
             
             it("Should be created on existing Asset and set to .phassetBased") {
                 let asset = PHAsset()
                 let flaneurImageDescription = FlaneurImageDescription(asset: asset)
                 expect(flaneurImageDescription).toNot(beNil())
-                expect(flaneurImageDescription?.imageSource).to(equal(FlaneurImageDescriptionSourceType.phassetBased))
+                expect({
+                    guard case .phAsset = flaneurImageDescription!.sourceType else {
+                        return .failed(reason: "wrong enum case")
+                    }
+
+                    return .succeeded
+                }).to(succeed())
             }
             
             let flaneurImageDescriptionJPG = FlaneurImageDescription(imageURLString: testJPGImageURL)
@@ -66,15 +84,18 @@ class FlaneurImageDescriptionSpec: QuickSpec {
             
             context("After instances has been created") {
                 it("Should be equal") {
-                    expect(flaneurImageDescriptionJPG) == flaneurImageDescriptionJPG_2
+                    expect(flaneurImageDescriptionJPG == flaneurImageDescriptionJPG_2) == true
                 }
                 
                 it("Should not be equal") {
                     expect(flaneurImageDescriptionJPG) != flaneurImageDescriptionPNG
                 }
                 
-                it("Should be equal") {
-                    expect(flaneurImageDescription_1) == flaneurImageDescription_2
+                it("Should not be equal") {
+                    // OK, they are the same image BUT...
+                    // 1. UIImage is supposed to be equatable so we should rely on it
+                    // 2.
+                    expect(flaneurImageDescription_1) != flaneurImageDescription_2
                 }
                 
                 it("Should not be equal") {
@@ -85,8 +106,6 @@ class FlaneurImageDescriptionSpec: QuickSpec {
                     expect(flaneurImageDescription_1) != flaneurImageDescriptionPNG
                 }
             }
-
         }
     }
-    
 }

@@ -70,15 +70,7 @@ extension ViewController: FlaneurImagePickerControllerDelegate {
     func didPickImages(images: [FlaneurImageDescription], userInfo: Any?) {
         print("didPickImages")
         for image in images {
-            if image.imageSource == .urlBased {
-                // Use the url property
-                // Do something with => image.imageURL
-                print(image.imageURL)
-            } else { // .imageBased or .phassetBased
-                // Use the image property
-                // Do something with => image.image
-                print(image.image)
-            }
+            print("* \(image)")
         }
     }
     

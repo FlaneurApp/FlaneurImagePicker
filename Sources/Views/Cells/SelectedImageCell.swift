@@ -10,9 +10,10 @@ import UIKit
 import ActionKit
 
 final class SelectedImageCell: UICollectionViewCell {
-    lazy var imageView: UIImageView = {
-        let view = UIImageView()
+    lazy var imageView: FlaneurImageView = {
+        let view = FlaneurImageView()
         view.clipsToBounds = true
+        view.assetThumbnailMode = false
         self.contentView.addSubview(view)
         return view
     }()
@@ -37,33 +38,16 @@ final class SelectedImageCell: UICollectionViewCell {
         deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
     }
 
+    override func prepareForReuse() {
+        imageView.prepareForReuse()
+        super.prepareForReuse()
+    }
+
     func configure(with imageDescription: FlaneurImageDescription!,
                    config: FlaneurImagePickerConfig,
                    andRemoveClosure removeClosure: @escaping ActionKitControlClosure) {
-        imageView.image = nil
-        
         imageView.contentMode = config.selectedImagesContentMode
-        
-        switch imageDescription.imageSource! {
-        case .urlBased:
-            imageView.kf.indicatorType = .activity
-            imageView.kf.setImage(with: imageDescription.imageURL)
-            
-        case .imageBased:
-            imageView.image = imageDescription.image
-            
-        case .phassetBased:
-            if let image = imageDescription.image {
-                imageView.image = image
-                return
-            }
-            let _ = imageView.setImageFromPHAsset(asset: imageDescription.associatedPHAsset!,
-                                                  thumbnail:  false,
-                                                  deliveryMode: .highQualityFormat,
-                                                  completion: { image in
-                                                    imageDescription.image = image
-            })
-        }
+        imageView.setImage(with: imageDescription)
 
         deleteButton.setTitle(config.removeButtonTitle, for: .normal)
         deleteButton.tintColor = config.removeButtonColor

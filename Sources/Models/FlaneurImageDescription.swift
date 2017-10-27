@@ -15,50 +15,25 @@ import Photos
 /// via the "imageURL", the "image" or the "associatedPHAsset" property
 public enum FlaneurImageDescriptionSourceType {
     /// It means that the image is set via the **imageURL** property and is of URL type
-    case urlBased
+    case url(_: URL)
+
     /// It means that the image is set via the **image** property and is of UIImage type
-    case imageBased
+    case image(_: UIImage)
+
     /// It means that the image is set via the **associatedPHAsset** property and is of PHAsset type
-    case phassetBased
+    case phAsset(_: PHAsset)
 }
 
 /**
-    FlaneurImageDescription is a model used to store an image.
-    The image can either be defined by an URL, a PHAsset or an actuel UIImage.
+ FlaneurImageDescription is a model used to store an image.
+ The image can either be defined by an URL, a PHAsset or an actuel UIImage.
  */
-final public class FlaneurImageDescription: NSObject {
+final public class FlaneurImageDescription {
     
     // MARK: - Properties
 
-    /// Url of the image contained in the description.
-    /// It can be null but an **image** or an **associatedPHAsset** should be set in this case
-    public var imageURL: URL? {
-        didSet {
-            self.imageSource = .urlBased
-        }
-    }
-    
-    /// The image contained in the description.
-    /// It can be null but an **imageURL** or an **associatedPHAsset** should be set in this case
-    public var image: UIImage? {
-        didSet {
-            if self.imageSource == nil || self.imageSource != .phassetBased {
-                self.imageSource = .imageBased
-            }
-        }
-    }
-    
-    /// The PHAsset contained in the description.
-    /// It can be null but an **imageURL** or an **image** should be set in this case
-    public var associatedPHAsset: PHAsset? {
-        didSet {
-            self.imageSource = .phassetBased
-        }
-    }
-    
-    /// Depending on the type, an image can be accessed through the
-    /// **imageURL** property, the **associatedPHAsset** property (by fetching it first), or the **image** property
-    public var imageSource: FlaneurImageDescriptionSourceType!
+    /// The source of the image.
+    public var sourceType: FlaneurImageDescriptionSourceType
     
     // MARK: - Initializers methods
     
@@ -74,24 +49,24 @@ final public class FlaneurImageDescription: NSObject {
         guard let imageURL = imageURL else {
             return nil
         }
-        super.init()
-        ({ self.imageURL = imageURL })()
+
+        self.sourceType = .url(imageURL)
     }
     
     
     /**
-        Init with a UIImage
+     Init with a UIImage
      
-        - Parameter image: An image with which you want to initialize the FlaneurImageDescription
+     - Parameter image: An image with which you want to initialize the FlaneurImageDescription
      
-        - returns: A new FlaneurImageDescription
+     - returns: A new FlaneurImageDescription
      */
     public init?(image: UIImage?) {
         guard let image = image else {
             return nil
-         }
-        super.init()
-        ({ self.image = image })()
+        }
+
+        self.sourceType = .image(image)
     }
     
     /**
@@ -105,8 +80,8 @@ final public class FlaneurImageDescription: NSObject {
         guard let asset = asset else {
             return nil
         }
-        super.init()
-        ({ self.associatedPHAsset = asset })()
+
+        self.sourceType = .phAsset(asset)
     }
     
     /**
@@ -128,38 +103,32 @@ final public class FlaneurImageDescription: NSObject {
 // MARK: - Hashable Protocol's conformance
 
 /**
-    Conforming to Hashable protocol so it can be ListDiffable
+ Conforming to Hashable protocol so it can be ListDiffable
  */
-extension FlaneurImageDescription {
-    /// A unique identifier for each object
-    override public var hashValue: Int {
-        switch imageSource! {
-        case .urlBased:
-            return imageURL!.absoluteString.hashValue
-        case .imageBased:
-            return image!.hashValue
-        case .phassetBased:
-            return associatedPHAsset!.hashValue
-        }
-    }
-    
-    /// Overloads the operator **==** to compare two objects of the FlaneurImageDescription's type
-    ///
-    /// - Parameters:
-    ///   - object: Object at the right of the operand '=='
-    /// - Returns: A boolean value indicating whether or not the two objects are equal
-    override public func isEqual(_ object: Any?) -> Bool {
-        guard let other = object as? FlaneurImageDescription,
-            self.imageSource == other.imageSource else {
+extension FlaneurImageDescription: Equatable {
+    static public func == (lhs: FlaneurImageDescription, rhs: FlaneurImageDescription) -> Bool {
+        switch (lhs.sourceType, rhs.sourceType) {
+        case (.url(let imageURL1), .url(let imageURL2)):
+            return imageURL1 == imageURL2
+        case (.image(let image1), .image(let image2)):
+            return image1 == image2
+        case (.phAsset(let asset1), .phAsset(let asset2)):
+            return asset1 == asset2
+        default:
             return false
         }
-        switch other.imageSource! {
-        case .urlBased:
-            return self.imageURL == other.imageURL
-        case .imageBased:
-            return self.image! == other.image!
-        case .phassetBased:
-            return self.associatedPHAsset == other.associatedPHAsset
+    }
+}
+
+extension FlaneurImageDescription: Hashable {
+    public var hashValue: Int {
+        switch sourceType {
+        case .url(let imageURL):
+            return imageURL.hashValue
+        case .image(let image):
+            return image.hashValue
+        case .phAsset(let asset):
+            return asset.hashValue
         }
     }
 }
@@ -167,14 +136,21 @@ extension FlaneurImageDescription {
 // MARK: - ListDiffable Protocol's conformance
 
 /**
-    Conforming to ListDiffable protocol so it can be diffed by IGListKit
+ Conforming to ListDiffable protocol so it can be diffed by IGListKit
  */
 extension FlaneurImageDescription: ListDiffable {
     /// Produce a unique identifier for each object
     ///
     /// - Returns: a unique identifier for each object
     public func diffIdentifier() -> NSObjectProtocol {
-        return hashValue as NSObjectProtocol
+        switch sourceType {
+        case .image(let image):
+            return image
+        case .url(let imageURL):
+            return NSString(string: imageURL.absoluteString)
+        case .phAsset(let asset):
+            return asset
+        }
     }
     
     /// Check if two objects of the same type are equal
@@ -182,8 +158,21 @@ extension FlaneurImageDescription: ListDiffable {
     /// - Parameter object: The object with which it is compared
     /// - Returns: A Boolean value indicating whether or not the objects are equal
     public func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        guard self !== object else { return true }
         guard let object = object as? FlaneurImageDescription else { return false }
-        return object.hashValue == hashValue
+
+        return self == object
+    }
+}
+
+extension FlaneurImageDescription: CustomStringConvertible {
+    public var description: String {
+        switch sourceType {
+        case .url(let imageURL):
+            return "Image.url(\(imageURL))"
+        case .image(let image):
+            return "Image.image(\(image))"
+        case .phAsset(let asset):
+            return "Image.phAsset(\(asset))"
+        }
     }
 }
