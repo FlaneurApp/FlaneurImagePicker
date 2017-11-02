@@ -11,15 +11,15 @@ import IGListKit
 import Kingfisher
 import ActionKit
 
+/// This is the `IGListKit` section controller for the **selected images** part of the
+/// `FlaneurImagePickerController`.
 final class SelectedImagesViewerSectionController: ListSectionController {
-    
     private let config: FlaneurImagePickerConfig
-
     private var imageDescription: FlaneurImageDescription!
-    
     private var removeButtonClosure: ActionKitControlClosure!
     
-    init(with config: FlaneurImagePickerConfig, andRemoveButtonClosure removeButtonClosure: @escaping ActionKitControlClosure) {
+    init(with config: FlaneurImagePickerConfig,
+         andRemoveButtonClosure removeButtonClosure: @escaping ActionKitControlClosure) {
         self.config = config
         self.removeButtonClosure = removeButtonClosure
 
@@ -45,5 +45,4 @@ final class SelectedImagesViewerSectionController: ListSectionController {
     override func didUpdate(to object: Any) {
         imageDescription = object as! FlaneurImageDescription
     }
-    
 }

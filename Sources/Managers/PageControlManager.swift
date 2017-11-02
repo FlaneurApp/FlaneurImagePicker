@@ -12,7 +12,7 @@ import IGListKit
 
 /*
  **  This class is used to move the page control as the pages change
-*/
+ */
 
 final internal class PageControlManager: NSObject {
 
@@ -60,21 +60,26 @@ final internal class PageControlManager: NSObject {
 
 }
 
-extension PageControlManager: UICollectionViewDelegate {
-    func endScrolling(_ scrollView: UIScrollView) {
-        let width = scrollView.bounds.width
-        let page = (scrollView.contentOffset.x + (0.5 * width)) / width
-        currentIndex = Int(page)
+extension PageControlManager: ListScrollDelegate {
+    func listAdapter(_ listAdapter: ListAdapter, didScroll sectionController: ListSectionController) {
+        if let scrollView = listAdapter.collectionView {
+            let width = scrollView.bounds.width
+            let page = (scrollView.contentOffset.x + (0.5 * width)) / width
+            currentIndex = Int(page)
+        }
     }
-    
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        endScrolling(scrollView)
+
+    func listAdapter(_ listAdapter: ListAdapter, willBeginDragging sectionController: ListSectionController) {
+        ()
     }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+
+    func listAdapter(_ listAdapter: ListAdapter, didEndDeceleratingSectionController sectionController: ListSectionController) {
+        self.listAdapter(listAdapter, didScroll: sectionController)
+    }
+
+    func listAdapter(_ listAdapter: ListAdapter, didEndDragging sectionController: ListSectionController, willDecelerate decelerate: Bool) {
         if decelerate {
-            endScrolling(scrollView)
+            self.listAdapter(listAdapter, didScroll: sectionController)
         }
     }
 }

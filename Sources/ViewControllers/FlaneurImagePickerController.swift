@@ -274,9 +274,6 @@ final public class FlaneurImagePickerController: UIViewController {
         }
 
         for i in 0..<collectionViews.count {
-            if config.sectionsOrderArray[i] == .selectedImages {
-                adapters[i].collectionViewDelegate = pageControlManager
-            }
             adapters[i].dataSource = self
             adapters[i].collectionView = collectionViews[i]
         }
@@ -546,7 +543,10 @@ extension FlaneurImagePickerController: ListAdapterDataSource {
                 self?.deleteImageFromSelection(withHashValue: (sender as! UIButton).tag)
             }
 
-            return SelectedImagesViewerSectionController(with: config, andRemoveButtonClosure: removeButtonClosure)
+            let selectedImagesSectionController = SelectedImagesViewerSectionController(with: config, andRemoveButtonClosure: removeButtonClosure)
+            selectedImagesSectionController.scrollDelegate = pageControlManager
+
+            return selectedImagesSectionController
 
         case .imageSources:
             let buttonTouchedClosure: ActionKitControlClosure = { [weak self] sender in
