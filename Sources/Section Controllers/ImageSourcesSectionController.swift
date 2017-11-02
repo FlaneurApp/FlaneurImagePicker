@@ -11,16 +11,14 @@ import IGListKit
 import ActionKit
 
 final class ImageSourcesSectionController: ListSectionController {
-
     private let config: FlaneurImagePickerConfig
+    private var imageSource: FlaneurImageSource?
+    private var selectHandler: ActionKitVoidClosure
 
-    private var imageSource: FlaneurImageSource!
-
-    private var buttonClosure: ActionKitControlClosure!
-
-    init(with config: FlaneurImagePickerConfig, andButtonClosure buttonClosure: @escaping ActionKitControlClosure) {
+    init(with config: FlaneurImagePickerConfig,
+         andSelectHandler selectHandler: @escaping ActionKitVoidClosure) {
         self.config = config
-        self.buttonClosure = buttonClosure
+        self.selectHandler = selectHandler
 
         super.init()
     }
@@ -32,17 +30,25 @@ final class ImageSourcesSectionController: ListSectionController {
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell = collectionContext?.dequeueReusableCell(of: ImageSourcesCell.self, for: self, at: index) as? ImageSourcesCell else {
+        guard imageSource != nil else { fatalError("no image source") }
+        guard let cell = collectionContext?.dequeueReusableCell(of: ImageSourcesCell.self,
+                                                                for: self, at: index) as? ImageSourcesCell
+            else {
             fatalError()
         }
-        cell.configure(with: imageSource, config: config, andButtonClosure: buttonClosure)
+        cell.configure(with: imageSource!,
+                       config: config)
 
         return cell
     }
 
     override func didUpdate(to object: Any) {
+        precondition(object is String)
         let source = object as! String
+        imageSource = FlaneurImageSource(rawValue: source)
+    }
 
-        imageSource = config.imageSourcesArray.filter { return $0.rawValue == source}[0]
+    override func didSelectItem(at index: Int) {
+        selectHandler()
     }
 }

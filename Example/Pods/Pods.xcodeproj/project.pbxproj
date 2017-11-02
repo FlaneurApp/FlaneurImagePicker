@@ -185,7 +185,7 @@
 		A3BBEC50E79EDD59FF9ACA0B5F15C8A2 /* IGListAdapterUpdater.h in Headers */ = {isa = PBXBuildFile; fileRef = 93B9B6861BFA735ED0CA77CB01210258 /* IGListAdapterUpdater.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A61ADD214AA182EEB2AC95EA3F3D658F /* XCTestObservationCenter+Register.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8C4FD7EBE1AF012229F9C63D7E8E67 /* XCTestObservationCenter+Register.m */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		A7061FF7ADAFB5537C5BA5FE15C95C23 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A47A8235E5944AA7FC11EC568E7FF0E9 /* CFNetwork.framework */; };
-		A71C341A52A3E9E3597293B11A49C8C3 /* PickerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485CE73C0B41F522C5B80FBF5F0264F2 /* PickerViewCell.swift */; };
+		A71C341A52A3E9E3597293B11A49C8C3 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485CE73C0B41F522C5B80FBF5F0264F2 /* PickerCell.swift */; };
 		A74537420FF0CEDC6B9E82E1DC4C2B15 /* Contain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EDFEF0C97B0DF66D299FE10FE2B5F9 /* Contain.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		A7C13C62E4116CA964A3E82179092AD5 /* NMBObjCMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F022EE2450E9AE9A80289E9A8538F403 /* NMBObjCMatcher.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		AA22BB16752E782C6932223381E3FFA7 /* DSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C4289FD151CE1C22C14EFF116C67CA /* DSL.swift */; };
@@ -435,7 +435,7 @@
 		3FF638B9BE834F88CDAD02275890B5BD /* IGListAdapter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IGListAdapter.h; path = Source/IGListAdapter.h; sourceTree = "<group>"; };
 		4201B0C8763F7187938D3915D3A0FD49 /* QuickSpecBase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QuickSpecBase.m; path = Sources/QuickSpecBase/QuickSpecBase.m; sourceTree = "<group>"; };
 		430494E1DD30A745D9DDD1FAB5E933FD /* IGListIndexSetResult.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IGListIndexSetResult.m; path = Source/Common/IGListIndexSetResult.m; sourceTree = "<group>"; };
-		485CE73C0B41F522C5B80FBF5F0264F2 /* PickerViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PickerViewCell.swift; sourceTree = "<group>"; };
+		485CE73C0B41F522C5B80FBF5F0264F2 /* PickerCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
 		48C8CE88034A6D6F9E80972FA427D385 /* Pods-FlaneurImagePicker_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-FlaneurImagePicker_Example-dummy.m"; sourceTree = "<group>"; };
 		498FE2F40A12F44A6C649A25D5075649 /* NSBundle+CurrentTestBundle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSBundle+CurrentTestBundle.swift"; path = "Sources/Quick/NSBundle+CurrentTestBundle.swift"; sourceTree = "<group>"; };
 		49C436187654C442BCB5E5AE03E6DB5D /* FlaneurImagePickerController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FlaneurImagePickerController.swift; sourceTree = "<group>"; };
@@ -1221,7 +1221,7 @@
 			isa = PBXGroup;
 			children = (
 				A8280228DBE845D0E9F5E9AC5A458389 /* ImageSourcesCell.swift */,
-				485CE73C0B41F522C5B80FBF5F0264F2 /* PickerViewCell.swift */,
+				485CE73C0B41F522C5B80FBF5F0264F2 /* PickerCell.swift */,
 				2155B986656535C8E89E99FE6C847696 /* SelectedImageCell.swift */,
 				ADA969169CD3D9DA9AEBF37E31016955 /* SpinnerCell.swift */,
 			);
@@ -1776,7 +1776,7 @@
 				EA9FCDD950CAEF9B43E69D7383A78C80 /* LoadMoreManager.swift in Sources */,
 				52ED4C7EF088DE73BECAF77CC8FE1695 /* PageControlManager.swift in Sources */,
 				DDDEEAF4A47E0E25B35BAE3C6CF1CFBD /* PickerSectionController.swift in Sources */,
-				A71C341A52A3E9E3597293B11A49C8C3 /* PickerViewCell.swift in Sources */,
+				A71C341A52A3E9E3597293B11A49C8C3 /* PickerCell.swift in Sources */,
 				FDBB9549B48EF154E73F289601DEAD8E /* ReverseScrollManager.swift in Sources */,
 				13F660299FB15F6199786962B4FE9692 /* SelectedImageCell.swift in Sources */,
 				34EB07D4B3E166907D757B6F1FF935EB /* SelectedImagesViewerSectionController.swift in Sources */,

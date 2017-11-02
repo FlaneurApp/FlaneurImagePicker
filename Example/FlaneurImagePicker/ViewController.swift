@@ -95,6 +95,19 @@ class ViewController: UIViewController {
             .selectedImages: UIColor(red: 36/255, green: 41/255, blue: 50/255, alpha: 1),
         ]
 
+        flaneurPicker.config.imageForImageSource = { imageSource in
+            switch imageSource {
+            case .library:
+                return UIImage(named: "Rectangle")
+            default:
+                return nil
+            }
+        }
+
+        flaneurPicker.config.titleForImageSource = { imageSource in
+            return nil
+        }
+
         flaneurPicker.config.paddingForImagesPickerView = UIEdgeInsets (top: 3, left: 3, bottom: 3, right: 3)
         flaneurPicker.delegate = self
 

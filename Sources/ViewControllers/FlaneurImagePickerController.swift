@@ -38,9 +38,9 @@ final public class FlaneurImagePickerController: UIViewController {
     public let navigationBar: UINavigationBar = {
         let navigationItem = UINavigationItem()
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel",
-                        style: .done,
-                        target: self,
-                        action: #selector(cancelButtonTouched))
+                                                           style: .done,
+                                                           target: self,
+                                                           action: #selector(cancelButtonTouched))
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done",
                                                             style: .done,
@@ -53,6 +53,8 @@ final public class FlaneurImagePickerController: UIViewController {
     }()
 
     var collectionViews: [UICollectionView] = [UICollectionView]()
+    private var imageSourceSelectionCollectionView: UICollectionView?
+
     var pageControl = UIPageControl(frame: .zero)
 
     // MARK: - Initializers
@@ -117,11 +119,11 @@ final public class FlaneurImagePickerController: UIViewController {
         didSet {
             let adapter = adapterForSection(section: .pickerView)
             if pickerViewImages.count == 0 {
-                adapter.reloadData(completion: nil)
+                adapter.reloadData(completion: self.selectDefaultImageSource)
             } else {
                 // For performance issues, we don't want to activate IGListKit's diffing
                 // feature here (ie no `adapter.performUpdates(animated: true, completion: nil)`)
-                adapter.reloadData(completion: nil)
+                adapter.reloadData(completion: self.selectDefaultImageSource)
             }
         }
     }
@@ -209,18 +211,19 @@ final public class FlaneurImagePickerController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
 
+        searchFirstSource: for imageSource in config.imageSourcesArray {
+            if imageSource != .camera {
+                debugPrint("Setting image source as \(imageSource)")
+                self.currentImageSource = imageSource
+                break searchFirstSource
+            }
+        }
+
         view.addSubview(navigationBar)
         layoutNavigationBar()
 
         createCollectionViews()
         createAdapters()
-
-        searchFirstSource: for imageSource in config.imageSourcesArray {
-            if imageSource != .camera {
-                self.currentImageSource = imageSource
-                break searchFirstSource
-            }
-        }
     }
 
     /// viewDidLayoutSubviews Lifecyle callback
@@ -254,8 +257,9 @@ final public class FlaneurImagePickerController: UIViewController {
                 collectionView.alwaysBounceVertical = true
                 collectionView.setCollectionViewLayout(ListCollectionViewLayout(stickyHeaders: false, topContentInset: 0, stretchToEdge: true)
                     , animated: false)
-            default:
-                break
+
+            case .imageSources:
+                imageSourceSelectionCollectionView = collectionView
             }
 
             collectionViews.append(collectionView)
@@ -361,6 +365,26 @@ final public class FlaneurImagePickerController: UIViewController {
     func cancelButtonTouched() {
         delegate?.flaneurImagePickerControllerDidCancel(self)
     }
+
+    // MARK: - Managing first Image Source selection
+
+    func selectDefaultImageSource(finished: Bool) {
+        guard let shouldManageFirstSelection = imageSourceSelectionCollectionView?.indexPathsForSelectedItems?.isEmpty else { return }
+
+        if shouldManageFirstSelection {
+            if let imageSourceToSelect = self.currentImageSource {
+                if let sectionNumber = self.config.imageSourcesArray.index(of: imageSourceToSelect) {
+                    let myIndexPath = IndexPath(item: 0, section: sectionNumber)
+                    imageSourceSelectionCollectionView?.selectItem(at: myIndexPath,
+                                                                   animated: true,
+                                                                   scrollPosition: .left)
+
+                }
+            }
+        } else {
+            debugPrint("Done")
+        }
+    }
 }
 
 
@@ -376,20 +400,12 @@ extension FlaneurImagePickerController {
         return adapters[sectionIndex]
     }
 
-    internal func imageSourceForText(text: String) -> FlaneurImageSource {
-        var flaneurImageSource = config.titleForImageSource?.filter { $0.1 == text }.map { return $0.0}
-
-        if flaneurImageSource != nil {
-            return flaneurImageSource![0]
+    internal func imageSourceForText(imageSourceRawValue: String) -> FlaneurImageSource {
+        guard let candidate = FlaneurImageSource(rawValue: imageSourceRawValue) else {
+            fatalError("No source for \(imageSourceRawValue)")
         }
 
-        flaneurImageSource = config.imageSourcesArray.filter { $0.rawValue == text }
-
-        if flaneurImageSource != nil {
-            return flaneurImageSource![0]
-        } else {
-            fatalError("No source for text: \(text)")
-        }
+        return candidate
     }
 
     internal func addImageToSelection(imageDescription: FlaneurImageDescription) {
@@ -405,8 +421,8 @@ extension FlaneurImagePickerController {
         self.selectedImages = self.selectedImages.filter { $0.hashValue != hashValue }
     }
 
-    internal func switchToSource(withName name: String) {
-        let source = imageSourceForText(text: name)
+    internal func switchToSource(withName imageSourceRawValue: String) {
+        let source = imageSourceForText(imageSourceRawValue: imageSourceRawValue)
         if source != self.currentImageSource || source == .camera {
             self.showChangingSourceSpinner(forSource: source)
             self.currentImageSource = source
@@ -549,11 +565,14 @@ extension FlaneurImagePickerController: ListAdapterDataSource {
             return selectedImagesSectionController
 
         case .imageSources:
-            let buttonTouchedClosure: ActionKitControlClosure = { [weak self] sender in
-                self?.switchToSource(withName: (sender as! UIButton).titleLabel!.text!)
+            guard let imageSourceName = object as? String else { fatalError("Invalid object") }
+
+            let buttonTouchedClosure: ActionKitVoidClosure = { [weak self] _ in
+                self?.switchToSource(withName: imageSourceName)
             }
 
-            return ImageSourcesSectionController(with: config, andButtonClosure: buttonTouchedClosure)
+            return ImageSourcesSectionController(with: config,
+                                                 andSelectHandler: buttonTouchedClosure)
 
         case .pickerView:
             if object is String {
@@ -590,7 +609,7 @@ extension FlaneurImagePickerController: ListAdapterDataSource {
                 }
             }
         }
-        let sourceName = config.titleForImageSource?[currentImageSource!] ?? currentImageSource!.rawValue
+        let sourceName: String = currentImageSource!.rawValue
 
         if let customViewClass = config.authorizationViewCustomClass, let validClass = customViewClass.self as? FlaneurAuthorizationView.Type {
             return validClass.init(withSourceName: sourceName, authorizeClosure: authorizeClosure) as? UIView

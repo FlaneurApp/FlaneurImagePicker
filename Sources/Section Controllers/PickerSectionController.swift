@@ -13,14 +13,12 @@ import Kingfisher
 typealias ImageSelectionClosure = (FlaneurImageDescription) -> Void
 
 final class PickerSectionController: ListSectionController {
-    
     private let config: FlaneurImagePickerConfig
-
     private weak var imageDescription: FlaneurImageDescription!
-    
     private var onImageSelectionClosure: ImageSelectionClosure!
     
-    init(with config: FlaneurImagePickerConfig, andImageSelectedClosure onImageSelectionClosure: @escaping ImageSelectionClosure) {
+    init(with config: FlaneurImagePickerConfig,
+         andImageSelectedClosure onImageSelectionClosure: @escaping ImageSelectionClosure) {
         self.config = config
         self.onImageSelectionClosure = onImageSelectionClosure
         
