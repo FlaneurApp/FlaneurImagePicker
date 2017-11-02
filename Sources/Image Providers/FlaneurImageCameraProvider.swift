@@ -10,13 +10,11 @@ import UIKit
 import AVFoundation
 
 final class FlaneurImageCameraProvider: NSObject, FlaneurImageProvider {
-    
-    var delegate: FlaneurImageProviderDelegate?
+    weak var delegate: FlaneurImageProviderDelegate?
     weak var parentVC: UIViewController?
     
     var picker = UIImagePickerController()
 
-    
     init(delegate: FlaneurImageProviderDelegate, andParentVC parentVC: UIViewController) {
         self.delegate = delegate
         self.parentVC = parentVC

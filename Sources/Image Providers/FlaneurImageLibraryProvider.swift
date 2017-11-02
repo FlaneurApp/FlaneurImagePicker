@@ -10,8 +10,7 @@ import UIKit
 import Photos
 
 final class FlaneurImageLibraryProvider: NSObject, FlaneurImageProvider {
-
-    var delegate: FlaneurImageProviderDelegate?
+    weak var delegate: FlaneurImageProviderDelegate?
     weak var parentVC: UIViewController?
     
     private let config: FlaneurImagePickerConfig

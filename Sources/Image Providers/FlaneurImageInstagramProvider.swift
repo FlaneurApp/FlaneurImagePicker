@@ -21,8 +21,7 @@ struct InstagramAuthInfo {
 }
 
 final class FlaneurImageInstagramProvider: NSObject, FlaneurImageProvider {
-    
-    var delegate: FlaneurImageProviderDelegate?
+    weak var delegate: FlaneurImageProviderDelegate?
     weak var parentVC: UIViewController?
 
     var instagramAuthInfo: InstagramAuthInfo!

@@ -9,15 +9,14 @@
 
 import UIKit
 
-protocol FlaneurImageProviderDelegate: class {    
+protocol FlaneurImageProviderDelegate: AnyObject {
     func didLoadImages(images: [FlaneurImageDescription])
     
     func didFailLoadingImages(with unauthorizedSourcePermission: FlaneurImageSource)
 }
 
 protocol FlaneurImageProvider {
-    
-    var delegate: FlaneurImageProviderDelegate? {get set}
+    weak var delegate: FlaneurImageProviderDelegate? {get set}
     weak var parentVC: UIViewController? {get set}    
     
     init(delegate: FlaneurImageProviderDelegate, andParentVC parentVC: UIViewController)
@@ -29,5 +28,4 @@ protocol FlaneurImageProvider {
     func fetchImagesFromSource()
     
     func fetchNextPage()
-
 }

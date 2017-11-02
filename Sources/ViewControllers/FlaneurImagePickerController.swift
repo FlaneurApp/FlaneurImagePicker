@@ -35,11 +35,8 @@ public protocol FlaneurImagePickerControllerDelegate: AnyObject {
 final public class FlaneurImagePickerController: UIViewController {
 
     // MARK: - Views
-
-    var navigationBar: FlaneurImagePickerNavigationBar!
-
+    var navigationBar: UIView!
     var collectionViews: [UICollectionView] = [UICollectionView]()
-
     var pageControl = UIPageControl(frame: .zero)
 
     // MARK: - Initializers
@@ -106,8 +103,9 @@ final public class FlaneurImagePickerController: UIViewController {
             if pickerViewImages.count == 0 {
                 adapter.reloadData(completion: nil)
             } else {
+                // For performance issues, we don't want to activate IGListKit's diffing
+                // feature here (ie no `adapter.performUpdates(animated: true, completion: nil)`)
                 adapter.reloadData(completion: nil)
-                //adapter.performUpdates(animated: true, completion: nil)
             }
         }
     }
@@ -125,8 +123,8 @@ final public class FlaneurImagePickerController: UIViewController {
                 existingSelf.loadMoreManager = nil
 
                 switch currentImageSource {
-                // FIXME: the fact that the image picker controller has to switch defeats the
-                    // *plugin* intent of the providers.
+                    // FIXME: the fact that the image picker controller has to switch defeats the
+                // *plugin* intent of the providers.
                 case .camera:
                     existingSelf.imageProvider = FlaneurImageCameraProvider(delegate: existingSelf, andParentVC: existingSelf)
                 case .library:
@@ -140,7 +138,6 @@ final public class FlaneurImagePickerController: UIViewController {
                         self?.setLoadMoreManager()
                     }
                 }
-
 
                 if existingSelf.imageProvider.isAuthorized() {
                     existingSelf.imageProvider.fetchImagesFromSource()
@@ -288,8 +285,6 @@ final public class FlaneurImagePickerController: UIViewController {
     // MARK: - Layout Functions
 
     func layoutNavigationBar() {
-        print("navigationBar.constraints.count: \(navigationBar.constraints.count)")
-
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint(item: navigationBar,
                            attribute: .leading,
