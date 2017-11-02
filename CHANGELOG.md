@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Updated `FlaneurImagePickerControllerDelegate`:
     * Changed the functions' signature to be more similar to UIKit's `UIImagePickerControllerDelegate`
     * Removed the dismiss code: the view controller shouldn't guess how it will be presented (a modal presentation is just one option)
+* Fixed scrolling behavior of the selected images view
 
 ## [0.1.0] - 2017-10-24
 
