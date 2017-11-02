@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   s.framework = 'UIKit', 'Photos'
 
   s.dependency 'IGListKit', '~> 3.0'
-  s.dependency 'ActionKit', '~> 2.0'
+  s.dependency 'ActionKit', '~> 2.0' # Version 2.1 for Switf 4.0 compatibility (https://github.com/ActionKit/ActionKit/blob/master/CHANGELOG.md)
   s.dependency 'Kingfisher', '~> 3.10'
 
   # s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }

@@ -14,7 +14,7 @@ import IGListKit
  **  This class is used to move the page control as the pages change
 */
 
-final class PageControlManager: NSObject {
+final internal class PageControlManager: NSObject {
 
     weak var pageControl: UIPageControl?
     weak var collectionView: UICollectionView?

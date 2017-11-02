@@ -10,19 +10,24 @@ import UIKit
 import IGListKit
 import ActionKit
 
-/// Implement this protocol and set delegate property to self in order to be notified when
-/// the user has picked images or has cancelled the picking
+/// A set of methods that your delegate object must implement to interact with the image picker interface.
 public protocol FlaneurImagePickerControllerDelegate: AnyObject {
 
-    /// Called whenever the user end picking images, aka: whenever the user touches the button done
+    /// Tells the delegate that the user picked images.
     ///
     /// - Parameters:
-    ///   - images: An array of picked images of type FlaneurImageDescription
-    ///   - userInfo:  Arbitrary data
-    func didPickImages(images: [FlaneurImageDescription], userInfo: Any?)
+    ///   - picker: The controller object managing the image picker interface.
+    ///   - images: An array of picked images of type FlaneurImageDescription.
+    ///   - userInfo: Arbitrary data that was passed to the controller.
+    func flaneurImagePickerController(_ picker: FlaneurImagePickerController,
+                                      didFinishPickingImages images: [FlaneurImageDescription],
+                                      userInfo: Any?)
 
-    /// Called whenever the user cancels the picking, aka: whenever the user touches the button cancel
-    func didCancelPickingImages()
+    /// Tells the delegate that the user cancelled the pick operation.
+    ///
+    /// - Parameters:
+    ///   - picker: The controller object managing the image picker interface.
+    func flaneurImagePickerControllerDidCancel(_ picker: FlaneurImagePickerController)
 }
 
 /// An Image Picker that allows users to pick images from different sources (ex: user's library,
@@ -101,7 +106,8 @@ final public class FlaneurImagePickerController: UIViewController {
             if pickerViewImages.count == 0 {
                 adapter.reloadData(completion: nil)
             } else {
-                adapter.performUpdates(animated: true, completion: nil)
+                adapter.reloadData(completion: nil)
+                //adapter.performUpdates(animated: true, completion: nil)
             }
         }
     }
@@ -119,6 +125,8 @@ final public class FlaneurImagePickerController: UIViewController {
                 existingSelf.loadMoreManager = nil
 
                 switch currentImageSource {
+                // FIXME: the fact that the image picker controller has to switch defeats the
+                    // *plugin* intent of the providers.
                 case .camera:
                     existingSelf.imageProvider = FlaneurImageCameraProvider(delegate: existingSelf, andParentVC: existingSelf)
                 case .library:
@@ -158,9 +166,9 @@ final public class FlaneurImagePickerController: UIViewController {
     ///   - sourcesDelegate: Array of image sources, aka: FlaneurImageSource
     ///   - selectedImages: An array of already selected images
     public init(maxNumberOfSelectedImages: Int,
-         userInfo: Any?,
-         sourcesDelegate: [FlaneurImageSource],
-         selectedImages: [FlaneurImageDescription]) {
+                userInfo: Any?,
+                sourcesDelegate: [FlaneurImageSource],
+                selectedImages: [FlaneurImageDescription]) {
 
         if sourcesDelegate.count != 0 {
             self.config.imageSourcesArray = sourcesDelegate
@@ -188,7 +196,7 @@ final public class FlaneurImagePickerController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .black
+        view.backgroundColor = .white
 
         createNavigationBar()
         createCollectionViews()
@@ -227,7 +235,7 @@ final public class FlaneurImagePickerController: UIViewController {
         view.addSubview(navigationBar)
     }
 
-    func createCollectionViews() {
+    private func createCollectionViews() {
         for section in config.sectionsOrderArray {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .horizontal
@@ -280,6 +288,8 @@ final public class FlaneurImagePickerController: UIViewController {
     // MARK: - Layout Functions
 
     func layoutNavigationBar() {
+        print("navigationBar.constraints.count: \(navigationBar.constraints.count)")
+
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint(item: navigationBar,
                            attribute: .leading,
@@ -351,15 +361,14 @@ final public class FlaneurImagePickerController: UIViewController {
     // MARK: - Button Touched
 
     func doneButtonTouched() {
-        delegate?.didPickImages(images: selectedImages, userInfo: userInfo)
-        self.dismiss(animated: true, completion: nil)
+        delegate?.flaneurImagePickerController(self,
+                                               didFinishPickingImages: selectedImages,
+                                               userInfo: userInfo)
     }
 
     func cancelButtonTouched() {
-        self.delegate?.didCancelPickingImages()
-        self.dismiss(animated: true, completion: nil)
+        delegate?.flaneurImagePickerControllerDidCancel(self)
     }
-
 }
 
 
@@ -370,16 +379,16 @@ extension FlaneurImagePickerController {
     internal func adapterForSection(section: FlaneurImagePickerSection) -> ListAdapter {
         guard let sectionIndex = config.sectionsOrderArray.index(of: section),
             sectionIndex < adapters.count else {
-            fatalError("Could not find adapter for section")
+                fatalError("Could not find adapter for section")
         }
         return adapters[sectionIndex]
-     }
+    }
 
     internal func imageSourceForText(text: String) -> FlaneurImageSource {
         var flaneurImageSource = config.titleForImageSource?.filter { $0.1 == text }.map { return $0.0}
 
         if flaneurImageSource != nil {
-           return flaneurImageSource![0]
+            return flaneurImageSource![0]
         }
 
         flaneurImageSource = config.imageSourcesArray.filter { $0.rawValue == text }

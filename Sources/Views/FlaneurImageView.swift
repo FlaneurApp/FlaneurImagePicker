@@ -53,7 +53,7 @@ final public class FlaneurImageView: UIImageView {
         case .asset(let requestID):
             PHImageManager.default().cancelImageRequest(requestID)
         case .none:
-            debugPrint("no asynchonous state => do nothing")
+            () // Do nothing
         }
 
         self.image = nil
