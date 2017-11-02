@@ -9,6 +9,33 @@
 import UIKit
 import FlaneurImagePicker
 
+class FullWidthNavigationItemTitle: UIView {
+    weak var containingView: UIView?
+
+    var titleLabel: UILabel? {
+        didSet {
+            guard titleLabel != nil else { return }
+            self.addSubview(titleLabel!)
+        }
+    }
+
+    override func layoutSubviews() {
+        guard let referenceHeight = self.containingView?.frame.height else { return }
+
+        if self.frame.height != referenceHeight {
+            self.frame = CGRect(x: self.frame.origin.x,
+                                y: self.frame.origin.y,
+                                width: self.frame.width,
+                                height: referenceHeight)
+        }
+
+        self.titleLabel?.frame = CGRect(x: 16.0,
+                                        y: 0.0,
+                                        width: self.frame.width - 16.0,
+                                        height: referenceHeight)
+    }
+}
+
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -32,11 +59,34 @@ class ViewController: UIViewController {
                                                          userInfo: nil,
                                                          sourcesDelegate: [],
                                                          selectedImages: images)
-        flaneurPicker.config.cancelButtonTitle = "Cancel"
-        flaneurPicker.config.doneButtonTitle = "Save"
-        flaneurPicker.config.navBarTitle = "My custom title"
-        
-        flaneurPicker.config.navBarTitleColor = .black
+
+        flaneurPicker.view.backgroundColor = .red
+
+        // Customization of the navigation bar.
+        flaneurPicker.navigationBar.barTintColor = .red
+        flaneurPicker.navigationBar.isTranslucent = false
+        flaneurPicker.navigationBar.topItem?.backBarButtonItem?.title = "MyCancel"
+        flaneurPicker.navigationBar.topItem?.backBarButtonItem?.tintColor = .blue
+        flaneurPicker.navigationBar.topItem?.rightBarButtonItem?.title = "MySave"
+        flaneurPicker.navigationBar.topItem?.rightBarButtonItem?.tintColor = .green
+        flaneurPicker.navigationBar.topItem?.title = "MyTitle"
+        flaneurPicker.navigationBar.titleTextAttributes = [
+            NSFontAttributeName: UIFont(name: "Futura-CondensedMedium", size: 16.0)!,
+            NSForegroundColorAttributeName: UIColor.cyan
+        ]
+
+        // For an event uglier customization of the navigation bar, uncomment this:
+        //        let myTitleViewContainer = FullWidthNavigationItemTitle(frame: CGRect(x: 0.0, y: 0.0, width: 1000.0, height: 0.0))
+        //        myTitleViewContainer.containingView = flaneurPicker.navigationBar
+        //        let myTitleText = UILabel(frame: .zero)
+        //        myTitleText.numberOfLines = 1
+        //        myTitleText.text = "Add your pictures".uppercased()
+        //        myTitleText.font = UIFont(name: "Futura-CondensedMedium", size: 16.0)!
+        //        myTitleText.backgroundColor = .yellow
+        //        myTitleViewContainer.titleLabel = myTitleText
+        //        myTitleViewContainer.backgroundColor = .blue
+        //        flaneurPicker.navigationBar.topItem?.titleView = myTitleViewContainer
+
         flaneurPicker.config.removeButtonColor = .red
         
         flaneurPicker.config.backgroundColorForSection = [
@@ -44,11 +94,11 @@ class ViewController: UIViewController {
             .imageSources: UIColor(red: 36/255, green: 41/255, blue: 50/255, alpha: 1),
             .selectedImages: UIColor(red: 36/255, green: 41/255, blue: 50/255, alpha: 1),
         ]
-        
+
         flaneurPicker.config.paddingForImagesPickerView = UIEdgeInsets (top: 3, left: 3, bottom: 3, right: 3)
         flaneurPicker.delegate = self
-        
-        self.present(flaneurPicker, animated: true, completion: nil)
+
+        self.present(flaneurPicker, animated: true)
     }
 
 }

@@ -33,34 +33,14 @@ public struct FlaneurImagePickerConfig {
     
     // MARK: - Titles
     
-    /// The title of the navigation bar
-    public var navBarTitle: String = "My Image Picker"
-    
-    /// The title of the cancel button at the top left of the picker
-    public var cancelButtonTitle: String = "Cancel"
-    
-    /// The title of the done button at the top right of the picker
-    public var doneButtonTitle: String = "Done"
-    
     /// The title of the remove button at the top right of the images picked
     public var removeButtonTitle: String = "Remove"
     
     /// Title shown for a specific image source, defaults to enum FlaneurImageSource.rawValue
     public var titleForImageSource: [FlaneurImageSource: String]?
-    
-    
+
     
     // MARK: - Colors
-    
-    /// The background color of the navigation bar
-    public var navBarBackgroundColor: UIColor?
-    /// The color of the navigation bar's title
-    public var navBarTitleColor: UIColor?
-
-    /// The color of the cancel button
-    public var cancelButtonColor: UIColor?
-    /// The color of the done button
-    public var doneButtonColor: UIColor?
     
     /// The color of the remove button
     public var removeButtonColor: UIColor?

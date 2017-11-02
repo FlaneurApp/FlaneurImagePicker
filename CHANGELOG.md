@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     * Changed the functions' signature to be more similar to UIKit's `UIImagePickerControllerDelegate`
     * Removed the dismiss code: the view controller shouldn't guess how it will be presented (a modal presentation is just one option)
 * Fixed scrolling behavior of the selected images view
+* Made the `navigationBar` a `let` so that it can be customized at initialization time rather than loading time
 
 ## [0.1.0] - 2017-10-24
 

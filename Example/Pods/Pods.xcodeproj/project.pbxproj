@@ -223,7 +223,6 @@
 		C7A6062B644401254096A910FFF7CD4E /* IGListBatchUpdates.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A305D16ABBBA21058BC79088A3EFAB /* IGListBatchUpdates.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		C8320A6164C870ADDB8A855ADEBBBDC9 /* Equal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90E344C33EC7BF2C48B8485BB2F7028 /* Equal.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		C926B03C37F5694EF45B40A4D1229CA2 /* IGListAdapterDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = E877C35ADE101E65BC6E8E8A016E377C /* IGListAdapterDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C9390701D5B329C56EA5E0BADDB694D9 /* FlaneurImagePickerNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C40A8F93111388EF046A1D96EC0E6BB /* FlaneurImagePickerNavigationBar.swift */; };
 		CABACCED31F07A3B3CB3EBF45622D31B /* ImageTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA971ED1A7CAF79A528EB0C71B3D67A /* ImageTransition.swift */; };
 		CB25B8D8B7CA74AE18281C9FD43A2799 /* CacheSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6A3CF886C78E506EEADFFF9CB57686 /* CacheSerializer.swift */; };
 		CCDAF11E7AF29E720C587B038145F622 /* BeginWith.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED16EE7240D23D46F9ACA8035E31FD3F /* BeginWith.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
@@ -426,7 +425,6 @@
 		3A4F901F5EDC039726A5F37E699AC688 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3BDAF4426F0FE501BD047772D1F30F43 /* ImagePrefetcher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImagePrefetcher.swift; path = Sources/ImagePrefetcher.swift; sourceTree = "<group>"; };
 		3BE58A8092A58FD6FD1C1518CB051AC3 /* Nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3C40A8F93111388EF046A1D96EC0E6BB /* FlaneurImagePickerNavigationBar.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FlaneurImagePickerNavigationBar.swift; sourceTree = "<group>"; };
 		3CB8F7B62CCA65C175C801ECAE14FEAE /* ActionKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ActionKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D536F1EE8FBBDCE6405E6D20AE622FA /* ExpectationMessage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpectationMessage.swift; path = Sources/Nimble/ExpectationMessage.swift; sourceTree = "<group>"; };
 		3DFE431A9155D184590BA8F6E161D38E /* IGListBindable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IGListBindable.h; path = Source/IGListBindable.h; sourceTree = "<group>"; };
@@ -1140,7 +1138,6 @@
 			isa = PBXGroup;
 			children = (
 				8EC1A359BC033F31633C4C1358C27D37 /* FlaneurAuthorizationView.swift */,
-				3C40A8F93111388EF046A1D96EC0E6BB /* FlaneurImagePickerNavigationBar.swift */,
 				F97A1D7A3C45B018746BA8EA4313BB24 /* FlaneurImageView.swift */,
 				9F7F3ACE9B823C22E9518060D609C6AF /* Cells */,
 			);
@@ -1772,7 +1769,6 @@
 				945DE413FF34E818BD816A913FFCCD6C /* FlaneurImagePicker-dummy.m in Sources */,
 				78143AC99032BEA5EC466F425400CD06 /* FlaneurImagePickerConfig.swift in Sources */,
 				DBC6B2060632154465F4F088D6BECF13 /* FlaneurImagePickerController.swift in Sources */,
-				C9390701D5B329C56EA5E0BADDB694D9 /* FlaneurImagePickerNavigationBar.swift in Sources */,
 				4FED4C322B0AADCEC000B9E5E35483B5 /* FlaneurImageProvider.swift in Sources */,
 				62A7AC138DF436825257A7B6182BBD96 /* FlaneurImageView.swift in Sources */,
 				D2928DE642264B5B52ADCE9A22EF0DC1 /* ImageSourcesCell.swift in Sources */,

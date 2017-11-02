@@ -35,7 +35,23 @@ public protocol FlaneurImagePickerControllerDelegate: AnyObject {
 final public class FlaneurImagePickerController: UIViewController {
 
     // MARK: - Views
-    var navigationBar: UIView!
+    public let navigationBar: UINavigationBar = {
+        let navigationItem = UINavigationItem()
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel",
+                        style: .done,
+                        target: self,
+                        action: #selector(cancelButtonTouched))
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done",
+                                                            style: .done,
+                                                            target: self,
+                                                            action: #selector(doneButtonTouched))
+
+        let navigationBar = UINavigationBar()
+        navigationBar.pushItem(navigationItem, animated: false)
+        return navigationBar
+    }()
+
     var collectionViews: [UICollectionView] = [UICollectionView]()
     var pageControl = UIPageControl(frame: .zero)
 
@@ -193,9 +209,9 @@ final public class FlaneurImagePickerController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
+        view.addSubview(navigationBar)
+        layoutNavigationBar()
 
-        createNavigationBar()
         createCollectionViews()
         createAdapters()
 
@@ -205,32 +221,16 @@ final public class FlaneurImagePickerController: UIViewController {
                 break searchFirstSource
             }
         }
-
     }
 
     /// viewDidLayoutSubviews Lifecyle callback
     override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        layoutNavigationBar()
         layoutCollectionViews()
     }
 
     // MARK: - Create Views
-
-    func createNavigationBar() {
-        let cancelButtonClosure: ActionKitBarButtonItemClosure = { [weak self] sender in
-            self?.cancelButtonTouched()
-        }
-        let doneButtonClosure: ActionKitBarButtonItemClosure = { [weak self] sender in
-            self?.doneButtonTouched()
-        }
-
-        self.navigationBar = FlaneurImagePickerNavigationBar(with: config,
-                                                             cancelButtonClosure: cancelButtonClosure,
-                                                             doneButtonClosure: doneButtonClosure)
-        view.addSubview(navigationBar)
-    }
 
     private func createCollectionViews() {
         for section in config.sectionsOrderArray {
