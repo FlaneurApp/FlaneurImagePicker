@@ -1,7 +1,0 @@
-app_identifier "com.flaneurapp.flaneurimagepicker" # The bundle identifier of your app
-apple_id "flaneurdev@bootstragram.com" # Your Apple email address
-
-team_id "BLSC88J9HQ" # Developer Portal Team ID
-
-# you can even provide different app identifiers, Apple IDs and team names per lane:
-# More information: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Appfile.md
