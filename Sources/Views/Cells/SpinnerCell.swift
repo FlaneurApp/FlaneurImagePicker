@@ -2,7 +2,7 @@
 //  SpinnerCell.swift
 //  FlaneurImagePickerController
 //
-//  Created by Frenchapp on 01/08/2017.
+//  Created by Flâneur on 01/08/2017.
 //  
 //
 

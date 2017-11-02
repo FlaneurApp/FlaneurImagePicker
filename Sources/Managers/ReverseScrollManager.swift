@@ -3,7 +3,7 @@
 //  CollectionViewReverseScrollManager.swift
 //  FlaneurImagePickerController
 //
-//  Created by Frenchapp on 31/07/2017.
+//  Created by Flâneur on 31/07/2017.
 //  
 //
 

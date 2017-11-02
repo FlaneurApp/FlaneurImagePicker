@@ -2,7 +2,7 @@
 //  FlaneurAuthorizationView.swift
 //  FlaneurImagePickerController
 //
-//  Created by Frenchapp on 28/07/2017.
+//  Created by Flâneur on 28/07/2017.
 //  
 //
 

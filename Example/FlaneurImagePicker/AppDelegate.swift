@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  FlaneurImagePickerController
 //
-//  Created by Frenchapp on 11/07/2017.
+//  Created by Flâneur on 11/07/2017.
 //  
 //
 

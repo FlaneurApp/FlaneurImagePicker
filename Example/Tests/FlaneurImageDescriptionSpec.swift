@@ -2,7 +2,7 @@
 //  FlaneurImageDescriptionSpec.swift
 //  FlaneurImagePickerController
 //
-//  Created by Frenchapp on 12/07/2017.
+//  Created by Flâneur on 12/07/2017.
 //  
 //
 

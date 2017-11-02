@@ -2,7 +2,7 @@
 //  PickerCell.swift
 //  FlaneurImagePickerController
 //
-//  Created by Frenchapp on 14/07/2017.
+//  Created by Flâneur on 14/07/2017.
 //  
 //
 

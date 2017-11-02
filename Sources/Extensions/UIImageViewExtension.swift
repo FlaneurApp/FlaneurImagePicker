@@ -3,7 +3,7 @@
 //  UIImageViewExtension.swift
 //  FlaneurImagePickerController
 //
-//  Created by Frenchapp on 25/07/2017.
+//  Created by Flâneur on 25/07/2017.
 //  
 //
 
