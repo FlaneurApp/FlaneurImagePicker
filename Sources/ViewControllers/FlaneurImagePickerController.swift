@@ -53,7 +53,9 @@ final public class FlaneurImagePickerController: UIViewController {
     }()
 
     var collectionViews: [UICollectionView] = [UICollectionView]()
+    private var selectedImagesCollectionView: UICollectionView?
     private var imageSourceSelectionCollectionView: UICollectionView?
+    private var galleryCollectionView: UICollectionView?
 
     var pageControl = UIPageControl(frame: .zero)
 
@@ -226,6 +228,14 @@ final public class FlaneurImagePickerController: UIViewController {
         createAdapters()
     }
 
+    override public func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        selectedImagesCollectionView?.backgroundColor = config.backgroundColorForSection(.selectedImages)
+        imageSourceSelectionCollectionView?.backgroundColor = config.backgroundColorForSection(.imageSources)
+        galleryCollectionView?.backgroundColor = config.backgroundColorForSection(.pickerView)
+    }
+
     /// viewDidLayoutSubviews Lifecyle callback
     override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -241,19 +251,18 @@ final public class FlaneurImagePickerController: UIViewController {
             layout.scrollDirection = .horizontal
 
             let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-
-            collectionView.backgroundColor = config.backgroundColorForSection?[section] ?? .black
-
             collectionView.showsHorizontalScrollIndicator = false
             collectionView.alwaysBounceVertical = false
             collectionView.alwaysBounceHorizontal = false
 
             switch section {
             case .selectedImages:
+                selectedImagesCollectionView = collectionView
                 collectionView.isPagingEnabled = true
                 pageControlManager.collectionView = collectionView
 
             case .pickerView:
+                galleryCollectionView = collectionView
                 collectionView.alwaysBounceVertical = true
                 collectionView.setCollectionViewLayout(ListCollectionViewLayout(stickyHeaders: false, topContentInset: 0, stretchToEdge: true)
                     , animated: false)

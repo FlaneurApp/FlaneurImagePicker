@@ -69,8 +69,12 @@ public class FlaneurImagePickerConfig {
 
     // MARK: - Colors
     
-    /// BackgroundColor for a specific collectionView in a section, defaults to .black
-    public var backgroundColorForSection: [FlaneurImagePickerSection: UIColor]?
+    /// Background color for a specific collectionView in a section.
+    ///
+    /// Defaults to `.gray`.
+    public var backgroundColorForSection: ((FlaneurImagePickerSection) -> (UIColor)) = { _ in
+        return .gray
+    }
 
     /// The color of the remove button
     public var removeButtonColor: UIColor?
