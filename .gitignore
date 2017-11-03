@@ -34,3 +34,4 @@ Carthage
 
 # Ignore the fastlane config
 Example/fastlane
+Example/Pods/
