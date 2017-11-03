@@ -37,10 +37,11 @@ class ViewController: UIViewController {
         flaneurPicker.view.backgroundColor = .red
 
         // Customization of the navigation bar.
+        flaneurPicker.navigationBar.tintColor = .magenta
         flaneurPicker.navigationBar.barTintColor = .red
         flaneurPicker.navigationBar.isTranslucent = false
         flaneurPicker.navigationBar.topItem?.backBarButtonItem?.title = "MyCancel"
-        flaneurPicker.navigationBar.topItem?.backBarButtonItem?.tintColor = .blue
+        flaneurPicker.navigationBar.topItem?.backBarButtonItem?.tintColor = .brown // <- this does nothing, the navigation bar tint color prevails
         flaneurPicker.navigationBar.topItem?.rightBarButtonItem?.title = "MySave"
         flaneurPicker.navigationBar.topItem?.rightBarButtonItem?.tintColor = .green
         flaneurPicker.navigationBar.topItem?.title = "MyTitle"
