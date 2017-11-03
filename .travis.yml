@@ -13,5 +13,5 @@ osx_image: xcode9
 script:
   - set -o pipefail && xcodebuild clean -workspace Example/FlaneurImagePicker.xcworkspace -scheme FlaneurImagePicker-Example | xcpretty
   - set -o pipefail && xcodebuild -workspace Example/FlaneurImagePicker.xcworkspace -scheme FlaneurImagePicker-Example | xcpretty
-  - set -o pipefail && xcodebuild test -workspace Example/FlaneurImagePicker.xcworkspace -scheme FlaneurImagePicker-Example -destination 'platform=iOS Simulator,OS=11.0.0,name=iPhone 7' -enableCodeCoverage YES | xcpretty
+  - set -o pipefail && xcodebuild test -workspace Example/FlaneurImagePicker.xcworkspace -scheme FlaneurImagePicker-Example -destination 'platform=iOS Simulator,OS=11.0,name=iPhone 7' -enableCodeCoverage YES | xcpretty
   - pod lib lint --allow-warnings

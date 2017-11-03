@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ActionKit
 
 final class ImageSourcesCell: UICollectionViewCell {
     lazy internal var button: UIButton = {

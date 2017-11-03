@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'FlaneurImagePicker'
-  s.version          = '0.1.1beta'
+  s.version          = '0.2.0beta'
   s.summary          = 'FlaneurImagePicker is an iOS image picker'
 
   s.description      = <<-DESC
