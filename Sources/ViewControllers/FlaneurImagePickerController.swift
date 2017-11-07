@@ -227,6 +227,10 @@ final public class FlaneurImagePickerController: UIViewController {
         selectedImagesCollectionView?.backgroundColor = config.backgroundColorForSection(.selectedImages)
         imageSourceSelectionCollectionView?.backgroundColor = config.backgroundColorForSection(.imageSources)
         galleryCollectionView?.backgroundColor = config.backgroundColorForSection(.pickerView)
+    }
+
+    override public func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
 
         // Dirty hack
         refreshGalleryIfVisible()
@@ -397,7 +401,7 @@ final public class FlaneurImagePickerController: UIViewController {
                 // feature here (ie no `adapter.performUpdates(animated: true, completion: nil)`)
                 adapter.reloadData(completion: self.selectDefaultImageSource)
             } else {
-                debugPrint("Skipping reload as the galleryCollectionView seems to not be displayed right now.")
+                debugPrint("Skipping reload as the galleryCollectionView seems to not be displayed right now (frame: \(galleryCollectionView.frame))")
             }
         } else {
             debugPrint("Skipping reload as the galleryCollectionView is nil right now.")
