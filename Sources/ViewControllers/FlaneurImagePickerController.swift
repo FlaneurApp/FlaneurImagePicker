@@ -119,13 +119,21 @@ final public class FlaneurImagePickerController: UIViewController {
     /// We need to retrieve the adapter to refresh the UI
     var pickerViewImages: [FlaneurImageDescription] = [FlaneurImageDescription]() {
         didSet {
-            let adapter = adapterForSection(section: .pickerView)
-            if pickerViewImages.count == 0 {
-                adapter.reloadData(completion: self.selectDefaultImageSource)
+            if let galleryCollectionView = galleryCollectionView {
+                if galleryCollectionView.frame.width > 0 {
+                    let adapter = adapterForSection(section: .pickerView)
+                    if pickerViewImages.count == 0 {
+                        adapter.reloadData(completion: self.selectDefaultImageSource)
+                    } else {
+                        // For performance issues, we don't want to activate IGListKit's diffing
+                        // feature here (ie no `adapter.performUpdates(animated: true, completion: nil)`)
+                        adapter.reloadData(completion: self.selectDefaultImageSource)
+                    }
+                } else {
+                    debugPrint("Skipping reload as the galleryCollectionView seems to not be displayed right now.")
+                }
             } else {
-                // For performance issues, we don't want to activate IGListKit's diffing
-                // feature here (ie no `adapter.performUpdates(animated: true, completion: nil)`)
-                adapter.reloadData(completion: self.selectDefaultImageSource)
+                debugPrint("Skipping reload as the galleryCollectionView is nil right now.")
             }
         }
     }
