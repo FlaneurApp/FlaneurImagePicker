@@ -204,7 +204,7 @@ final public class FlaneurImagePickerController: UIViewController {
     }
 
     deinit {
-        print("deinit")
+        ()
     }
 
     // MARK: - Lifecyle callbacks
@@ -390,8 +390,6 @@ final public class FlaneurImagePickerController: UIViewController {
 
                 }
             }
-        } else {
-            debugPrint("Done")
         }
     }
 }
