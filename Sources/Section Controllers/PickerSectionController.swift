@@ -34,8 +34,9 @@ final class PickerSectionController: ListSectionController {
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
-        return sizeWithPadding(width: config.sizeForImagesPickerView.width,
-                               height: config.sizeForImagesPickerView.height,
+        let customSize = config.sizeForImagesPickerView(collectionContext!.containerSize)
+        return sizeWithPadding(width: customSize.width,
+                               height: customSize.height,
                                padding: self.inset)
     }
     

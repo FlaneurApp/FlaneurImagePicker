@@ -89,7 +89,9 @@ public class FlaneurImagePickerConfig {
     // MARK: - Content Size and shape
     
     /// Size of each thumbnail image shown in the .pickerView section, defaults to 1:4 of the screen's width
-    public var sizeForImagesPickerView: CGSize = CGSize(width: UIScreen.main.bounds.width / 4, height: UIScreen.main.bounds.width / 4)
+    public var sizeForImagesPickerView: ((CGSize) -> (CGSize)) = { collectionContextSize in
+        return CGSize(width: UIScreen.main.bounds.width / 4, height: UIScreen.main.bounds.width / 4)
+    }
     
     /// Padding for each image shown in the .pickerView section, defaults to 0
     public var paddingForImagesPickerView: UIEdgeInsets?

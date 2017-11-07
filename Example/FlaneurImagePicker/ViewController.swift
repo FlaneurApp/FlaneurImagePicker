@@ -61,8 +61,10 @@ class ViewController: UIViewController {
                 return UIColor(white: (236.0 / 255.0), alpha: 1.0)
             }
         }
-        flaneurPicker.config.sizeForImagesPickerView = CGSize(width: self.view.frame.width / 3.0,
-                                                              height: self.view.frame.width / 3.0)
+        flaneurPicker.config.sizeForImagesPickerView = { collectionSize in
+            let arraySize = collectionSize.width / 3.0
+            return CGSize(width: arraySize, height: arraySize)
+        }
         flaneurPicker.config.paddingForImagesPickerView = UIEdgeInsets(top: 2.0,
                                                                        left: 2.0,
                                                                        bottom: 2.0,

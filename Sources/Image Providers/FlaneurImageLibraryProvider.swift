@@ -15,22 +15,18 @@ final class FlaneurImageLibraryProvider: NSObject, FlaneurImageProvider {
     
     private let config: FlaneurImagePickerConfig
     
-    private let thumbnailSize: CGSize
-    
     init(delegate: FlaneurImageProviderDelegate, andParentVC parentVC: UIViewController) {
         self.delegate = delegate
         self.config = FlaneurImagePickerConfig()
         self.parentVC = parentVC
-        self.thumbnailSize = CGSize(width: config.sizeForImagesPickerView.width * 2,
-                                    height: config.sizeForImagesPickerView.height * 2)
+
         super.init()
     }
 
     init(delegate: FlaneurImageProviderDelegate, andConfig config: FlaneurImagePickerConfig) {
         self.delegate = delegate
         self.config = config
-        self.thumbnailSize = CGSize(width: config.sizeForImagesPickerView.width * 2,
-                                    height: config.sizeForImagesPickerView.height * 2)
+
         super.init()
     }
     
@@ -63,6 +59,6 @@ final class FlaneurImageLibraryProvider: NSObject, FlaneurImageProvider {
     }
     
     func fetchNextPage() {
-        // Not usefull here
+        // Not useful here
     }
 }
