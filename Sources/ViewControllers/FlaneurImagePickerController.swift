@@ -67,15 +67,6 @@ final public class FlaneurImagePickerController: UIViewController {
         return manager
     }()
 
-    var reverseScrollManager: ReverseScrollManager? {
-        willSet {
-            if reverseScrollManager != nil {
-                self.previousLibraryOffset = reverseScrollManager?.currentOffset
-            }
-        }
-    }
-    var previousLibraryOffset: CGPoint?
-
     var loadMoreManager: LoadMoreManager?
 
     let spinToken = "spinner"
@@ -132,7 +123,6 @@ final public class FlaneurImagePickerController: UIViewController {
             DispatchQueue.global(qos: .userInteractive).async { [weak self] in
                 guard let existingSelf = self else { return }
                 guard let currentImageSource = existingSelf.currentImageSource else { return }
-                existingSelf.reverseScrollManager = nil
                 existingSelf.loadMoreManager = nil
 
                 switch currentImageSource {
@@ -142,9 +132,6 @@ final public class FlaneurImagePickerController: UIViewController {
                     existingSelf.imageProvider = FlaneurImageCameraProvider(delegate: existingSelf, andParentVC: existingSelf)
                 case .library:
                     existingSelf.imageProvider = FlaneurImageLibraryProvider(delegate: existingSelf, andConfig: existingSelf.config)
-                    DispatchQueue.main.async {
-                        self?.setReverseScrollManager()
-                    }
                 case .instagram:
                     existingSelf.imageProvider = FlaneurImageInstagramProvider(delegate: existingSelf, andParentVC: existingSelf)
                     DispatchQueue.main.async {
@@ -476,15 +463,6 @@ extension FlaneurImagePickerController {
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
-    }
-
-    internal func setReverseScrollManager() {
-        reverseScrollManager = ReverseScrollManager()
-        reverseScrollManager?.currentOffset = previousLibraryOffset
-        let adapter = adapterForSection(section: .pickerView)
-
-        adapter.collectionViewDelegate = reverseScrollManager
-        reverseScrollManager?.collectionView = adapter.collectionView
     }
 
     internal func setLoadMoreManager() {

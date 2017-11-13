@@ -60,6 +60,7 @@ final class FlaneurImageLibraryProvider: NSObject, FlaneurImageProvider {
                 images.append(imageDescription)
             }
         }
+        
         self.delegate?.didLoadImages(images: images)
     }
     
