@@ -51,7 +51,7 @@ final class FlaneurImageLibraryProvider: NSObject, FlaneurImageProvider {
         let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [ sortDescriptor ]
-        fetchOptions.fetchLimit = 10
+        fetchOptions.fetchLimit = 1200
 
         let assetsList = PHAsset.fetchAssets(with: .image, options: fetchOptions)
         var images = [FlaneurImageDescription]()
