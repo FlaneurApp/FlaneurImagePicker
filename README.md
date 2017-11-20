@@ -16,7 +16,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
-* Xcode 8 and iOS 9.0
+* Xcode 9.1 and iOS 9.0
 
 ## Installation
 
@@ -45,12 +45,12 @@ Implement the FlaneurImagePickerControllerDelegate protocol:
 
 ```swift
 extension ViewController: FlaneurImagePickerControllerDelegate {
-    func didPickImages(images: [FlaneurImageDescription], userInfo: Any?) {
-        print("didPickImages")
-    }
+  func flaneurImagePickerController(_ picker: FlaneurImagePickerController, didFinishPickingImages images: [FlaneurImageDescription], userInfo: Any?) {
+      print("didFinishPickingImages")
+  }
 
-    func didCancelPickingImages() {
-        print("didCancelPickingImages")
+    func flaneurImagePickerControllerDidCancel(_ picker: FlaneurImagePickerController) {
+        print("didCancel")
     }
 }
 ```
