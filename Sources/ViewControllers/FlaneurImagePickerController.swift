@@ -28,6 +28,13 @@ public protocol FlaneurImagePickerControllerDelegate: AnyObject {
     /// - Parameters:
     ///   - picker: The controller object managing the image picker interface.
     func flaneurImagePickerControllerDidCancel(_ picker: FlaneurImagePickerController)
+
+    /// Tells the delegate that the image picker controller met an error.
+    /// It shouldn't be called but it can be useful for error reporting on implementing clients.
+    ///
+    /// - Parameters:
+    ///   - error: The error met by the picker.
+    func flaneurImagePickerControllerDidFail(_ error: FlaneurImagePickerError)
 }
 
 /// An Image Picker that allows users to pick images from different sources (ex: user's library,
@@ -269,7 +276,6 @@ final public class FlaneurImagePickerController: UIViewController {
     func createAdapters() {
         for _ in 0..<collectionViews.count {
             let listAdapter = ListAdapter(updater: ListAdapterUpdater(), viewController: self)
-
             adapters.append(listAdapter)
         }
 
@@ -438,11 +444,12 @@ extension FlaneurImagePickerController {
         }
     }
 
-    internal func showAuthorisationSettinsPopup() {
+    internal func presentAuthorizationSettingsAlert() {
         let alert = UIAlertController(title: NSLocalizedString("Authorization", comment: ""),
                                       message: NSLocalizedString("You need to authorize the source in order to pick the photos", comment: ""),
-                                      preferredStyle: UIAlertControllerStyle.alert)
-        let settingsAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) { (_) -> Void in
+                                      preferredStyle: .alert)
+        let settingsAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""),
+                                           style: .default) { (_) -> Void in
             guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
                 return
             }
@@ -455,11 +462,15 @@ extension FlaneurImagePickerController {
                 }
             }
         }
-        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .default) { (_) -> Void in
+
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""),
+                                         style: .default) { (_) -> Void in
             alert.dismiss(animated: true, completion: nil)
         }
+
         alert.addAction(settingsAction)
         alert.addAction(cancelAction)
+
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
@@ -587,16 +598,21 @@ extension FlaneurImagePickerController: ListAdapterDataSource {
     }
 
     ///  A DataSource method used to show an empty view in the collection
-    ///  when data for an adapter are empty
+    ///  when data for an adapter are empty.
     ///
-    /// - Parameter listAapter: The adapter asking for the empty view
-    /// - Returns: A custom empty view of type UIView
+    /// - Parameter listAdapter: The adapter asking for the empty view.
+    /// - Returns: A custom empty view of type UIView.
     public func emptyView(for listAdapter: ListAdapter) -> UIView? {
         guard let index = adapters.index(of: listAdapter) else {
-            fatalError("Could not find section for adapter")
+            self.delegate?.flaneurImagePickerControllerDidFail(.emptyViewError("no section for adapter"))
+            return nil
         }
+
         let section = config.sectionsOrderArray[index]
-        if currentImageSource == nil || section != .pickerView || imageProvider.isAuthorized() {
+        if currentImageSource == nil // No current image source
+            || section != .pickerView // The section is not the picker view
+            || imageProvider.isAuthorized() // The image provider has already been authorized
+        {
             return nil
         }
 
@@ -605,16 +621,18 @@ extension FlaneurImagePickerController: ListAdapterDataSource {
                 if isPermissionGiven {
                     self?.imageProvider.fetchImagesFromSource()
                 } else {
-                    self?.showAuthorisationSettinsPopup()
+                    self?.presentAuthorizationSettingsAlert()
                 }
             }
         }
         let sourceName: String = currentImageSource!.rawValue
 
-        if let customViewClass = config.authorizationViewCustomClass, let validClass = customViewClass.self as? FlaneurAuthorizationView.Type {
+        if let customViewClass = config.authorizationViewCustomClass,
+            let validClass = customViewClass.self as? FlaneurAuthorizationView.Type {
             return validClass.init(withSourceName: sourceName, authorizeClosure: authorizeClosure) as? UIView
         } else {
-            return FlaneurAuthorizationDefaultView(withSourceName: sourceName, authorizeClosure: authorizeClosure)
+            return FlaneurAuthorizationDefaultView(withSourceName: sourceName,
+                                                   authorizeClosure: authorizeClosure)
         }
     }
 }

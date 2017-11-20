@@ -55,7 +55,6 @@ class FlaneurAuthorizationDefaultView: UIView, FlaneurAuthorizationView {
         addSubview(imageView)
         addSubview(label)
         addSubview(authorizeButton)
-
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -80,7 +79,5 @@ class FlaneurAuthorizationDefaultView: UIView, FlaneurAuthorizationView {
         imageView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         imageView.bottomAnchor.constraint(equalTo: label.topAnchor, constant: -20).isActive = true
-
     }
-
 }
