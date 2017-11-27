@@ -48,10 +48,7 @@ final class FlaneurImageCameraProvider: NSObject, FlaneurImageProvider {
 
         picker.allowsEditing = false
         picker.sourceType = .camera
-        debugPrint("Presenting...", Thread.current.isMainThread)
-        parentVC?.present(picker, animated: true, completion: {
-            debugPrint("did present")
-        })
+        parentVC?.present(picker, animated: true)
     }
     
     func fetchNextPage() {
