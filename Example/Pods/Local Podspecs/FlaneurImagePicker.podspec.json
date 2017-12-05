@@ -37,5 +37,8 @@
     "Kingfisher": [
       "~> 4.0"
     ]
+  },
+  "pod_target_xcconfig": {
+    "SWIFT_SWIFT3_OBJC_INFERENCE": "Default"
   }
 }
