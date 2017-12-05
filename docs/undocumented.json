@@ -1,0 +1,75 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/mick/Developer/Projects/Flaneur/Code/FlaneurImagePicker/Sources/Errors/FlaneurImagePickerError.swift",
+      "line": 10,
+      "symbol": "FlaneurImagePickerError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mick/Developer/Projects/Flaneur/Code/FlaneurImagePicker/Sources/Errors/FlaneurImagePickerError.swift",
+      "line": 11,
+      "symbol": "FlaneurImagePickerError.emptyViewError",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mick/Developer/Projects/Flaneur/Code/FlaneurImagePicker/Sources/Models/FlaneurImageDescription.swift",
+      "line": 182,
+      "symbol": "FlaneurImageDescription.requestImage(resultHandler:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mick/Developer/Projects/Flaneur/Code/FlaneurImagePicker/Sources/ViewControllers/FlaneurImagePickerController.swift",
+      "line": 45,
+      "symbol": "FlaneurImagePickerController.navigationBar",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mick/Developer/Projects/Flaneur/Code/FlaneurImagePicker/Sources/ViewControllers/FlaneurImagePickerController.swift",
+      "line": 218,
+      "symbol": "FlaneurImagePickerController.viewWillAppear(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mick/Developer/Projects/Flaneur/Code/FlaneurImagePicker/Sources/ViewControllers/FlaneurImagePickerController.swift",
+      "line": 226,
+      "symbol": "FlaneurImagePickerController.viewDidAppear(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mick/Developer/Projects/Flaneur/Code/FlaneurImagePicker/Sources/Views/FlaneurImageView.swift",
+      "line": 11,
+      "symbol": "FlaneurImageView",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mick/Developer/Projects/Flaneur/Code/FlaneurImagePicker/Sources/Views/FlaneurImageView.swift",
+      "line": 12,
+      "symbol": "FlaneurImageView.assetThumbnailMode",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mick/Developer/Projects/Flaneur/Code/FlaneurImagePicker/Sources/Views/FlaneurImageView.swift",
+      "line": 22,
+      "symbol": "FlaneurImageView.setImage(with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mick/Developer/Projects/Flaneur/Code/FlaneurImagePicker/Sources/Views/FlaneurImageView.swift",
+      "line": 49,
+      "symbol": "FlaneurImageView.prepareForReuse()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/mick/Developer/Projects/Flaneur/Code/FlaneurImagePicker"
+}

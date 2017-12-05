@@ -1,4 +1,4 @@
-![FlaneurImagePicker logo](Image.png)
+![FlaneurImagePicker logo](https://raw.githubusercontent.com/FlaneurApp/FlaneurImagePicker/master/Image.png)
 
 [![CI Status](http://img.shields.io/travis/FlaneurApp/FlaneurImagePicker.svg?style=flat)](https://travis-ci.org/FlaneurApp/FlaneurImagePicker)
 [![Version](https://img.shields.io/cocoapods/v/FlaneurImagePicker.svg?style=flat)](http://cocoapods.org/pods/FlaneurImagePicker)
