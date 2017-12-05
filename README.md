@@ -1,4 +1,4 @@
-# FlaneurImagePicker
+![FlaneurImagePicker logo](Image.png)
 
 [![CI Status](http://img.shields.io/travis/FlaneurApp/FlaneurImagePicker.svg?style=flat)](https://travis-ci.org/FlaneurApp/FlaneurImagePicker)
 [![Version](https://img.shields.io/cocoapods/v/FlaneurImagePicker.svg?style=flat)](http://cocoapods.org/pods/FlaneurImagePicker)
@@ -6,9 +6,14 @@
 [![Platform](https://img.shields.io/cocoapods/p/FlaneurImagePicker.svg?style=flat)](http://cocoapods.org/pods/FlaneurImagePicker)
 [![Downloads](https://img.shields.io/cocoapods/at/FlaneurImagePicker.svg?style=flat)](http://cocoapods.org/pods/FlaneurImagePicker)
 
-## Video Preview
+FlaneurImagePicker is a highly customizable iOS image picker that allows users to pick images from different sources (ex: device's library, device's camera, Instagram...), as used in [Flâneur iOS app][flaneur-app-store].
 
-[![Preview](preview.png)](https://vimeo.com/228042101)
+## Features
+
+* [x] Support for multiple image sources
+* [x] New image sources can easily be added
+* [x] Per-source authorization workflow
+* [x] Customizable UI and behavior
 
 ## Example
 
@@ -16,7 +21,8 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
-* Xcode 9.1 and iOS 9.0
+* iOS 9
+* Swift 3
 
 ## Installation
 
@@ -140,6 +146,12 @@ Open the index.html to view the documentation.
 
 FlaneurApp, flaneurdev@bootstragram.com
 
+## Credits
+
+[Photo by Joanna Kosinska](https://unsplash.com/photos/spAkZnUleVw)
+
 ## License
 
 FlaneurImagePicker is available under the MIT license. See the LICENSE file for more info.
+
+[flaneur-app-store]: https://itunes.apple.com/app/apple-store/id1076641994?pt=118094338&ct=FlaneurImagePickerGithub&mt=8
