@@ -46,8 +46,8 @@ class ViewController: UIViewController {
         flaneurPicker.navigationBar.topItem?.rightBarButtonItem?.tintColor = .green
         flaneurPicker.navigationBar.topItem?.title = "MyTitle"
         flaneurPicker.navigationBar.titleTextAttributes = [
-            NSFontAttributeName: UIFont(name: "Futura-CondensedMedium", size: 16.0)!,
-            NSForegroundColorAttributeName: UIColor.cyan
+            NSAttributedStringKey.font: UIFont(name: "Futura-CondensedMedium", size: 16.0)!,
+            NSAttributedStringKey.foregroundColor: UIColor.cyan
         ]
 
         flaneurPicker.config.removeButtonColor = .red

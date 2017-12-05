@@ -358,13 +358,13 @@ final public class FlaneurImagePickerController: UIViewController {
 
     // MARK: - Button Touched
 
-    func doneButtonTouched() {
+    @objc func doneButtonTouched() {
         delegate?.flaneurImagePickerController(self,
                                                didFinishPickingImages: selectedImages,
                                                userInfo: userInfo)
     }
 
-    func cancelButtonTouched() {
+    @objc func cancelButtonTouched() {
         delegate?.flaneurImagePickerControllerDidCancel(self)
     }
 
@@ -578,7 +578,7 @@ extension FlaneurImagePickerController: ListAdapterDataSource {
         case .imageSources:
             guard let imageSourceName = object as? String else { fatalError("Invalid object") }
 
-            let buttonTouchedClosure: ActionKitVoidClosure = { [weak self] _ in
+            let buttonTouchedClosure: ActionKitVoidClosure = { [weak self] in
                 self?.switchToSource(withName: imageSourceName)
             }
 

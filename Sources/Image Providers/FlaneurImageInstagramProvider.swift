@@ -220,7 +220,7 @@ final class SignInWebViewController: UIViewController, UIWebViewDelegate {
         webview?.frame = view.frame
     }
     
-    func closeWebView() {
+    @objc func closeWebView() {
         self.dismiss(animated: true, completion: nil)
     }
     

@@ -45,7 +45,7 @@ final internal class PageControlManager: NSObject {
         self.pageControl = pageControl        
     }
     
-    func pageControlValueChanged(sender: UIPageControl) {
+    @objc func pageControlValueChanged(sender: UIPageControl) {
         goToPage(page: sender.currentPage)
     }
     
