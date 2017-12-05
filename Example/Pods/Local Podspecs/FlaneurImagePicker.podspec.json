@@ -39,6 +39,7 @@
     ]
   },
   "pod_target_xcconfig": {
-    "SWIFT_SWIFT3_OBJC_INFERENCE": "Default"
+    "SWIFT_SWIFT3_OBJC_INFERENCE": "Default",
+    "SWIFT_VERSION": "4.0"
   }
 }

@@ -28,7 +28,10 @@ Pod::Spec.new do |s|
   s.dependency 'ActionKit', '~> 2.1'
   s.dependency 'Kingfisher', '~> 4.0'
 
-  s.pod_target_xcconfig = { 'SWIFT_SWIFT3_OBJC_INFERENCE' => 'Default' }
+  s.pod_target_xcconfig = {
+    'SWIFT_SWIFT3_OBJC_INFERENCE' => 'Default',
+    'SWIFT_VERSION' => '4.0'
+  }
 
-  # s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
+  # s.pod_target_xcconfig = {  }
 end
