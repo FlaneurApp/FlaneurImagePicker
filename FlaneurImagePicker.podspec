@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'FlaneurImagePicker'
-  s.version          = '0.3.1-alpha'
+  s.version          = '0.4.0'
   s.summary          = 'FlaneurImagePicker is an iOS image picker'
 
   s.description      = <<-DESC
@@ -32,6 +32,4 @@ Pod::Spec.new do |s|
     'SWIFT_SWIFT3_OBJC_INFERENCE' => 'Default',
     'SWIFT_VERSION' => '4.0'
   }
-
-  # s.pod_target_xcconfig = {  }
 end

@@ -22,7 +22,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 ## Requirements
 
 * iOS 9
-* Swift 3
+* Swift 4
 
 ## Installation
 
