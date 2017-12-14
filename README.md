@@ -73,7 +73,7 @@ values in your app's `.plist` file for the different sources:
 
 In order to configure the picker you can use the config object of the picker:
 
-```
+```swift
 // Changes the cancel button's title
 imagePicker.config.cancelButtonTitle = "Cancel"
 
@@ -94,7 +94,7 @@ imagePicker.config.heightForSection = [.selectedImages: Int(UIScreen.main.bounds
 
 // You can find all the possible configurations in the documentation
 // as well as an example in the Example directory of the repo
- ...
+...
 ```
 
 ## Instagram Support
