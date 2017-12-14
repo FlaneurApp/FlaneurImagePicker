@@ -10,10 +10,22 @@ import UIKit
 import IGListKit
 import ActionKit
 
+/// Specifies what action to perform when a new image is tapped.
+public enum FlaneurImagePickerControllerAction {
+    /// Adds the new image to the current selection (default).
+    case add
+
+    /// Replace the last item of the current selection with the new image.
+    case replaceLast
+
+    /// Do nothing: leave the current selection unchanged and ignore the new image.
+    case doNothing
+}
+
 /// A set of methods that your delegate object must implement to interact with the image picker interface.
 public protocol FlaneurImagePickerControllerDelegate: AnyObject {
 
-    /// Tells the delegate that the user picked images.
+    /// Tells the delegate that the user is done picking images.
     ///
     /// - Parameters:
     ///   - picker: The controller object managing the image picker interface.
@@ -22,6 +34,17 @@ public protocol FlaneurImagePickerControllerDelegate: AnyObject {
     func flaneurImagePickerController(_ picker: FlaneurImagePickerController,
                                       didFinishPickingImages images: [FlaneurImageDescription],
                                       userInfo: Any?)
+
+    /// Asks the delegate what to do with the new image the user just tapped.
+    ///
+    /// - Parameters:
+    ///   - picker: The controller object managing the image picker interface.
+    ///   - count: The current size of the image selection (ignoring the new image).
+    ///   - newImage: The new image the user just tapped.
+    /// - Returns: The action to perform regarding this new image.
+    func flaneurImagePickerController(_ picker: FlaneurImagePickerController,
+                                      withCurrentSelectionOfSize count: Int,
+                                      actionForNewImageSelection newImage: FlaneurImageDescription) -> FlaneurImagePickerControllerAction
 
     /// Tells the delegate that the user cancelled the pick operation.
     ///
@@ -97,18 +120,16 @@ final public class FlaneurImagePickerController: UIViewController {
     /// We also need to retrieve the adapter to refresh the UI
     var selectedImages: [FlaneurImageDescription] = [FlaneurImageDescription]() {
         didSet {
-            self.pageControlManager.numberOfPages = selectedImages.count
-
+            // Refresh the collection view
+            let newImageCount = selectedImages.count
             let adapter = adapterForSection(section: .selectedImages)
-            adapter.performUpdates(animated: true, completion: nil)
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
-                self?.pageControlManager.currentIndex = self!.selectedImages.count - 1
-                self?.pageControlManager.goToPage(page: self!.pageControlManager.currentIndex)
-            }
-
-            if selectedImages.count ==  self.config.maxNumberOfSelectedImages {
-                self.config.maxNumberOfSelectedImagesReachedClosure(self)
+            adapter.performUpdates(animated: true) { [weak self] success in
+                if success {
+                    // Update the page control
+                    let currentPage = newImageCount - 1
+                    self?.pageControlManager.numberOfPages = newImageCount
+                    self?.pageControlManager.goToPage(page: currentPage)
+                }
             }
         }
     }
@@ -158,29 +179,23 @@ final public class FlaneurImagePickerController: UIViewController {
         }
     }
 
-
-
     // MARK: - Initializers
 
     /// Init
     ///
     /// - Parameters:
-    ///   - maxNumberOfSelectedImages: Maximum number of pickable images
     ///   - userInfo: Arbitrary data
     ///   - sourcesDelegate: Array of image sources, aka: FlaneurImageSource
     ///   - selectedImages: An array of already selected images
-    public init(maxNumberOfSelectedImages: Int,
-                userInfo: Any?,
+    public init(userInfo: Any?,
                 sourcesDelegate: [FlaneurImageSource],
                 selectedImages: [FlaneurImageDescription]) {
-
         if sourcesDelegate.count != 0 {
             self.config.imageSourcesArray = sourcesDelegate
         }
 
         self.selectedImages = selectedImages
         self.userInfo = userInfo
-        self.config.maxNumberOfSelectedImages = maxNumberOfSelectedImages
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -387,17 +402,19 @@ final public class FlaneurImagePickerController: UIViewController {
     }
 
     func refreshGalleryIfVisible() {
-        if let galleryCollectionView = galleryCollectionView {
-            if galleryCollectionView.frame.width > 0 {
-                let adapter = adapterForSection(section: .pickerView)
-                // For performance issues, we don't want to activate IGListKit's diffing
-                // feature here (ie no `adapter.performUpdates(animated: true, completion: nil)`)
-                adapter.reloadData(completion: self.selectDefaultImageSource)
+        DispatchQueue.main.async {
+            if let galleryCollectionView = self.galleryCollectionView {
+                if galleryCollectionView.frame.width > 0 {
+                    let adapter = self.adapterForSection(section: .pickerView)
+                    // For performance issues, we don't want to activate IGListKit's diffing
+                    // feature here (ie no `adapter.performUpdates(animated: true, completion: nil)`)
+                    adapter.reloadData(completion: self.selectDefaultImageSource)
+                } else {
+                    debugPrint("Skipping reload as the galleryCollectionView seems to not be displayed right now (frame: \(galleryCollectionView.frame))")
+                }
             } else {
-                debugPrint("Skipping reload as the galleryCollectionView seems to not be displayed right now (frame: \(galleryCollectionView.frame))")
+                debugPrint("Skipping reload as the galleryCollectionView is nil right now.")
             }
-        } else {
-            debugPrint("Skipping reload as the galleryCollectionView is nil right now.")
         }
     }
 }
@@ -424,11 +441,24 @@ extension FlaneurImagePickerController {
     }
 
     internal func addImageToSelection(imageDescription: FlaneurImageDescription) {
-        guard self.selectedImages.count < self.config.maxNumberOfSelectedImages else {
-            return
-        }
-        if !self.selectedImages.contains(imageDescription) {
-            self.selectedImages.append(imageDescription)
+        if let imageIndex = selectedImages.index(of: imageDescription) {
+            pageControlManager.goToPage(page: imageIndex)
+        } else {
+            // It's a new image, what should we do with it?
+            let action = delegate?.flaneurImagePickerController(self,
+                                                                withCurrentSelectionOfSize: selectedImages.count,
+                                                                actionForNewImageSelection: imageDescription) ?? .add
+            switch action {
+            case .add:
+                selectedImages.append(imageDescription)
+            case .replaceLast:
+                // This is more complicated than removeLast + append but it's 1 operation
+                // and it avoids nasty side-effects from selectedImages' didSet code.
+                self.selectedImages.replaceSubrange((selectedImages.count - 1)..<selectedImages.count,
+                                                    with: [imageDescription])
+            case .doNothing:
+                ()
+            }
         }
     }
 
@@ -450,22 +480,22 @@ extension FlaneurImagePickerController {
                                       preferredStyle: .alert)
         let settingsAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""),
                                            style: .default) { (_) -> Void in
-            guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
-                return
-            }
+                                            guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
+                                                return
+                                            }
 
-            if UIApplication.shared.canOpenURL(settingsUrl) {
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(settingsUrl, completionHandler: nil)
-                } else {
-                    UIApplication.shared.openURL(settingsUrl)
-                }
-            }
+                                            if UIApplication.shared.canOpenURL(settingsUrl) {
+                                                if #available(iOS 10.0, *) {
+                                                    UIApplication.shared.open(settingsUrl, completionHandler: nil)
+                                                } else {
+                                                    UIApplication.shared.openURL(settingsUrl)
+                                                }
+                                            }
         }
 
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""),
                                          style: .default) { (_) -> Void in
-            alert.dismiss(animated: true, completion: nil)
+                                            alert.dismiss(animated: true, completion: nil)
         }
 
         alert.addAction(settingsAction)
@@ -662,15 +692,23 @@ extension FlaneurImagePickerController: FlaneurImageProviderDelegate {
 
         self.pickerViewImages = []
 
+        // FIXME: this is not good.
+        // 1. Each source should be able to provide its own error, we shouldn't rely on the view controller
+        // to decide a source-dependent message.
+        // 2. We don't want NSLocalizedString in a library. We probably want to forward the error
+        // to the delegate and let it deal with it.
         if unauthorizedSourcePermission == .camera {
             message = NSLocalizedString("Camera is not accessible on the device", comment: "")
         } else if unauthorizedSourcePermission == .instagram {
             message = NSLocalizedString("Check your internet connection", comment: "")
         }
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: UIAlertActionStyle.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
 
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""),
+                                      style: .cancel,
+                                      handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
 }

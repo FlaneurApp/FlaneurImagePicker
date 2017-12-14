@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - ...
+
+* Removed the notion of maximum number of selected images, that's been replaced
+  with a new delegation process that allows more flexibility for the caller:
+  dynamically decide if she wants to keep adding to the selection, replacing
+  the last item of the selection or doing nothing.
+* Fixed a crash met randomly at development time that made UI calls from the
+  background thread.
+* Made some code simpler (including the selectedImages' `didSet` observer).
+* When tapping an image that has already been selected, we scroll back to it to
+  make it obvious why the selection doesn't change.
+
 ## [0.4.0] - 2017-12-05
 
 * Swift 4

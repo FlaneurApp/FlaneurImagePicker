@@ -25,12 +25,6 @@ final internal class PageControlManager: NSObject {
         }
     }
     
-    var currentIndex: Int = 0 {
-        didSet {
-            self.pageControl?.currentPage = currentIndex
-        }
-    }
-    
     init(with pageControl: UIPageControl, andConfig config: FlaneurImagePickerConfig) {
         super.init()
 
@@ -53,11 +47,14 @@ final internal class PageControlManager: NSObject {
         let scrollWidth = collectionView!.frame.width
         let scrollHeight = collectionView!.frame.height
 
-        let scrollTo = CGRect(x: scrollWidth * CGFloat(page), y: CGFloat(0), width: scrollWidth, height: scrollHeight)
+        let scrollTo = CGRect(x: scrollWidth * CGFloat(page),
+                              y: CGFloat(0),
+                              width: scrollWidth,
+                              height: scrollHeight)
 
         collectionView?.scrollRectToVisible(scrollTo, animated: true)
+        pageControl?.currentPage = page
     }
-
 }
 
 extension PageControlManager: ListScrollDelegate {
@@ -65,7 +62,7 @@ extension PageControlManager: ListScrollDelegate {
         if let scrollView = listAdapter.collectionView {
             let width = scrollView.bounds.width
             let page = (scrollView.contentOffset.x + (0.5 * width)) / width
-            currentIndex = Int(page)
+            pageControl?.currentPage = Int(page)
         }
     }
 

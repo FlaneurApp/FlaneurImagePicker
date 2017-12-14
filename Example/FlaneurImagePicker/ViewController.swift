@@ -29,8 +29,7 @@ class ViewController: UIViewController {
             FlaneurImageDescription(imageURLString: "https://cdn.pixabay.com/photo/2017/07/28/16/30/bee-pollen-2549125_960_720.jpg")!
         ]
 
-        let flaneurPicker = FlaneurImagePickerController(maxNumberOfSelectedImages: 6,
-                                                         userInfo: nil,
+        let flaneurPicker = FlaneurImagePickerController(userInfo: nil,
                                                          sourcesDelegate: [],
                                                          selectedImages: images)
 
@@ -106,5 +105,17 @@ extension ViewController: FlaneurImagePickerControllerDelegate {
 
     func flaneurImagePickerControllerDidFail(_ error: FlaneurImagePickerError) {
         print("ERROR -- \(error.localizedDescription)")
+    }
+
+    func flaneurImagePickerController(_ picker: FlaneurImagePickerController,
+                                      withCurrentSelectionOfSize count: Int,
+                                      actionForNewImageSelection: FlaneurImageDescription) ->
+        FlaneurImagePickerControllerAction {
+            debugPrint("Count is \(count)")
+            if count < 5 {
+                return .add
+            } else {
+                return .replaceLast
+            }
     }
 }

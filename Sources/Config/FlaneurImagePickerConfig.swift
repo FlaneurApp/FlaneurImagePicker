@@ -105,9 +105,6 @@ public class FlaneurImagePickerConfig {
     
     // MARK: - Sections configurations
     
-    /// Maximum number of selected images, defaults to 5
-    public var maxNumberOfSelectedImages = 5
-    
     /// Changes the order of the sections shown on the screen
     public var sectionsOrderArray: [FlaneurImagePickerSection] = [
         .selectedImages,
@@ -121,23 +118,4 @@ public class FlaneurImagePickerConfig {
     /// # IMPORTANT
     /// ### **Your class must conform to the FlaneurAuthorizationView's Protocol**
     public var authorizationViewCustomClass: UIView.Type?
-    
-    
-    // MARK: - Behavior shifters
-    
-    /// A closure to call when the maximum number of selected pictures is reached, defaults to a UIAlertViewController
-    public var maxNumberOfSelectedImagesReachedClosure: (UIViewController?) -> Void = { callerViewController in
-        guard let vc = callerViewController else {
-            return
-        }
-        let alert = UIAlertController(
-            title: NSLocalizedString("Alert", comment: ""),
-            message: NSLocalizedString("Maximum number of pictures reached", comment: ""),
-            preferredStyle: .alert)
-        alert.addAction(UIAlertAction(
-            title: NSLocalizedString("OK", comment: ""),
-            style: .cancel,
-            handler: nil))
-        vc.present(alert, animated: true, completion: nil)
-    }
 }

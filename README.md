@@ -40,42 +40,33 @@ To launch the Flaneur Image Picker:
 ```swift
 #import FlaneurImagePicker
 
-let imagePicker = FlaneurImagePickerController(maxNumberOfSelectedImages: 10, userInfo: nil, sourcesDelegate: [], selectedImages: [])
-
+let imagePicker = FlaneurImagePickerController(userInfo: nil,
+                                               sourcesDelegate: [],
+                                               selectedImages: [])
 imagePicker.delegate = self
-
 self.present(imagePicker, animated: true, completion: nil)
 ```
 
-Implement the FlaneurImagePickerControllerDelegate protocol:
+See the provided example to get a default implementation of the
+`FlaneurImagePickerControllerDelegate` protocol.
 
-```swift
-extension ViewController: FlaneurImagePickerControllerDelegate {
-  func flaneurImagePickerController(_ picker: FlaneurImagePickerController, didFinishPickingImages images: [FlaneurImageDescription], userInfo: Any?) {
-      print("didFinishPickingImages")
-  }
+## Property List Keys
 
-    func flaneurImagePickerControllerDidCancel(_ picker: FlaneurImagePickerController) {
-        print("didCancel")
-    }
-}
-```
-
-<a name="plist_section"></a>
-You need to add values in your .plist file for the different sources:
+Depending on the image sources you intend to integrate, you will need to add
+values in your app's `.plist` file for the different sources:
 
 ```
-  <key>NSCameraUsageDescription</key>
-  <string>This application needs to access your camera</string>
+<key>NSCameraUsageDescription</key>
+<string>This application needs to access your camera</string>
 
-  <key>NSPhotoLibraryUsageDescription</key>
-  <string>This application needs to access your photo library</string>
+<key>NSPhotoLibraryUsageDescription</key>
+<string>This application needs to access your photo library</string>
 
-  <key>InstagramClientID</key>
-  <string>YOUR_INSTAGRAM_CLIENT_ID</string>
+<key>InstagramClientID</key>
+<string>YOUR_INSTAGRAM_CLIENT_ID</string>
 
-  <key>InstagramRedirectURI</key>
-	<string>YOUR_INSTAGRAM_REDIRECT_URI</string>
+<key>InstagramRedirectURI</key>
+<string>YOUR_INSTAGRAM_REDIRECT_URI</string>
 ```
 
 ## Configuration
@@ -95,17 +86,18 @@ imagePicker.config.removeButtonColor = .red
 // Changes the order of the sections
  imagePicker.config.sectionsOrderArray = [.imageSources, .pickerView, .selectedImages]
 
- // Changes the title for the one or more imageSources
- imagePicker.config.titleForImageSource = [.instagram: "Insta."]
+// Changes the title for the one or more imageSources
+imagePicker.config.titleForImageSource = [.instagram: "Insta."]
 
- // Changes height for one or more sections
- imagePicker.config.heightForSection = [.selectedImages: Int(UIScreen.main.bounds.height / CGFloat(3)), .imageSources: 50]
+// Changes height for one or more sections
+imagePicker.config.heightForSection = [.selectedImages: Int(UIScreen.main.bounds.height / CGFloat(3)), .imageSources: 50]
 
 // You can find all the possible configurations in the documentation
 // as well as an example in the Example directory of the repo
  ...
 ```
-## Instagram
+
+## Instagram Support
 
 To configure instagram, you need to go on the [instagram developer website](https://www.instagram.com/developer/)
 
@@ -139,8 +131,8 @@ If you want to leave the Sandbox mode, you need to submit your app to instagram,
 
 ## Documentation
 
-You can find the documentation in *doc* folder of the repository.
-Open the index.html to view the documentation.
+You can find the documentation in the *docs* folder of the repository.
+The `master` version of the documentation is also available [online](https://flaneurapp.github.io/FlaneurImagePicker/).
 
 ## Author
 

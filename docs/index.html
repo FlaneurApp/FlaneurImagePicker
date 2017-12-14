@@ -13,7 +13,7 @@
     <a title="FlaneurImagePicker  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">FlaneurImagePicker Docs</a> (86% documented)</p>
+        <p><a href="index.html">FlaneurImagePicker Docs</a> (87% documented)</p>
         <p class="header-right"><a href="https://github.com/FlaneurApp/FlaneurImagePicker"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -49,6 +49,9 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Enums/FlaneurImageDescriptionSourceType.html">FlaneurImageDescriptionSourceType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/FlaneurImagePickerControllerAction.html">FlaneurImagePickerControllerAction</a>
               </li>
               <li class="nav-group-task">
                 <a href="Enums/FlaneurImagePickerError.html">FlaneurImagePickerError</a>
@@ -115,38 +118,30 @@ it, simply add the following line to your Podfile:</p>
 <p>To launch the Flaneur Image Picker:</p>
 <pre class="highlight swift"><code><span class="cp">#import FlaneurImagePicker</span>
 
-<span class="k">let</span> <span class="nv">imagePicker</span> <span class="o">=</span> <span class="kt">FlaneurImagePickerController</span><span class="p">(</span><span class="nv">maxNumberOfSelectedImages</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nv">userInfo</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">sourcesDelegate</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">selectedImages</span><span class="p">:</span> <span class="p">[])</span>
-
+<span class="k">let</span> <span class="nv">imagePicker</span> <span class="o">=</span> <span class="kt">FlaneurImagePickerController</span><span class="p">(</span><span class="nv">userInfo</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span>
+                                               <span class="nv">sourcesDelegate</span><span class="p">:</span> <span class="p">[],</span>
+                                               <span class="nv">selectedImages</span><span class="p">:</span> <span class="p">[])</span>
 <span class="n">imagePicker</span><span class="o">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="k">self</span>
-
 <span class="k">self</span><span class="o">.</span><span class="nf">present</span><span class="p">(</span><span class="n">imagePicker</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
 </code></pre>
 
-<p>Implement the FlaneurImagePickerControllerDelegate protocol:</p>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt">FlaneurImagePickerControllerDelegate</span> <span class="p">{</span>
-  <span class="kd">func</span> <span class="nf">flaneurImagePickerController</span><span class="p">(</span><span class="n">_</span> <span class="nv">picker</span><span class="p">:</span> <span class="kt">FlaneurImagePickerController</span><span class="p">,</span> <span class="n">didFinishPickingImages</span> <span class="nv">images</span><span class="p">:</span> <span class="p">[</span><span class="kt">FlaneurImageDescription</span><span class="p">],</span> <span class="nv">userInfo</span><span class="p">:</span> <span class="kt">Any</span><span class="p">?)</span> <span class="p">{</span>
-      <span class="nf">print</span><span class="p">(</span><span class="s">"didFinishPickingImages"</span><span class="p">)</span>
-  <span class="p">}</span>
+<p>See the provided example to get a default implementation of the
+<code><a href="Protocols/FlaneurImagePickerControllerDelegate.html">FlaneurImagePickerControllerDelegate</a></code> protocol.</p>
+<h2 id='property-list-keys' class='heading'>Property List Keys</h2>
 
-    <span class="kd">func</span> <span class="nf">flaneurImagePickerControllerDidCancel</span><span class="p">(</span><span class="n">_</span> <span class="nv">picker</span><span class="p">:</span> <span class="kt">FlaneurImagePickerController</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nf">print</span><span class="p">(</span><span class="s">"didCancel"</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre>
+<p>Depending on the image sources you intend to integrate, you will need to add
+values in your app&rsquo;s <code>.plist</code> file for the different sources:</p>
+<pre class="highlight plaintext"><code>&lt;key&gt;NSCameraUsageDescription&lt;/key&gt;
+&lt;string&gt;This application needs to access your camera&lt;/string&gt;
 
-<p><a name="plist_section"></a>
-You need to add values in your .plist file for the different sources:</p>
-<pre class="highlight plaintext"><code>  &lt;key&gt;NSCameraUsageDescription&lt;/key&gt;
-  &lt;string&gt;This application needs to access your camera&lt;/string&gt;
+&lt;key&gt;NSPhotoLibraryUsageDescription&lt;/key&gt;
+&lt;string&gt;This application needs to access your photo library&lt;/string&gt;
 
-  &lt;key&gt;NSPhotoLibraryUsageDescription&lt;/key&gt;
-  &lt;string&gt;This application needs to access your photo library&lt;/string&gt;
+&lt;key&gt;InstagramClientID&lt;/key&gt;
+&lt;string&gt;YOUR_INSTAGRAM_CLIENT_ID&lt;/string&gt;
 
-  &lt;key&gt;InstagramClientID&lt;/key&gt;
-  &lt;string&gt;YOUR_INSTAGRAM_CLIENT_ID&lt;/string&gt;
-
-  &lt;key&gt;InstagramRedirectURI&lt;/key&gt;
-    &lt;string&gt;YOUR_INSTAGRAM_REDIRECT_URI&lt;/string&gt;
+&lt;key&gt;InstagramRedirectURI&lt;/key&gt;
+&lt;string&gt;YOUR_INSTAGRAM_REDIRECT_URI&lt;/string&gt;
 </code></pre>
 <h2 id='configuration' class='heading'>Configuration</h2>
 
@@ -163,17 +158,17 @@ imagePicker.config.removeButtonColor = .red
 // Changes the order of the sections
  imagePicker.config.sectionsOrderArray = [.imageSources, .pickerView, .selectedImages]
 
- // Changes the title for the one or more imageSources
- imagePicker.config.titleForImageSource = [.instagram: "Insta."]
+// Changes the title for the one or more imageSources
+imagePicker.config.titleForImageSource = [.instagram: "Insta."]
 
- // Changes height for one or more sections
- imagePicker.config.heightForSection = [.selectedImages: Int(UIScreen.main.bounds.height / CGFloat(3)), .imageSources: 50]
+// Changes height for one or more sections
+imagePicker.config.heightForSection = [.selectedImages: Int(UIScreen.main.bounds.height / CGFloat(3)), .imageSources: 50]
 
 // You can find all the possible configurations in the documentation
 // as well as an example in the Example directory of the repo
  ...
 </code></pre>
-<h2 id='instagram' class='heading'>Instagram</h2>
+<h2 id='instagram-support' class='heading'>Instagram Support</h2>
 
 <p>To configure instagram, you need to go on the <a href="https://www.instagram.com/developer/">instagram developer website</a></p>
 
@@ -210,8 +205,8 @@ imagePicker.config.removeButtonColor = .red
 <p>If you want to leave the Sandbox mode, you need to submit your app to instagram, read the documentation to do so: <a href="https://www.instagram.com/developer/">instagram developer website</a></p>
 <h2 id='documentation' class='heading'>Documentation</h2>
 
-<p>You can find the documentation in <em>doc</em> folder of the repository.
-Open the index.html to view the documentation.</p>
+<p>You can find the documentation in the <em>docs</em> folder of the repository.
+The <code>master</code> version of the documentation is also available <a href="https://flaneurapp.github.io/FlaneurImagePicker/">online</a>.</p>
 <h2 id='author' class='heading'>Author</h2>
 
 <p>FlaneurApp, <a href="mailto:flaneurdev@bootstragram.com">flaneurdev@bootstragram.com</a></p>
@@ -225,7 +220,7 @@ Open the index.html to view the documentation.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="http://flaneurapp.com" target="_blank" rel="external">Flâneur</a>. All rights reserved. (Last updated: 2017-12-05)</p>
+          <p>&copy; 2017 <a class="link" href="http://flaneurapp.com" target="_blank" rel="external">Flâneur</a>. All rights reserved. (Last updated: 2017-12-14)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
