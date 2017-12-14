@@ -103,8 +103,7 @@ final public class FlaneurImagePickerController: UIViewController {
 
     var adapters: [ListAdapter] = [ListAdapter]()
 
-    /// Delegate property, should be set to whatever object you want to be notified in of the ImagePicker's events and
-    /// which is conforming to *FlaneurImagePickerControllerDelegate*
+    /// The object that acts as the delegate of the picker view.
     open weak var delegate: FlaneurImagePickerControllerDelegate?
 
     /// Contains all the Image Picker's configurations, you can override those configs by setting their public properties
