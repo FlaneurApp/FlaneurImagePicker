@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * Made some code simpler (including the selectedImages' `didSet` observer).
 * When tapping an image that has already been selected, we scroll back to it to
   make it obvious why the selection doesn't change.
+* Add logo for iPhone Example app.
 
 ## [0.4.0] - 2017-12-05
 
