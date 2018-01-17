@@ -654,6 +654,7 @@ extension FlaneurImagePickerController: ListAdapterDataSource {
                 }
             }
         }
+        // At this point, we know that currentImageSource != nil
         let sourceName: String = currentImageSource!.rawValue
 
         if let customViewClass = config.authorizationViewCustomClass,
