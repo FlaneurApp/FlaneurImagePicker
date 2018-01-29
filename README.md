@@ -136,7 +136,7 @@ The `master` version of the documentation is also available [online](https://fla
 
 ## Author
 
-FlaneurApp, flaneurdev@bootstragram.com
+FlaneurApp, dev@flaneurapp.com
 
 ## Credits
 

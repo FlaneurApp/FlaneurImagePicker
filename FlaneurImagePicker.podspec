@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/FlaneurApp/FlaneurImagePicker"
   # s.screenshots  = "https://raw.githubusercontent.com/toto/FlaneurImagePicker/master/images/logo.png"
   s.license      = { :type => "MIT", :file => "LICENSE" }
-  s.authors      = { "Flâneur" => "flaneurdev@bootstragram.com" }
+  s.authors      = { "Flâneur" => "dev@flaneurapp.com" }
   s.source       = { :git => "https://github.com/FlaneurApp/FlaneurImagePicker.git", :tag => s.version.to_s }
 
   s.ios.deployment_target = "9.0"

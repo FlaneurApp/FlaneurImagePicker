@@ -24,7 +24,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   ActionKit: cf7ca5781f4a43342384d872105fadd58985f416
-  FlaneurImagePicker: ed5659c24f6b2dde55a6b08749dae37d80c93e2d
+  FlaneurImagePicker: becf15a1e3968bbbbfcc110146bce1efcc3f00da
   IGListKit: cb97f405ae43e59fe1da74271e19427ec20d3c07
   Kingfisher: 26ae0473102b77b575da51960c932431e3745407
   Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
