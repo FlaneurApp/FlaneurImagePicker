@@ -9,62 +9,43 @@
 import UIKit
 import Photos
 
+/// An image provider using the device's photo library.
 final class FlaneurImageLibraryProvider: NSObject, FlaneurImageProvider {
     weak var delegate: FlaneurImageProviderDelegate?
-    weak var parentVC: UIViewController?
-    
-    private let config: FlaneurImagePickerConfig
-    
-    init(delegate: FlaneurImageProviderDelegate, andParentVC parentVC: UIViewController) {
-        self.delegate = delegate
-        self.config = FlaneurImagePickerConfig()
-        self.parentVC = parentVC
 
+    let fetchLimit: Int
+    
+    init(fetchLimit: Int = 0) {
+        self.fetchLimit = fetchLimit
         super.init()
     }
 
-    init(delegate: FlaneurImageProviderDelegate, andConfig config: FlaneurImagePickerConfig) {
-        self.delegate = delegate
-        self.config = config
-
-        super.init()
-    }
-    
     func isAuthorized() -> Bool {
-        if PHPhotoLibrary.authorizationStatus() == .authorized {
-            return true
-        }
-        return false
+        return PHPhotoLibrary.authorizationStatus() == .authorized
     }
     
-    func askForPermission(isPermissionGiven: @escaping (Bool) -> Void) {
-        PHPhotoLibrary.requestAuthorization({
-            (newStatus) in
-            if newStatus ==  PHAuthorizationStatus.authorized {
-                return isPermissionGiven(true)
-            }
-            return isPermissionGiven(false)
-        })
+    func requestAuthorization(_ handler: @escaping (Bool) -> Void) {
+        PHPhotoLibrary.requestAuthorization { newStatus in
+            handler(newStatus == .authorized)
+        }
     }
     
     func fetchImagesFromSource() {
-        let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [ sortDescriptor ]
-        fetchOptions.fetchLimit = 1200
+        guard let delegate = delegate else { return }
 
-        let assetsList = PHAsset.fetchAssets(with: .image, options: fetchOptions)
-        var images = [FlaneurImageDescription]()
+        let assetsList = PHAsset.fetchAssets(with: .image, options: .latest(fetchLimit))
+        var images: [FlaneurImageDescription] = []
+
         for i in 0..<assetsList.count {
             if let imageDescription = FlaneurImageDescription(asset: assetsList[i]) {
                 images.append(imageDescription)
             }
         }
         
-        self.delegate?.didLoadImages(images: images)
+        delegate.didLoadImages(images: images)
     }
     
     func fetchNextPage() {
-        // Not useful here
+        ()
     }
 }

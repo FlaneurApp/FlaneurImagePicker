@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+* Updated `FlaneurImageProvider` to be more Swifty.
+* Add `fetchLimit` configuration to `FlaneurImageLibraryProvider` (defauls to 0 ie fetch everything)
+
 ## [0.5.1] - 2018-02-05
 
 * Updated credits and contact info.

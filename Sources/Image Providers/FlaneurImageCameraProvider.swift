@@ -15,28 +15,19 @@ final class FlaneurImageCameraProvider: NSObject, FlaneurImageProvider {
     
     var picker = UIImagePickerController()
 
-    init(delegate: FlaneurImageProviderDelegate, andParentVC parentVC: UIViewController) {
-        self.delegate = delegate
+    init(parentVC: UIViewController) {
         self.parentVC = parentVC
-
         super.init()
         self.picker.delegate = self
     }
 
     func isAuthorized() -> Bool {
-        if AVCaptureDevice.authorizationStatus(for: AVMediaType.video) == AVAuthorizationStatus.authorized {
-            return true
-        }
-        return false
+        return AVCaptureDevice.authorizationStatus(for: AVMediaType.video) == .authorized
     }
 
-    func askForPermission(isPermissionGiven: @escaping (Bool) -> Void) {
+    func requestAuthorization(_ handler: @escaping (Bool) -> Void) {
         AVCaptureDevice.requestAccess(for: AVMediaType.video) { response in
-            if response {
-                return isPermissionGiven(true)
-            } else {
-                return isPermissionGiven(false)
-            }
+            handler(response)
         }
     }
 
@@ -57,10 +48,10 @@ final class FlaneurImageCameraProvider: NSObject, FlaneurImageProvider {
 }
 
 extension FlaneurImageCameraProvider: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.picker.dismiss(animated: true, completion: nil)
     }
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let image = info[UIImagePickerControllerOriginalImage] as? UIImage
         

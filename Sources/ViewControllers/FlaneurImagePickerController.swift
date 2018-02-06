@@ -156,11 +156,14 @@ final public class FlaneurImagePickerController: UIViewController {
                     // FIXME: the fact that the image picker controller has to switch defeats the
                 // *plugin* intent of the providers.
                 case .camera:
-                    existingSelf.imageProvider = FlaneurImageCameraProvider(delegate: existingSelf, andParentVC: existingSelf)
+                    existingSelf.imageProvider = FlaneurImageCameraProvider(parentVC: existingSelf)
+                    existingSelf.imageProvider.delegate = self
                 case .library:
-                    existingSelf.imageProvider = FlaneurImageLibraryProvider(delegate: existingSelf, andConfig: existingSelf.config)
+                    existingSelf.imageProvider = FlaneurImageLibraryProvider()
+                    existingSelf.imageProvider.delegate = self
                 case .instagram:
-                    existingSelf.imageProvider = FlaneurImageInstagramProvider(delegate: existingSelf, andParentVC: existingSelf)
+                    existingSelf.imageProvider = FlaneurImageInstagramProvider(parentVC: existingSelf)
+                    existingSelf.imageProvider.delegate = self
                     DispatchQueue.main.async {
                         self?.setLoadMoreManager()
                     }
@@ -646,7 +649,7 @@ extension FlaneurImagePickerController: ListAdapterDataSource {
         }
 
         let authorizeClosure: ActionKitVoidClosure = { [weak self] in
-            self?.imageProvider.askForPermission { [weak self] isPermissionGiven in
+            self?.imageProvider.requestAuthorization { [weak self] isPermissionGiven in
                 if isPermissionGiven {
                     self?.imageProvider.fetchImagesFromSource()
                 } else {
