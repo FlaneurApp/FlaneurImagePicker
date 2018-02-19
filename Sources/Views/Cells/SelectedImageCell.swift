@@ -10,6 +10,8 @@ import UIKit
 import ActionKit
 
 final class SelectedImageCell: UICollectionViewCell {
+    private let gridUnit: CGFloat = 8.0
+
     lazy var imageView: FlaneurImageView = {
         let view = FlaneurImageView()
         view.contentMode = .scaleAspectFill
@@ -20,23 +22,44 @@ final class SelectedImageCell: UICollectionViewCell {
     }()
     
     lazy var deleteButton: UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton(type: .custom)
         self.contentView.insertSubview(button, aboveSubview: self.imageView)
         return button
     }()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        // This is the FontAwesome trash
+        deleteButton.setTitle("\u{f2ed}", for: .normal)
+        deleteButton.titleLabel?.font = UIFont(name: "FontAwesome5FreeRegular", size: 2.0 * gridUnit)
+        deleteButton.tintColor = .white
+        deleteButton.backgroundColor = UIColor(white: 0.0, alpha: 0.3)
+        deleteButton.layer.borderColor = UIColor(white: 1.0, alpha: 0.3).cgColor
+        deleteButton.layer.borderWidth = 1.0
+        deleteButton.layer.cornerRadius = 2.0 * gridUnit
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func layoutSubviews() {
         super.layoutSubviews()
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
-        imageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        imageView.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
-        imageView.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
-
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
-        deleteButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10).isActive = true
-        deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+
+        NSLayoutConstraint.activate([
+            imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            imageView.heightAnchor.constraint(equalTo: contentView.heightAnchor),
+            deleteButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -gridUnit),
+            deleteButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -gridUnit),
+            deleteButton.heightAnchor.constraint(equalToConstant: 4*gridUnit),
+            deleteButton.widthAnchor.constraint(equalToConstant: 4*gridUnit),
+            ])
     }
 
     override func prepareForReuse() {
@@ -50,8 +73,6 @@ final class SelectedImageCell: UICollectionViewCell {
         imageView.contentMode = config.selectedImagesContentMode
         imageView.setImage(with: imageDescription)
 
-        deleteButton.setTitle(config.removeButtonTitle, for: .normal)
-        deleteButton.tintColor = config.removeButtonColor
         deleteButton.tag = imageDescription.hashValue
         deleteButton.addControlEvent(.touchUpInside, removeClosure)
     }

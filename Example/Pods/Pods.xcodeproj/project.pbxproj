@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		002CC9B329CC277059DF17D6E52BCBA4 /* Pods-FlaneurImagePicker_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 48C8CE88034A6D6F9E80972FA427D385 /* Pods-FlaneurImagePicker_Example-dummy.m */; };
 		007D3BCB2029F0FD0083A805 /* Photos+FlaneurImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007D3BC92029EF430083A805 /* Photos+FlaneurImagePicker.swift */; };
+		0085E223203B0FBD005BDE24 /* Font Awesome 5 Free-Regular-400.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0085E222203B0FBD005BDE24 /* Font Awesome 5 Free-Regular-400.otf */; };
+		0085E225203B11B2005BDE24 /* UIFont+FlaneurImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0085E224203B11B2005BDE24 /* UIFont+FlaneurImagePicker.swift */; };
 		00F28DBCBFD3A8E0C1A6F810AD639E8B /* IGListAdapterDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = AD1BA916E111600C41D83B1A62F09FA2 /* IGListAdapterDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		017FA43A9979E6A57002489BDF5682C0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B1A2CC57E6F306B8058CB8D81DB44BC /* Foundation.framework */; };
 		04C9A01AD178A7F6E8A0306D9EF80275 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B1A2CC57E6F306B8058CB8D81DB44BC /* Foundation.framework */; };
@@ -367,6 +369,8 @@
 /* Begin PBXFileReference section */
 		0056D51649BC133940BAC1939475C891 /* IGListSingleSectionController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IGListSingleSectionController.h; path = Source/IGListSingleSectionController.h; sourceTree = "<group>"; };
 		007D3BC92029EF430083A805 /* Photos+FlaneurImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photos+FlaneurImagePicker.swift"; sourceTree = "<group>"; };
+		0085E222203B0FBD005BDE24 /* Font Awesome 5 Free-Regular-400.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Font Awesome 5 Free-Regular-400.otf"; path = "Sources/Assets/Font Awesome 5 Free-Regular-400.otf"; sourceTree = "<group>"; };
+		0085E224203B11B2005BDE24 /* UIFont+FlaneurImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+FlaneurImagePicker.swift"; sourceTree = "<group>"; };
 		0110BBA2DF2CBF7AE72A3263681AFCF1 /* Nimble-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Nimble-dummy.m"; sourceTree = "<group>"; };
 		024995448859A4CD9BCFA471CDF8CC4F /* IGListKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "IGListKit-dummy.m"; sourceTree = "<group>"; };
 		03A4F6310C0981F5E19AD85A032A5290 /* IGListDebugger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IGListDebugger.h; path = Source/Internal/IGListDebugger.h; sourceTree = "<group>"; };
@@ -1055,6 +1059,7 @@
 		88DA2A45699D262A65EF4D4F29078D2A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0085E222203B0FBD005BDE24 /* Font Awesome 5 Free-Regular-400.otf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1151,6 +1156,7 @@
 			children = (
 				CE61703A3E7DA721BE0C872AC8F7E8CF /* UIImageViewExtension.swift */,
 				007D3BC92029EF430083A805 /* Photos+FlaneurImagePicker.swift */,
+				0085E224203B11B2005BDE24 /* UIFont+FlaneurImagePicker.swift */,
 			);
 			name = Extensions;
 			path = Sources/Extensions;
@@ -1755,6 +1761,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D81796CC731613DD0CB55747CE5BDBFE /* FlaneurImagePicker.bundle in Resources */,
+				0085E223203B0FBD005BDE24 /* Font Awesome 5 Free-Regular-400.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1978,6 +1985,7 @@
 				F84CBDBA07B3E6A09CA06C4F8DADB217 /* FlaneurImagePickerError.swift in Sources */,
 				B5FCB056AEE115666D2DA1CDA2AF432F /* FlaneurImageProvider.swift in Sources */,
 				C2AA532343383E1FF652414F309AFB54 /* FlaneurImageView.swift in Sources */,
+				0085E225203B11B2005BDE24 /* UIFont+FlaneurImagePicker.swift in Sources */,
 				7165179FD0EB7BF67CE3CE4B68FF0F89 /* ImageSourcesCell.swift in Sources */,
 				16ACCE000E6C2556D8782CCB21495305 /* ImageSourcesSectionController.swift in Sources */,
 				4D401C6CDA9D8C9E042092F933962FBB /* LoadMoreManager.swift in Sources */,

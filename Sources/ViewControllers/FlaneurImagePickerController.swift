@@ -217,6 +217,10 @@ final public class FlaneurImagePickerController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
 
+        _ = UIFont.registerFont(bundle: Bundle(for: FlaneurImagePickerController.self),
+                                fontName: "Font Awesome 5 Free-Regular-400",
+                                fontExtension: "otf")
+
         searchFirstSource: for imageSource in config.imageSourcesArray {
             if imageSource != .camera {
                 debugPrint("Setting image source as \(imageSource)")
@@ -359,12 +363,11 @@ final public class FlaneurImagePickerController: UIViewController {
 
             switch currentSection {
             case .selectedImages:
-                collectionView.heightAnchor.constraint(equalToConstant: 245.0).isActive = true
-
                 pageControl.translatesAutoresizingMaskIntoConstraints = false
-                pageControl.widthAnchor.constraint(equalTo: collectionView.widthAnchor).isActive = true
-                pageControl.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor).isActive = true
-                pageControl.leftAnchor.constraint(equalTo: collectionView.leftAnchor).isActive = true
+                NSLayoutConstraint.activate([
+                    collectionView.heightAnchor.constraint(equalToConstant: 245.0),
+                    pageControl.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor),
+                    pageControl.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)                    ])
             case .imageSources:
                 collectionView.heightAnchor.constraint(equalToConstant: 65.0).isActive = true
             case .pickerView: break // Do nothing, it will adjust to whatever the other are :)

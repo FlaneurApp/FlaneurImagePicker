@@ -61,12 +61,6 @@ public class FlaneurImagePickerConfig {
     /// Defaults to `.white`.
     public var imageSourcesBackgroundColor: UIColor = .white
 
-    // MARK: - Titles
-    
-    /// The title of the remove button at the top right of the images picked
-    public var removeButtonTitle: String = "Remove"
-    
-
     // MARK: - Colors
     
     /// Background color for a specific collectionView in a section.
@@ -75,9 +69,6 @@ public class FlaneurImagePickerConfig {
     public var backgroundColorForSection: ((FlaneurImagePickerSection) -> (UIColor)) = { _ in
         return .gray
     }
-
-    /// The color of the remove button
-    public var removeButtonColor: UIColor?
 
     /// Color of the not selected dots of the pageControl
     public var pageControlTintColor: UIColor = .black

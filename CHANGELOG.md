@@ -8,7 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 
 * Updated `FlaneurImageProvider` to be more Swifty.
-* Add `fetchLimit` configuration to `FlaneurImageLibraryProvider` (defauls to 0 ie fetch everything)
+* Add `fetchLimit` configuration to `FlaneurImageLibraryProvider` (defauls to 0 ie fetch everything).
+* Improved remove button [#3][3]: new icon button (via FontAwesome) as a replacement to the old text button (as a consequence, `removeButtonTitle` and `removeButtonColor` were removed from `FlaneurImagePickerConfig`).
 
 ## [0.5.1] - 2018-02-05
 
@@ -63,3 +64,5 @@ Initial release of `FlaneurImagePicker`.
 [0.3.0]: https://github.com/FlaneurApp/FlaneurImagePicker/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/FlaneurApp/FlaneurImagePicker/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/FlaneurApp/FlaneurImagePicker/tree/0.1.0
+
+[3]: https://github.com/FlaneurApp/FlaneurImagePicker/issues/3

@@ -49,7 +49,6 @@ class ViewController: UIViewController {
             NSAttributedStringKey.foregroundColor: UIColor.cyan
         ]
 
-        flaneurPicker.config.removeButtonColor = .red
         flaneurPicker.config.backgroundColorForSection = { section in
             switch section {
             case .selectedImages:

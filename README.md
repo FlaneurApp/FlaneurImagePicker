@@ -80,9 +80,6 @@ imagePicker.config.cancelButtonTitle = "Cancel"
 // Changes the done button's color
 imagePicker.config.doneButtonColor = .brown
 
-// Changes the remove button's color
-imagePicker.config.removeButtonColor = .red
-
 // Changes the order of the sections
  imagePicker.config.sectionsOrderArray = [.imageSources, .pickerView, .selectedImages]
 
