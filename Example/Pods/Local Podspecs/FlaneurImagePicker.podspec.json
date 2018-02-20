@@ -1,6 +1,6 @@
 {
   "name": "FlaneurImagePicker",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "summary": "FlaneurImagePicker is an iOS image picker",
   "description": "FlaneurImagePicker is an iOS image picker that allows users to pick images from different sources (ex: user's library, user's camera, Instagram...).\nIt's highly customizable.",
   "homepage": "https://github.com/FlaneurApp/FlaneurImagePicker",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/FlaneurApp/FlaneurImagePicker.git",
-    "tag": "0.5.1"
+    "tag": "0.6.0"
   },
   "platforms": {
     "ios": "9.0"
