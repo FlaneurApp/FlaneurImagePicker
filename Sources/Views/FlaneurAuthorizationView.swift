@@ -33,17 +33,12 @@ class FlaneurAuthorizationDefaultView: UIView, FlaneurAuthorizationView {
         super.init(frame: .zero)
         
         self.backgroundColor = UIColor(red:0.95, green:0.95, blue:0.95, alpha:1.0)
-        
-        let podBundle = Bundle(for: self.classForCoder)
-        if let bundleURL = podBundle.url(forResource: "FlaneurImagePicker", withExtension: "bundle") {
-            if let bundle = Bundle(url: bundleURL) {
-                if let image = UIImage(named: "flaneur_logo.png", in: bundle, compatibleWith: nil) {
-                    imageView.image = image
-                    imageView.contentMode = .scaleAspectFit
-                }
-            }
+
+        if let image = UIImage(named: "flaneur_logo.png", in: BundleLoader.assetsBundle, compatibleWith: nil) {
+            imageView.image = image
+            imageView.contentMode = .scaleAspectFit
         }
-    
+
         authorizeButton.backgroundColor = .black
         authorizeButton.tintColor = .white
         authorizeButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)

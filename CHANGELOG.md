@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [0.6.0] - 2018-02-20
 
 * Updated `FlaneurImageProvider` to be more Swifty.
 * Add `fetchLimit` configuration to `FlaneurImageLibraryProvider` (defauls to 0 ie fetch everything).
@@ -58,6 +58,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 Initial release of `FlaneurImagePicker`.
 
+[0.6.0]: https://github.com/FlaneurApp/FlaneurImagePicker/compare/0.5.1...0.6.0
 [0.5.1]: https://github.com/FlaneurApp/FlaneurImagePicker/compare/0.5.0...0.5.1
 [0.5.0]: https://github.com/FlaneurApp/FlaneurImagePicker/compare/0.4.0...0.5.0
 [0.4.0]: https://github.com/FlaneurApp/FlaneurImagePicker/compare/0.3.0...0.4.0

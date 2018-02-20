@@ -217,7 +217,7 @@ final public class FlaneurImagePickerController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
 
-        _ = UIFont.registerFont(bundle: Bundle(for: FlaneurImagePickerController.self),
+        _ = UIFont.registerFont(bundle: BundleLoader.assetsBundle,
                                 fontName: "Font Awesome 5 Free-Regular-400",
                                 fontExtension: "otf")
 
