@@ -30,14 +30,14 @@
     },
     {
       "file": "/Users/mick/Developer/Projects/Flaneur/Code/FlaneurImagePicker/Sources/ViewControllers/FlaneurImagePickerController.swift",
-      "line": 232,
+      "line": 239,
       "symbol": "FlaneurImagePickerController.viewWillAppear(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mick/Developer/Projects/Flaneur/Code/FlaneurImagePicker/Sources/ViewControllers/FlaneurImagePickerController.swift",
-      "line": 240,
+      "line": 247,
       "symbol": "FlaneurImagePickerController.viewDidAppear(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

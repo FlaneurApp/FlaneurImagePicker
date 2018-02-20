@@ -6,7 +6,7 @@
 [![Platform](https://img.shields.io/cocoapods/p/FlaneurImagePicker.svg?style=flat)](http://cocoapods.org/pods/FlaneurImagePicker)
 [![Downloads](https://img.shields.io/cocoapods/at/FlaneurImagePicker.svg?style=flat)](http://cocoapods.org/pods/FlaneurImagePicker)
 
-FlaneurImagePicker is a highly customizable iOS image picker that allows users to pick images from different sources (ex: device's library, device's camera, Instagram...), as used in [Flâneur iOS app][flaneur-app-store].
+FlaneurImagePicker is a highly customizable iOS image picker that allows users to pick images from different sources (ex: device's library, device's camera, Instagram...), as used in the [Flâneur iOS app][flaneur-app-store].
 
 ## Features
 
@@ -79,9 +79,6 @@ imagePicker.config.cancelButtonTitle = "Cancel"
 
 // Changes the done button's color
 imagePicker.config.doneButtonColor = .brown
-
-// Changes the remove button's color
-imagePicker.config.removeButtonColor = .red
 
 // Changes the order of the sections
  imagePicker.config.sectionsOrderArray = [.imageSources, .pickerView, .selectedImages]

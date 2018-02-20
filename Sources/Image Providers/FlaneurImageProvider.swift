@@ -11,21 +11,23 @@ import UIKit
 
 protocol FlaneurImageProviderDelegate: AnyObject {
     func didLoadImages(images: [FlaneurImageDescription])
-    
     func didFailLoadingImages(with unauthorizedSourcePermission: FlaneurImageSource)
 }
 
 protocol FlaneurImageProvider {
-    weak var delegate: FlaneurImageProviderDelegate? {get set}
-    weak var parentVC: UIViewController? {get set}    
-    
-    init(delegate: FlaneurImageProviderDelegate, andParentVC parentVC: UIViewController)
-    
+    weak var delegate: FlaneurImageProviderDelegate? { get set }
+
+    /// Whether or not the image provider's source is currently authorized.
+    ///
+    /// - Returns: `true` if authorized, `false` otherwise.
     func isAuthorized() -> Bool
 
-    func askForPermission(isPermissionGiven: @escaping (Bool) -> Void)
-    
+    /// Requests the user’s permission for accessing the image provider's source.
+    ///
+    /// - Parameter handler: A block called once the user answered the request.
+    func requestAuthorization(_ handler: @escaping (Bool) -> Void)
+
     func fetchImagesFromSource()
-    
+
     func fetchNextPage()
 }

@@ -30,7 +30,7 @@ final class FlaneurImageInstagramProvider: NSObject, FlaneurImageProvider {
     
     var nextPageURL: URL?
     
-    init(delegate: FlaneurImageProviderDelegate, andParentVC parentVC: UIViewController) {
+    init(parentVC: UIViewController) {
         guard let infoPlist = Bundle.main.infoDictionary,
               let clientID = infoPlist["InstagramClientID"] as? String,
             let redirectURI = infoPlist["InstagramRedirectURI"] as? String else {
@@ -39,7 +39,6 @@ final class FlaneurImageInstagramProvider: NSObject, FlaneurImageProvider {
         
         self.parentVC = parentVC
         self.instagramAuthInfo = InstagramAuthInfo(clientID: clientID, redirectURI: redirectURI, accessToken: "")
-        self.delegate = delegate
 
         super.init()
     }
@@ -52,8 +51,8 @@ final class FlaneurImageInstagramProvider: NSObject, FlaneurImageProvider {
         return false
     }
 
-    func askForPermission(isPermissionGiven: @escaping (Bool) -> Void) {
-        self.permissionCallback = isPermissionGiven
+    func requestAuthorization(_ handler: @escaping (Bool) -> Void) {
+        self.permissionCallback = handler
         authenticateUser()
     }
 

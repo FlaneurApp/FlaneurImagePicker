@@ -156,11 +156,14 @@ final public class FlaneurImagePickerController: UIViewController {
                     // FIXME: the fact that the image picker controller has to switch defeats the
                 // *plugin* intent of the providers.
                 case .camera:
-                    existingSelf.imageProvider = FlaneurImageCameraProvider(delegate: existingSelf, andParentVC: existingSelf)
+                    existingSelf.imageProvider = FlaneurImageCameraProvider(parentVC: existingSelf)
+                    existingSelf.imageProvider.delegate = self
                 case .library:
-                    existingSelf.imageProvider = FlaneurImageLibraryProvider(delegate: existingSelf, andConfig: existingSelf.config)
+                    existingSelf.imageProvider = FlaneurImageLibraryProvider()
+                    existingSelf.imageProvider.delegate = self
                 case .instagram:
-                    existingSelf.imageProvider = FlaneurImageInstagramProvider(delegate: existingSelf, andParentVC: existingSelf)
+                    existingSelf.imageProvider = FlaneurImageInstagramProvider(parentVC: existingSelf)
+                    existingSelf.imageProvider.delegate = self
                     DispatchQueue.main.async {
                         self?.setLoadMoreManager()
                     }
@@ -213,6 +216,10 @@ final public class FlaneurImagePickerController: UIViewController {
     /// viewDidLoad Lifecyle callback
     override public func viewDidLoad() {
         super.viewDidLoad()
+
+        _ = UIFont.registerFont(bundle: BundleLoader.assetsBundle,
+                                fontName: "Font Awesome 5 Free-Regular-400",
+                                fontExtension: "otf")
 
         searchFirstSource: for imageSource in config.imageSourcesArray {
             if imageSource != .camera {
@@ -356,12 +363,11 @@ final public class FlaneurImagePickerController: UIViewController {
 
             switch currentSection {
             case .selectedImages:
-                collectionView.heightAnchor.constraint(equalToConstant: 245.0).isActive = true
-
                 pageControl.translatesAutoresizingMaskIntoConstraints = false
-                pageControl.widthAnchor.constraint(equalTo: collectionView.widthAnchor).isActive = true
-                pageControl.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor).isActive = true
-                pageControl.leftAnchor.constraint(equalTo: collectionView.leftAnchor).isActive = true
+                NSLayoutConstraint.activate([
+                    collectionView.heightAnchor.constraint(equalToConstant: 245.0),
+                    pageControl.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor),
+                    pageControl.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)                    ])
             case .imageSources:
                 collectionView.heightAnchor.constraint(equalToConstant: 65.0).isActive = true
             case .pickerView: break // Do nothing, it will adjust to whatever the other are :)
@@ -646,7 +652,7 @@ extension FlaneurImagePickerController: ListAdapterDataSource {
         }
 
         let authorizeClosure: ActionKitVoidClosure = { [weak self] in
-            self?.imageProvider.askForPermission { [weak self] isPermissionGiven in
+            self?.imageProvider.requestAuthorization { [weak self] isPermissionGiven in
                 if isPermissionGiven {
                     self?.imageProvider.fetchImagesFromSource()
                 } else {
