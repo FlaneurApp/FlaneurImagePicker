@@ -1,16 +1,7 @@
-//
-//  ViewController.swift
-//  FlaneurImagePickerController
-//
-//  Created by Flâneur on 11/07/2017.
-//
-//
-
 import UIKit
 import FlaneurImagePicker
 
-
-class ViewController: UIViewController {
+class DemoImagePickerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,7 +79,7 @@ class ViewController: UIViewController {
 
 }
 
-extension ViewController: FlaneurImagePickerControllerDelegate {
+extension DemoImagePickerViewController: FlaneurImagePickerControllerDelegate {
     func flaneurImagePickerControllerDidCancel(_ picker: FlaneurImagePickerController) {
         print("didCancel")
         picker.dismiss(animated: true)
