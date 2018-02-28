@@ -10,7 +10,7 @@
 import UIKit
 
 protocol FlaneurImageProviderDelegate: AnyObject {
-    func didLoadImages(images: [FlaneurImageDescription])
+    func didLoadImages(images: [FlaneurImageDescriptor])
     func didFailLoadingImages(with unauthorizedSourcePermission: FlaneurImageSource)
 }
 

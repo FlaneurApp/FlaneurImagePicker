@@ -113,14 +113,19 @@ extension FlaneurImageInstagramProvider: SignInWebViewControllerDelegate {
             nextPageURL = nil
         }
         // Parse data
-        var images = [FlaneurImageDescription]()
+        var images = [FlaneurImageDescriptor]()
         for data in (data["data"] as? [[String: AnyObject]])! {
             guard let dataImages = data["images"] as? [String: AnyObject], (data["type"] as! String) == "image",
                 let image = dataImages["standard_resolution"] as? [String: AnyObject],
-                let imageURL = image["url"] as? String else {
+                let imageStringURL = image["url"] as? String else {
                     continue
             }
-            images.append(FlaneurImageDescription(imageURLString: imageURL)!)
+
+            guard let imageURL = URL(string: imageStringURL) else {
+                continue
+            }
+
+            images.append(.url(imageURL))
         }
         self.delegate?.didLoadImages(images: images)
     }

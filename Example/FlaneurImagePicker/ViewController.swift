@@ -23,10 +23,10 @@ class ViewController: UIViewController {
     }
 
     @IBAction func lauchPickerButtonTouched() {
-        let images =  [
-            FlaneurImageDescription(imageURLString: "https://cdn.pixabay.com/photo/2017/07/24/02/40/pink-roses-2533389_960_720.jpg")!,
-            FlaneurImageDescription(imageURLString: "https://cdn.pixabay.com/photo/2017/04/04/14/24/turtle-2201433_960_720.jpg")!,
-            FlaneurImageDescription(imageURLString: "https://cdn.pixabay.com/photo/2017/07/28/16/30/bee-pollen-2549125_960_720.jpg")!
+        let images: [FlaneurImageDescriptor] = [
+            .url(URL(string: "https://cdn.pixabay.com/photo/2017/07/24/02/40/pink-roses-2533389_960_720.jpg")!),
+            .url(URL(string: "https://cdn.pixabay.com/photo/2017/04/04/14/24/turtle-2201433_960_720.jpg")!),
+            .url(URL(string: "https://cdn.pixabay.com/photo/2017/07/28/16/30/bee-pollen-2549125_960_720.jpg")!),
         ]
 
         let flaneurPicker = FlaneurImagePickerController(userInfo: nil,
@@ -94,7 +94,7 @@ extension ViewController: FlaneurImagePickerControllerDelegate {
         picker.dismiss(animated: true)
     }
 
-    func flaneurImagePickerController(_ picker: FlaneurImagePickerController, didFinishPickingImages images: [FlaneurImageDescription], userInfo: Any?) {
+    func flaneurImagePickerController(_ picker: FlaneurImagePickerController, didFinishPickingImages images: [FlaneurImageDescriptor], userInfo: Any?) {
         print("didFinishPickingImages")
         for image in images {
             print("* \(image)")
@@ -108,7 +108,7 @@ extension ViewController: FlaneurImagePickerControllerDelegate {
 
     func flaneurImagePickerController(_ picker: FlaneurImagePickerController,
                                       withCurrentSelectionOfSize count: Int,
-                                      actionForNewImageSelection: FlaneurImageDescription) ->
+                                      actionForNewImageSelection: FlaneurImageDescriptor) ->
         FlaneurImagePickerControllerAction {
             debugPrint("Count is \(count)")
             if count < 5 {

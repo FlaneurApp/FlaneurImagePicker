@@ -10,11 +10,11 @@ import UIKit
 import IGListKit
 import Kingfisher
 
-typealias ImageSelectionClosure = (FlaneurImageDescription) -> Void
+typealias ImageSelectionClosure = (FlaneurImageDescriptor) -> Void
 
 final class PickerSectionController: ListSectionController {
     private let config: FlaneurImagePickerConfig
-    private weak var imageDescription: FlaneurImageDescription!
+    private weak var imageDescription: ImageDiffableWrapper!
     private var onImageSelectionClosure: ImageSelectionClosure!
     
     init(with config: FlaneurImagePickerConfig,
@@ -44,17 +44,18 @@ final class PickerSectionController: ListSectionController {
             fatalError()
         }
         
-        cell.configure(with: config, andImageDescription: imageDescription)
+        cell.configure(with: config, andImageDescription: imageDescription.imageDescriptor)
 
         return cell
     }
     
     override func didUpdate(to object: Any) {
-        imageDescription = object as! FlaneurImageDescription
+        precondition(object is ImageDiffableWrapper)
+        imageDescription = object as! ImageDiffableWrapper
     }
     
     override func didSelectItem(at index: Int) {
-        onImageSelectionClosure(imageDescription)
+        onImageSelectionClosure(imageDescription.imageDescriptor)
     }
     
 }

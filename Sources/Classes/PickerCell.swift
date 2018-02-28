@@ -20,8 +20,6 @@ final class PickerCell: UICollectionViewCell {
         return view
     }()
     
-    private weak var imageDescription: FlaneurImageDescription!
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         imageView.frame = contentView.bounds
@@ -33,8 +31,7 @@ final class PickerCell: UICollectionViewCell {
     }
     
     func configure(with config: FlaneurImagePickerConfig,
-                   andImageDescription imageDescription: FlaneurImageDescription) {
-        self.imageDescription = imageDescription
+                   andImageDescription imageDescription: FlaneurImageDescriptor) {
         self.imageView.setImage(with: imageDescription)
     }
 }
