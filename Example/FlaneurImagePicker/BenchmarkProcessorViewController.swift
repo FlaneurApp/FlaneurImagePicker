@@ -1,19 +1,90 @@
 import UIKit
 import FlaneurImagePicker
 
+struct ImageBenchmark {
+    let name: String
+    let image: UIImage
+
+    init(name: String, image: UIImage? = nil) {
+        self.name = name
+
+        if let image = image {
+            self.image = image
+        } else {
+            // Find it from its name
+            guard let image = UIImage(named: name) else {
+                fatalError("Couldn't load image named \(name)")
+            }
+            self.image = image
+        }
+    }
+
+    var bitmapBytesCount: Double {
+        return Double(image.size.width * image.size.height * 3.0)
+    }
+
+    func jpegData(compressionQuality: CGFloat) -> Data? {
+        return UIImageJPEGRepresentation(image, compressionQuality)
+    }
+
+    func pngData() -> Data? {
+        return UIImagePNGRepresentation(image)
+    }
+
+    static func printCSVHeader() {
+        print("Name,Width,Height,Bitmap,JPEG 0.0,JPEG 0.1,JPEG 0.2,JPEG 0.3,JPEG 0.4,JPEG 0.5,JPEG 0.6,JPEG 0.7,JPEG 0.8,JPEG 0.9,JPEG 1.0,PNG")
+    }
+
+    func createAndExportAll() {
+        var cvsOutput: [CustomStringConvertible] = [name]
+        cvsOutput.append(Int(image.size.width))
+        cvsOutput.append(Int(image.size.height))
+        cvsOutput.append(Int(bitmapBytesCount))
+        for compressionQuality in stride(from: 0.0, through: 1.0, by: 0.1) {
+            guard let jpegData = jpegData(compressionQuality: CGFloat(compressionQuality)) else {
+                fatalError("Couldn't generate JPEG representation of the image")
+            }
+            cvsOutput.append(jpegData.count)
+            save(data: jpegData, filename: "\(name)-\(compressionQuality).jpg")
+        }
+
+        guard let pngData = pngData() else {
+            fatalError("Couldn't generate PNG representation of the image")
+        }
+        cvsOutput.append(pngData.count)
+        save(data: pngData, filename: "\(name).png")
+        print(cvsOutput.map { $0.description }.joined(separator: ","))
+    }
+
+    func save(data: Data, filename: String) {
+        do {
+            let documentsURL = try FileManager.default.url(for: .documentDirectory,
+                                                           in: .userDomainMask,
+                                                           appropriateFor: nil,
+                                                           create: true)
+            let newDocURL = documentsURL.appendingPathComponent(filename)
+            try data.write(to: newDocURL)
+        } catch {
+            fatalError(error.localizedDescription)
+        }
+    }
+}
+
 class BenchmarkProcessorViewController: UIViewController {
     let imageView1 = UIImageView()
     let imageView2 = UIImageView()
     let imageView3 = UIImageView()
     let imageView4 = UIImageView()
 
-    let scaleSlider = UISlider()
-    let ratioSlider = UISlider()
+    let allImages = [
+        ImageBenchmark(name: "alex-perez-550776-unsplash"),
+        ImageBenchmark(name: "ashley-knedler-43546-unsplash"),
+        ImageBenchmark(name: "clem-onojeghuo-200300-unsplash"),
+        ImageBenchmark(name: "dawid-sobolewski-285650-unsplash")
+    ]
 
     let saveButton = UIButton(type: .system)
-
     let imageRatio: CGFloat = 4.0 / 3.0
-
     let processor = PreUploadProcessor()
 
     var imageRatioInverse: CGFloat {
@@ -24,22 +95,8 @@ class BenchmarkProcessorViewController: UIViewController {
         return [ imageView1, imageView2, imageView3, imageView4 ]
     }
 
-    private func configureScaleSlider(s: UISlider) {
-        s.value = 1.0
-        s.minimumValue = 0.0
-        s.maximumValue = 2.0
-        s.addTarget(self, action: #selector(printSliderValue(_:)), for: .valueChanged)
-    }
-
-    private func configureRatioSlider(s: UISlider) {
-        s.value = 1.0
-        s.minimumValue = 0.0
-        s.maximumValue = 2.0
-        s.addTarget(self, action: #selector(printSliderValue(_:)), for: .valueChanged)
-    }
-
     private func configureSaveButton(b: UIButton) {
-        b.setTitle("Save", for: .normal)
+        b.setTitle("Process", for: .normal)
         b.addTarget(self, action: #selector(processAndSaveAction(_:)), for: .touchUpInside)
     }
 
@@ -48,10 +105,10 @@ class BenchmarkProcessorViewController: UIViewController {
 
         view.backgroundColor = .white
 
-        imageView1.image = UIImage(named: "alex-perez-550776-unsplash")
-        imageView2.image = UIImage(named: "ashley-knedler-43546-unsplash")
-        imageView3.image = UIImage(named: "clem-onojeghuo-200300-unsplash")
-        imageView4.image = UIImage(named: "dawid-sobolewski-285650-unsplash")
+        imageView1.image = allImages[0].image
+        imageView2.image = allImages[1].image
+        imageView3.image = allImages[2].image
+        imageView4.image = allImages[3].image
 
         allImageViews.forEach { imageView in
             imageView.backgroundColor = .lightGray
@@ -60,14 +117,8 @@ class BenchmarkProcessorViewController: UIViewController {
             imageView.translatesAutoresizingMaskIntoConstraints = false
         }
 
-        configureScaleSlider(s: scaleSlider)
-        configureRatioSlider(s: ratioSlider)
         configureSaveButton(b: saveButton)
-        view.addSubview(scaleSlider)
-        view.addSubview(ratioSlider)
         view.addSubview(saveButton)
-        scaleSlider.translatesAutoresizingMaskIntoConstraints = false
-        ratioSlider.translatesAutoresizingMaskIntoConstraints = false
         saveButton.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
@@ -89,43 +140,10 @@ class BenchmarkProcessorViewController: UIViewController {
             imageView3.widthAnchor.constraint(equalTo: imageView4.widthAnchor, multiplier: 1.0),
             imageView3.heightAnchor.constraint(equalTo: imageView3.widthAnchor, multiplier: imageRatioInverse),
             imageView4.heightAnchor.constraint(equalTo: imageView4.widthAnchor, multiplier: imageRatioInverse),
-            // Sliders
-            scaleSlider.topAnchor.constraint(equalTo: imageView3.bottomAnchor, constant: 32.0),
-            scaleSlider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8.0),
-            scaleSlider.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 8.0),
-            ratioSlider.topAnchor.constraint(equalTo: scaleSlider.bottomAnchor, constant: 16.0),
-            ratioSlider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8.0),
-            ratioSlider.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 8.0),
             // Save button
-            saveButton.topAnchor.constraint(equalTo: ratioSlider.bottomAnchor, constant: 32.0),
+            saveButton.topAnchor.constraint(equalTo: imageView3.bottomAnchor, constant: 32.0),
             saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
             ])
-    }
-
-    func printImageInfo(_ image: UIImage) {
-        let sizeInPixels = image.size
-
-        let bitmapSizeInBytes = image.size.width * image.size.height * 3.0
-        let jpeg00Size = UIImageJPEGRepresentation(image, 0.0)?.count
-        let jpeg01Size = UIImageJPEGRepresentation(image, 0.1)?.count
-        let jpeg02Size = UIImageJPEGRepresentation(image, 0.2)?.count
-        let jpeg03Size = UIImageJPEGRepresentation(image, 0.3)?.count
-        let jpeg04Size = UIImageJPEGRepresentation(image, 0.4)?.count
-        let jpeg05Size = UIImageJPEGRepresentation(image, 0.5)?.count
-        let jpeg06Size = UIImageJPEGRepresentation(image, 0.6)?.count
-        let jpeg07Size = UIImageJPEGRepresentation(image, 0.7)?.count
-        let jpeg08Size = UIImageJPEGRepresentation(image, 0.8)?.count
-        let jpeg09Size = UIImageJPEGRepresentation(image, 0.9)?.count
-        let jpeg10Size = UIImageJPEGRepresentation(image, 1.0)?.count
-        let pngSize = UIImagePNGRepresentation(image)?.count
-
-        print("## Image \(image):")
-        print("")
-        print("* Dimension: \(sizeInPixels)")
-        print("* Bitmap size: \(bitmapSizeInBytes)")
-        print("* JPEG size: \(jpeg00Size) / \(jpeg01Size) / \(jpeg02Size) / \(jpeg03Size) / \(jpeg04Size) / \(jpeg05Size) \(jpeg06Size) / \(jpeg07Size) \(jpeg08Size) \(jpeg09Size) \(jpeg10Size)")
-        print("* PNG size: \(pngSize)")
-        print("")
     }
 
     @IBAction func printSliderValue(_ sender: Any? = nil) {
@@ -134,20 +152,18 @@ class BenchmarkProcessorViewController: UIViewController {
     }
 
     @IBAction func processAndSaveAction(_ sender: Any? = nil) {
-        print("Scale: \(scaleSlider.value)")
-        print("Ratio: \(ratioSlider.value)")
-
-        allImageViews.forEach { imageView in
-            let originalImage = imageView.image!
-            imageView.image = nil
-            //printImageInfo(originalImage)
-
-            DispatchQueue.global().async { [weak self] in
-                print("Starting \(originalImage): \(Date())")
-                guard let resizedImage = PreUploadProcessor().resizeImage(originalImage, targetWidth: 1125.0) else { return print("Coudln't resize image") }
-                print("Done \(originalImage): \(Date())")
-                //printImageInfo(resizedImage)
+        ImageBenchmark.printCSVHeader()
+        allImages.forEach { image in
+            DispatchQueue.global().async {
+                image.createAndExportAll()
+                guard let resizedImage = self.processor.resizeImage(image.image, targetWidth: 1125.0) else {
+                    fatalError("Coudln't resize image")
+                }
+                let processedImage = ImageBenchmark(name: "\(image.name)_processed", image: resizedImage)
+                processedImage.createAndExportAll()
             }
         }
     }
+
+
 }

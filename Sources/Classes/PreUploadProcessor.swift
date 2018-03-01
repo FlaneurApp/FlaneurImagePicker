@@ -18,7 +18,6 @@ public struct PreUploadProcessor {
 
         filter.setValue(ciImage, forKey: kCIInputImageKey)
         filter.setValue(scale, forKey: kCIInputScaleKey)
-        // filter.setValue(aspectRatio, forKey: kCIInputAspectRatioKey)
 
         guard let result = filter.outputImage else {
             fatalError("No output on filter.")
@@ -29,5 +28,9 @@ public struct PreUploadProcessor {
         }
 
         return UIImage(cgImage: cgImage)
+    }
+
+    public func cheapResize(_ image: UIImage, targetWidth: CGFloat) -> UIImage? {
+        
     }
 }
