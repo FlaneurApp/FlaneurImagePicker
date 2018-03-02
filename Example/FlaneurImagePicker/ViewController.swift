@@ -104,6 +104,10 @@ extension ViewController: FlaneurImagePickerControllerDelegate {
 
     func flaneurImagePickerControllerDidFail(_ error: FlaneurImagePickerError) {
         print("ERROR -- \(error.localizedDescription)")
+        switch error {
+        case .emptyViewError(let message):
+            print("error message: \(message)")
+        }
     }
 
     func flaneurImagePickerController(_ picker: FlaneurImagePickerController,
