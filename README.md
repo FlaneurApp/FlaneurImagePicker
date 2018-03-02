@@ -33,6 +33,10 @@ it, simply add the following line to your Podfile:
 pod "FlaneurImagePicker"
 ```
 
+## Release
+
+To release a version of this pod, please follow [these instructions at Cocoapods](https://guides.cocoapods.org/making/making-a-cocoapod.html#release).
+
 ## Getting Started
 
 To launch the Flaneur Image Picker:
