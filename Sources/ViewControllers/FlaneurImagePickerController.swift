@@ -142,7 +142,7 @@ final public class FlaneurImagePickerController: UIViewController {
     }
 
     /// Currently used image provider
-    var imageProvider: FlaneurImageProvider!
+    var imageProvider: FlaneurImageProvider?
 
     /// Currently selected image source
     var currentImageSource: FlaneurImageSource? {
@@ -157,24 +157,24 @@ final public class FlaneurImagePickerController: UIViewController {
                 // *plugin* intent of the providers.
                 case .camera:
                     existingSelf.imageProvider = FlaneurImageCameraProvider(parentVC: existingSelf)
-                    existingSelf.imageProvider.delegate = self
+                    existingSelf.imageProvider!.delegate = self
                 case .library:
                     existingSelf.imageProvider = FlaneurImageLibraryProvider()
-                    existingSelf.imageProvider.delegate = self
+                    existingSelf.imageProvider!.delegate = self
                 case .instagram:
                     existingSelf.imageProvider = FlaneurImageInstagramProvider(parentVC: existingSelf)
-                    existingSelf.imageProvider.delegate = self
+                    existingSelf.imageProvider!.delegate = self
                     DispatchQueue.main.async {
                         self?.setLoadMoreManager()
                     }
                 }
 
-                if existingSelf.imageProvider.isAuthorized() {
-                    existingSelf.imageProvider.fetchImagesFromSource()
+                if existingSelf.imageProvider!.isAuthorized() {
+                    existingSelf.imageProvider!.fetchImagesFromSource()
                 } else {
                     DispatchQueue.main.async { [weak self] in
-                        self!.isChangingSource = false
-                        self!.pickerViewImages = []
+                        self?.isChangingSource = false
+                        self?.pickerViewImages = []
                     }
                 }
             }
@@ -208,7 +208,9 @@ final public class FlaneurImagePickerController: UIViewController {
     }
 
     deinit {
-        ()
+        #if DEBUG
+        debugPrint("Deallocated")
+        #endif
     }
 
     // MARK: - Lifecyle callbacks
@@ -221,6 +223,7 @@ final public class FlaneurImagePickerController: UIViewController {
                                 fontName: "Font Awesome 5 Free-Regular-400",
                                 fontExtension: "otf")
 
+        // Find the first image source that is not the camera
         searchFirstSource: for imageSource in config.imageSourcesArray {
             if imageSource != .camera {
                 debugPrint("Setting image source as \(imageSource)")
@@ -642,6 +645,10 @@ extension FlaneurImagePickerController: ListAdapterDataSource {
             self.delegate?.flaneurImagePickerControllerDidFail(.emptyViewError("no section for adapter"))
             return nil
         }
+        guard let imageProvider = imageProvider else {
+            self.delegate?.flaneurImagePickerControllerDidFail(.emptyViewError("no image provider set when it should have been"))
+            return nil
+        }
 
         let section = config.sectionsOrderArray[index]
         if currentImageSource == nil // No current image source
@@ -652,9 +659,9 @@ extension FlaneurImagePickerController: ListAdapterDataSource {
         }
 
         let authorizeClosure: ActionKitVoidClosure = { [weak self] in
-            self?.imageProvider.requestAuthorization { [weak self] isPermissionGiven in
+            imageProvider.requestAuthorization { [weak self] isPermissionGiven in
                 if isPermissionGiven {
-                    self?.imageProvider.fetchImagesFromSource()
+                    imageProvider.fetchImagesFromSource()
                 } else {
                     self?.presentAuthorizationSettingsAlert()
                 }
