@@ -1,11 +1,24 @@
 import CoreImage
 
+/// A processor containing useful utils before uploading an image on a server.
 public struct PreUploadProcessor {
     let context = CIContext()
 
+    /// Creates a new processor.
     public init() {}
 
+    /// Resizes an image to a target width using a Lanczos filter from Core Image.
+    ///
+    /// The returned image comes from a Core Graphics image version (as opposed to Core Image)
+    /// so that it can also be compressed via `UIImageJPEGRepresentation` or `UIImagePNGRepresentation`.
+    ///
+    /// - Parameters:
+    ///   - image: an image you want to resize.
+    ///   - targetWidth: the target width of the returned image.
+    /// - Returns: an image of the desired width if the resizing was successful, `nil` otherwise.
     public func resizeImage(_ image: UIImage, targetWidth: CGFloat) -> UIImage? {
+        assert(targetWidth > 0.0)
+
         let scale = Double(targetWidth) / Double(image.size.width)
 
         guard let ciImage = CIImage(image: image) else {
@@ -30,7 +43,17 @@ public struct PreUploadProcessor {
         return UIImage(cgImage: cgImage)
     }
 
-    public func cheapResize(_ image: UIImage, targetWidth: CGFloat) -> UIImage? {
-        
+    public func cheapResizeImage(_ image: UIImage, targetWidth: CGFloat) -> UIImage? {
+        assert(targetWidth > 0.0)
+
+        let targetHeight = CGFloat(Int(targetWidth * image.size.height / image.size.width))
+        let targetSize = CGSize(width: targetWidth, height: targetHeight)
+        let targetRect = CGRect(origin: .zero, size: targetSize)
+        UIGraphicsBeginImageContext(targetSize)
+        image.draw(in: targetRect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return newImage
     }
 }

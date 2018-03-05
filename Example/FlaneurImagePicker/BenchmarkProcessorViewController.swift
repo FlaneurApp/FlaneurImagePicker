@@ -161,6 +161,12 @@ class BenchmarkProcessorViewController: UIViewController {
                 }
                 let processedImage = ImageBenchmark(name: "\(image.name)_processed", image: resizedImage)
                 processedImage.createAndExportAll()
+
+                guard let cheapResizedImage = self.processor.cheapResizeImage(image.image, targetWidth: 1125.0) else {
+                    fatalError("Couldn't resize image")
+                }
+                let cheapProcessedImage = ImageBenchmark(name: "\(image.name)_processed_cheap", image: cheapResizedImage)
+                cheapProcessedImage.createAndExportAll()
             }
         }
     }
