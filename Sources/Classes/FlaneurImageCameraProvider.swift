@@ -49,16 +49,14 @@ final class FlaneurImageCameraProvider: NSObject, FlaneurImageProvider {
 
 extension FlaneurImageCameraProvider: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        self.picker.dismiss(animated: true, completion: nil)
+        picker.dismiss(animated: true, completion: nil)
     }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        let image = info[UIImagePickerControllerOriginalImage] as? UIImage
-        
-        if let flaneurImageDescription = FlaneurImageDescription(image: image) {
-            delegate?.didLoadImages(images: [flaneurImageDescription])
+        guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else {
+            fatalError("No image found after the user finished picking media")
         }
-        
-        self.picker.dismiss(animated: true, completion: nil)
+        delegate?.didLoadImages(images: [FlaneurImageDescriptor.image(image)])
+        picker.dismiss(animated: true, completion: nil)
     }
 }

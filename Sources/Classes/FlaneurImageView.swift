@@ -19,8 +19,8 @@ final public class FlaneurImageView: UIImageView {
 
     private var asynchronousState: AsynchronousState = .none
 
-    public func setImage(with imageDescription: FlaneurImageDescription) {
-        switch imageDescription.sourceType {
+    public func setImage(with imageDescription: FlaneurImageDescriptor) {
+        switch imageDescription {
         case .url(let imageURL):
             asynchronousState = .kingfisher
             self.kf.indicatorType = .activity

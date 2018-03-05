@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 
 * Flattened code source files hierarchy under `Sources/Classes`
+* Renamed `FlaneurImageDescription` to `FlaneurImageDescriptor` that is now an enum
+* Created `ImageDiffableWrapper` as a placeholder for all `FlaneurImageDescription`'s support code
+* Added `PreUploadProcessor` and the `UIImage` extension
 
 ## [0.6.1] - 2018-03-02
 

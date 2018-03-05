@@ -34,12 +34,10 @@ final class FlaneurImageLibraryProvider: NSObject, FlaneurImageProvider {
         guard let delegate = delegate else { return }
 
         let assetsList = PHAsset.fetchAssets(with: .image, options: .latest(fetchLimit))
-        var images: [FlaneurImageDescription] = []
+        var images: [FlaneurImageDescriptor] = []
 
         for i in 0..<assetsList.count {
-            if let imageDescription = FlaneurImageDescription(asset: assetsList[i]) {
-                images.append(imageDescription)
-            }
+            images.append(FlaneurImageDescriptor.phAsset(assetsList[i]))
         }
         
         delegate.didLoadImages(images: images)

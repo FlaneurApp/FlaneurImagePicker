@@ -15,7 +15,7 @@ import ActionKit
 /// `FlaneurImagePickerController`.
 final class SelectedImagesViewerSectionController: ListSectionController {
     private let config: FlaneurImagePickerConfig
-    private var imageDescription: FlaneurImageDescription!
+    private var imageDescription: ImageDiffableWrapper!
     private var removeButtonClosure: ActionKitControlClosure!
     
     init(with config: FlaneurImagePickerConfig,
@@ -37,12 +37,13 @@ final class SelectedImagesViewerSectionController: ListSectionController {
             fatalError()
         }
                         
-        cell.configure(with: imageDescription, config: config, andRemoveClosure: removeButtonClosure)
+        cell.configure(with: imageDescription.imageDescriptor, config: config, andRemoveClosure: removeButtonClosure)
         
         return cell
     }
     
     override func didUpdate(to object: Any) {
-        imageDescription = object as! FlaneurImageDescription
+        precondition(object is ImageDiffableWrapper)
+        imageDescription = object as! ImageDiffableWrapper
     }
 }

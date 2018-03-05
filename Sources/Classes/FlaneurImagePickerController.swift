@@ -32,7 +32,7 @@ public protocol FlaneurImagePickerControllerDelegate: AnyObject {
     ///   - images: An array of picked images of type FlaneurImageDescription.
     ///   - userInfo: Arbitrary data that was passed to the controller.
     func flaneurImagePickerController(_ picker: FlaneurImagePickerController,
-                                      didFinishPickingImages images: [FlaneurImageDescription],
+                                      didFinishPickingImages images: [FlaneurImageDescriptor],
                                       userInfo: Any?)
 
     /// Asks the delegate what to do with the new image the user just tapped.
@@ -44,7 +44,7 @@ public protocol FlaneurImagePickerControllerDelegate: AnyObject {
     /// - Returns: The action to perform regarding this new image.
     func flaneurImagePickerController(_ picker: FlaneurImagePickerController,
                                       withCurrentSelectionOfSize count: Int,
-                                      actionForNewImageSelection newImage: FlaneurImageDescription) -> FlaneurImagePickerControllerAction
+                                      actionForNewImageSelection newImage: FlaneurImageDescriptor) -> FlaneurImagePickerControllerAction
 
     /// Tells the delegate that the user cancelled the pick operation.
     ///
@@ -117,7 +117,7 @@ final public class FlaneurImagePickerController: UIViewController {
     /// Array of already selected images.
     /// The page control changes if the number of item change.
     /// We also need to retrieve the adapter to refresh the UI
-    var selectedImages: [FlaneurImageDescription] = [FlaneurImageDescription]() {
+    var selectedImages: [FlaneurImageDescriptor] = [FlaneurImageDescriptor]() {
         didSet {
             // Refresh the collection view
             let newImageCount = selectedImages.count
@@ -135,7 +135,7 @@ final public class FlaneurImagePickerController: UIViewController {
 
     /// Array of selectable images in the PickerView.
     /// We need to retrieve the adapter to refresh the UI
-    var pickerViewImages: [FlaneurImageDescription] = [FlaneurImageDescription]() {
+    var pickerViewImages: [FlaneurImageDescriptor] = [FlaneurImageDescriptor]() {
         didSet {
             self.refreshGalleryIfVisible()
         }
@@ -192,7 +192,7 @@ final public class FlaneurImagePickerController: UIViewController {
     ///   - selectedImages: An array of already selected images
     public init(userInfo: Any?,
                 sourcesDelegate: [FlaneurImageSource],
-                selectedImages: [FlaneurImageDescription]) {
+                selectedImages: [FlaneurImageDescriptor]) {
         if sourcesDelegate.count != 0 {
             self.config.imageSourcesArray = sourcesDelegate
         }
@@ -449,7 +449,7 @@ extension FlaneurImagePickerController {
         return candidate
     }
 
-    internal func addImageToSelection(imageDescription: FlaneurImageDescription) {
+    internal func addImageToSelection(imageDescription: FlaneurImageDescriptor) {
         if let imageIndex = selectedImages.index(of: imageDescription) {
             pageControlManager.goToPage(page: imageIndex)
         } else {
@@ -572,15 +572,16 @@ extension FlaneurImagePickerController: ListAdapterDataSource {
         guard let index = adapters.index(of: listAdapter) else {
             fatalError("Could not find section for adapter")
         }
+
         let section = config.sectionsOrderArray[index]
 
         switch section {
         case .selectedImages:
-            return selectedImages
+            return selectedImages.map { ImageDiffableWrapper(imageDescriptor: $0) }
         case .imageSources:
             return self.config.imageSourcesArray.map { $0.rawValue } as [ListDiffable]
         case .pickerView:
-            var objects = pickerViewImages as [ListDiffable]
+            var objects: [ListDiffable] = pickerViewImages.map { ImageDiffableWrapper(imageDescriptor: $0) }
             if let loadMoreManager = self.loadMoreManager, loadMoreManager.isLoading == true {
                 objects.append(spinToken as ListDiffable)
             }
@@ -684,7 +685,7 @@ extension FlaneurImagePickerController: ListAdapterDataSource {
 // MARK: - FlaneurImageProviderDelegate
 
 extension FlaneurImagePickerController: FlaneurImageProviderDelegate {
-    func didLoadImages(images: [FlaneurImageDescription]) {
+    func didLoadImages(images: [FlaneurImageDescriptor]) {
         DispatchQueue.main.async {
             if self.currentImageSource! == .camera {
                 self.addImageToSelection(imageDescription: images[0])

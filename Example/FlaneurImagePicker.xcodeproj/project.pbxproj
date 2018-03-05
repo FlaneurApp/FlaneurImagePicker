@@ -7,14 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		000ED8E5204702D7002AA944 /* MenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000ED8E4204702D7002AA944 /* MenuNavigationController.swift */; };
+		000ED8E720470331002AA944 /* ItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000ED8E620470331002AA944 /* ItemsTableViewController.swift */; };
+		000ED8E920470530002AA944 /* BenchmarkProcessorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000ED8E820470530002AA944 /* BenchmarkProcessorViewController.swift */; };
+		00DC8D4C204D80CD00D98D4A /* PreUploadProcessorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00DC8D4B204D80CD00D98D4A /* PreUploadProcessorSpec.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		AEF89731FAD7E567F988BEAC /* Pods_FlaneurImagePicker_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF4C738401132B8811E5B46 /* Pods_FlaneurImagePicker_Example.framework */; };
 		BEF4D8F2843797345BFBEFE5 /* Pods_FlaneurImagePicker_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 967D66F8B4B548D953ED5271 /* Pods_FlaneurImagePicker_Tests.framework */; };
-		E8C9CB931F310BC800814A2B /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C9CB911F310BC800814A2B /* TestView.swift */; };
-		E8C9CB941F310BC800814A2B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C9CB921F310BC800814A2B /* ViewController.swift */; };
+		E8C9CB941F310BC800814A2B /* DemoImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C9CB921F310BC800814A2B /* DemoImagePickerViewController.swift */; };
 		E8DFCB421F31E0D900C396AE /* FlaneurImageDescriptionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8DFCB3E1F31DF0600C396AE /* FlaneurImageDescriptionSpec.swift */; };
 		E8DFCB431F31E0DD00C396AE /* FlaneurImagePickerConfigSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8DFCB3F1F31DF0600C396AE /* FlaneurImagePickerConfigSpec.swift */; };
 /* End PBXBuildFile section */
@@ -30,6 +33,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		000ED8E4204702D7002AA944 /* MenuNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuNavigationController.swift; sourceTree = "<group>"; };
+		000ED8E620470331002AA944 /* ItemsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsTableViewController.swift; sourceTree = "<group>"; };
+		000ED8E820470530002AA944 /* BenchmarkProcessorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenchmarkProcessorViewController.swift; sourceTree = "<group>"; };
+		00DC8D4B204D80CD00D98D4A /* PreUploadProcessorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreUploadProcessorSpec.swift; sourceTree = "<group>"; };
 		130477294D197B98425033E9 /* FlaneurImagePicker.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = FlaneurImagePicker.podspec; path = ../FlaneurImagePicker.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		4655BC5C17818F14F56D25D1 /* Pods-FlaneurImagePicker_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlaneurImagePicker_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FlaneurImagePicker_Example/Pods-FlaneurImagePicker_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		56E405F247C2E20C2496E053 /* Pods-FlaneurImagePicker_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlaneurImagePicker_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-FlaneurImagePicker_Example/Pods-FlaneurImagePicker_Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -46,8 +53,7 @@
 		8DF4C738401132B8811E5B46 /* Pods_FlaneurImagePicker_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlaneurImagePicker_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		967D66F8B4B548D953ED5271 /* Pods_FlaneurImagePicker_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlaneurImagePicker_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAF5462ECAE69CA6A8E1BAD8 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		E8C9CB911F310BC800814A2B /* TestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
-		E8C9CB921F310BC800814A2B /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E8C9CB921F310BC800814A2B /* DemoImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoImagePickerViewController.swift; sourceTree = "<group>"; };
 		E8DFCB3E1F31DF0600C396AE /* FlaneurImageDescriptionSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlaneurImageDescriptionSpec.swift; sourceTree = "<group>"; };
 		E8DFCB3F1F31DF0600C396AE /* FlaneurImagePickerConfigSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlaneurImagePickerConfigSpec.swift; sourceTree = "<group>"; };
 		E8DFCB441F31E4C600C396AE /* FlaneurImagePicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FlaneurImagePicker.framework; path = "../../../../../../../Users/frenchapp/Library/Developer/Xcode/DerivedData/FlaneurImagePicker-djdzmmjgkassdahfcladztfuluju/Build/Products/Debug-iphonesimulator/FlaneurImagePicker/FlaneurImagePicker.framework"; sourceTree = "<group>"; };
@@ -113,9 +119,11 @@
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
-				E8C9CB911F310BC800814A2B /* TestView.swift */,
-				E8C9CB921F310BC800814A2B /* ViewController.swift */,
+				E8C9CB921F310BC800814A2B /* DemoImagePickerViewController.swift */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
+				000ED8E4204702D7002AA944 /* MenuNavigationController.swift */,
+				000ED8E620470331002AA944 /* ItemsTableViewController.swift */,
+				000ED8E820470530002AA944 /* BenchmarkProcessorViewController.swift */,
 			);
 			name = "Example for FlaneurImagePicker";
 			path = FlaneurImagePicker;
@@ -135,6 +143,7 @@
 				E8DFCB3E1F31DF0600C396AE /* FlaneurImageDescriptionSpec.swift */,
 				E8DFCB3F1F31DF0600C396AE /* FlaneurImagePickerConfigSpec.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
+				00DC8D4B204D80CD00D98D4A /* PreUploadProcessorSpec.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -409,8 +418,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8C9CB941F310BC800814A2B /* ViewController.swift in Sources */,
-				E8C9CB931F310BC800814A2B /* TestView.swift in Sources */,
+				000ED8E920470530002AA944 /* BenchmarkProcessorViewController.swift in Sources */,
+				E8C9CB941F310BC800814A2B /* DemoImagePickerViewController.swift in Sources */,
+				000ED8E720470331002AA944 /* ItemsTableViewController.swift in Sources */,
+				000ED8E5204702D7002AA944 /* MenuNavigationController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -421,6 +432,7 @@
 			files = (
 				E8DFCB431F31E0DD00C396AE /* FlaneurImagePickerConfigSpec.swift in Sources */,
 				E8DFCB421F31E0D900C396AE /* FlaneurImageDescriptionSpec.swift in Sources */,
+				00DC8D4C204D80CD00D98D4A /* PreUploadProcessorSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

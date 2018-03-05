@@ -67,7 +67,7 @@ final class SelectedImageCell: UICollectionViewCell {
         super.prepareForReuse()
     }
 
-    func configure(with imageDescription: FlaneurImageDescription!,
+    func configure(with imageDescription: FlaneurImageDescriptor!,
                    config: FlaneurImagePickerConfig,
                    andRemoveClosure removeClosure: @escaping ActionKitControlClosure) {
         imageView.contentMode = config.selectedImagesContentMode
