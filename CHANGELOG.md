@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [0.7.0] - 2018-03-12
 
 * Flattened code source files hierarchy under `Sources/Classes`
 * Renamed `FlaneurImageDescription` to `FlaneurImageDescriptor` that is now an enum
@@ -69,6 +69,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 Initial release of `FlaneurImagePicker`.
 
+[0.7.0]: https://github.com/FlaneurApp/FlaneurImagePicker/compare/0.6.1...0.7.0
 [0.6.1]: https://github.com/FlaneurApp/FlaneurImagePicker/compare/0.6.0...0.6.1
 [0.6.0]: https://github.com/FlaneurApp/FlaneurImagePicker/compare/0.5.1...0.6.0
 [0.5.1]: https://github.com/FlaneurApp/FlaneurImagePicker/compare/0.5.0...0.5.1
