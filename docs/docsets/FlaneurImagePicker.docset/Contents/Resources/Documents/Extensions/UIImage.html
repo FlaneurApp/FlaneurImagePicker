@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>FlaneurImagePickerControllerAction Enumeration Reference</title>
+    <title>UIImage Extension Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Enum/FlaneurImagePickerControllerAction" class="dashAnchor"></a>
-    <a title="FlaneurImagePickerControllerAction Enumeration Reference"></a>
+    <a name="//apple_ref/swift/Extension/UIImage" class="dashAnchor"></a>
+    <a title="UIImage Extension Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">FlaneurImagePicker Docs</a> (100% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">FlaneurImagePicker Reference</a>
         <img id="carat" src="../img/carat.png" />
-        FlaneurImagePickerControllerAction Enumeration Reference
+        UIImage Extension Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -94,15 +94,8 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>FlaneurImagePickerControllerAction</h1>
-              <div class="declaration">
-                <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">FlaneurImagePickerControllerAction</span></code></pre>
-
-                </div>
-              </div>
-            <p>Specifies what action to perform when a new image is tapped.</p>
-
+            <h1>UIImage</h1>
+            
           </section>
           <section class="section task-group-section">
             <div class="task-group">
@@ -110,9 +103,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18FlaneurImagePicker0abC16ControllerActionO3addA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/add" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18FlaneurImagePicker0abC16ControllerActionO3addA2CmF">add</a>
+                    <a name="/s:So7UIImageC18FlaneurImagePickerE13dataForUpload10Foundation4DataVSg12CoreGraphics7CGFloatV11targetWidth_AK22jpegCompressionQualitytF"></a>
+                    <a name="//apple_ref/swift/Method/dataForUpload(targetWidth:jpegCompressionQuality:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:So7UIImageC18FlaneurImagePickerE13dataForUpload10Foundation4DataVSg12CoreGraphics7CGFloatV11targetWidth_AK22jpegCompressionQualitytF">dataForUpload(targetWidth:jpegCompressionQuality:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -120,78 +113,51 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Adds the new image to the current selection (default).</p>
+                        <p>Returns the data for the image in a decently-sized JPEG format.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">add</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dataForUpload</span><span class="p">(</span><span class="nv">targetWidth</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mf">1125.0</span><span class="p">,</span> <span class="nv">jpegCompressionQuality</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Data</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:18FlaneurImagePicker0abC16ControllerActionO11replaceLastA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/replaceLast" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18FlaneurImagePicker0abC16ControllerActionO11replaceLastA2CmF">replaceLast</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Replace the last item of the current selection with the new image.</p>
-
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>targetWidth</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the target width of the image, defaults to 1125.0 ie the largest width displayable on an iPhone (iPhone X).</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>jpegCompressionQuality</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the JPEG compression quality, defaults to 0.6 after benchmarking results</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">replaceLast</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:18FlaneurImagePicker0abC16ControllerActionO9doNothingA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/doNothing" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18FlaneurImagePicker0abC16ControllerActionO9doNothingA2CmF">doNothing</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Do nothing: leave the current selection unchanged and ignore the new image.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">doNothing</span></code></pre>
-
-                        </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>the data to upload for the image.</p>
                       </div>
                     </section>
                   </div>

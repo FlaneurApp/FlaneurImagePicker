@@ -43,6 +43,12 @@ public struct PreUploadProcessor {
         return UIImage(cgImage: cgImage)
     }
 
+    /// Resizes an image to a target width using a basic Core Graphics rendering.
+    ///
+    /// - Parameters:
+    ///   - image: an image you want to resize.
+    ///   - targetWidth: the target width of the returned image.
+    /// - Returns: an image of the desired width if the resizing was successful, `nil` otherwise.
     public func cheapResizeImage(_ image: UIImage, targetWidth: CGFloat) -> UIImage? {
         assert(targetWidth > 0.0)
 

@@ -9,7 +9,7 @@ final class ImageDiffableWrapper {
 }
 
 extension ImageDiffableWrapper: Equatable {
-    static public func == (lhs: ImageDiffableWrapper, rhs: ImageDiffableWrapper) -> Bool {
+    static func == (lhs: ImageDiffableWrapper, rhs: ImageDiffableWrapper) -> Bool {
         return lhs.imageDescriptor == rhs.imageDescriptor
     }
 }
@@ -27,7 +27,7 @@ extension ImageDiffableWrapper: ListDiffable {
     /// Produce a unique identifier for each object
     ///
     /// - Returns: a unique identifier for each object
-    public func diffIdentifier() -> NSObjectProtocol {
+    func diffIdentifier() -> NSObjectProtocol {
         switch imageDescriptor {
         case .image(let image):
             return image
@@ -42,7 +42,7 @@ extension ImageDiffableWrapper: ListDiffable {
     ///
     /// - Parameter object: The object with which it is compared
     /// - Returns: A Boolean value indicating whether or not the objects are equal
-    public func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         guard let object = object as? ImageDiffableWrapper else { return false }
         return self == object
     }

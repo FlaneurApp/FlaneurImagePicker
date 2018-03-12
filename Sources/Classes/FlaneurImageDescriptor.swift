@@ -55,6 +55,11 @@ extension FlaneurImageDescriptor: CustomStringConvertible {
 }
 
 extension FlaneurImageDescriptor {
+    /// Fetches the images described by the instance.
+    ///
+    /// The handler will be called synchronously or asynchronously depending on the nature of `self`.
+    ///
+    /// - Parameter resultHandler: the handler that is called with either an image or an error.
     public func fetchImage(resultHandler: @escaping (UIImage?, Error?) -> ()) -> () {
         switch self {
         case .url(let imageURL):

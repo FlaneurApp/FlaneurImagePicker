@@ -13,7 +13,7 @@
     <a title="Classes  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">FlaneurImagePicker Docs</a> (86% documented)</p>
+        <p><a href="index.html">FlaneurImagePicker Docs</a> (100% documented)</p>
         <p class="header-right"><a href="https://github.com/FlaneurApp/FlaneurImagePicker"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -31,9 +31,6 @@
             <a href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Classes/FlaneurImageDescription.html">FlaneurImageDescription</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Classes/FlaneurImagePickerConfig.html">FlaneurImagePickerConfig</a>
               </li>
               <li class="nav-group-task">
@@ -48,7 +45,7 @@
             <a href="Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Enums/FlaneurImageDescriptionSourceType.html">FlaneurImageDescriptionSourceType</a>
+                <a href="Enums/FlaneurImageDescriptor.html">FlaneurImageDescriptor</a>
               </li>
               <li class="nav-group-task">
                 <a href="Enums/FlaneurImagePickerControllerAction.html">FlaneurImagePickerControllerAction</a>
@@ -65,6 +62,14 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/UIImage.html">UIImage</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -72,6 +77,14 @@
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/FlaneurImagePickerControllerDelegate.html">FlaneurImagePickerControllerDelegate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/PreUploadProcessor.html">PreUploadProcessor</a>
               </li>
             </ul>
           </li>
@@ -85,39 +98,6 @@
 
           </section>
           <section class="section task-group-section">
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:18FlaneurImagePicker0aB11DescriptionC"></a>
-                    <a name="//apple_ref/swift/Class/FlaneurImageDescription" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18FlaneurImagePicker0aB11DescriptionC">FlaneurImageDescription</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>FlaneurImageDescription is a model used to store an image.
-The image can either be defined by an URL, a PHAsset or an actuel UIImage.</p>
-
-                        <a href="Classes/FlaneurImageDescription.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">FlaneurImageDescription</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
             <div class="task-group">
               <ul>
                 <li class="item">
@@ -198,7 +178,10 @@ user&rsquo;s camera, instagram &hellip;)</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A utility wrapping <code>UIImageView</code> so that we can set images from descriptors and cancel asynchronous operations
+when relevant and necessary.</p>
+
+<p>Since an extension wouldn&rsquo;t allow to store information, subclassing <code>UIImageView</code> was necessary.</p>
 
                         <a href="Classes/FlaneurImageView.html" class="slightly-smaller">See more</a>
                       </div>
@@ -218,7 +201,7 @@ user&rsquo;s camera, instagram &hellip;)</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="http://flaneurapp.com" target="_blank" rel="external">Flâneur</a>. All rights reserved. (Last updated: 2018-02-20)</p>
+          <p>&copy; 2018 <a class="link" href="http://flaneurapp.com" target="_blank" rel="external">Flâneur</a>. All rights reserved. (Last updated: 2018-03-12)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
