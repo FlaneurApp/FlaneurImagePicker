@@ -14,7 +14,7 @@
     <a title="FlaneurImagePickerController Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">FlaneurImagePicker Docs</a> (86% documented)</p>
+        <p><a href="../index.html">FlaneurImagePicker Docs</a> (100% documented)</p>
         <p class="header-right"><a href="https://github.com/FlaneurApp/FlaneurImagePicker"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -32,9 +32,6 @@
             <a href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Classes/FlaneurImageDescription.html">FlaneurImageDescription</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Classes/FlaneurImagePickerConfig.html">FlaneurImagePickerConfig</a>
               </li>
               <li class="nav-group-task">
@@ -49,7 +46,7 @@
             <a href="../Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Enums/FlaneurImageDescriptionSourceType.html">FlaneurImageDescriptionSourceType</a>
+                <a href="../Enums/FlaneurImageDescriptor.html">FlaneurImageDescriptor</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/FlaneurImagePickerControllerAction.html">FlaneurImagePickerControllerAction</a>
@@ -66,6 +63,14 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/UIImage.html">UIImage</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -73,6 +78,14 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/FlaneurImagePickerControllerDelegate.html">FlaneurImagePickerControllerDelegate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/PreUploadProcessor.html">PreUploadProcessor</a>
               </li>
             </ul>
           </li>
@@ -115,7 +128,7 @@ user&rsquo;s camera, instagram &hellip;)</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The navigation bar of the view controller.</p>
 
                       </div>
                       <div class="declaration">
@@ -209,9 +222,9 @@ from inside that object</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:18FlaneurImagePicker0abC10ControllerCACypSg8userInfo_SayAA0aB6SourceOG15sourcesDelegateSayAA0aB11DescriptionCG14selectedImagestcfc"></a>
+                    <a name="/s:18FlaneurImagePicker0abC10ControllerCACypSg8userInfo_SayAA0aB6SourceOG15sourcesDelegateSayAA0aB10DescriptorOG14selectedImagestcfc"></a>
                     <a name="//apple_ref/swift/Method/init(userInfo:sourcesDelegate:selectedImages:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:18FlaneurImagePicker0abC10ControllerCACypSg8userInfo_SayAA0aB6SourceOG15sourcesDelegateSayAA0aB11DescriptionCG14selectedImagestcfc">init(userInfo:sourcesDelegate:selectedImages:)</a>
+                    <a class="token" href="#/s:18FlaneurImagePicker0abC10ControllerCACypSg8userInfo_SayAA0aB6SourceOG15sourcesDelegateSayAA0aB10DescriptorOG14selectedImagestcfc">init(userInfo:sourcesDelegate:selectedImages:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -228,7 +241,7 @@ from inside that object</p>
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">userInfo</span><span class="p">:</span> <span class="kt">Any</span><span class="p">?,</span>
             <span class="nv">sourcesDelegate</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/FlaneurImageSource.html">FlaneurImageSource</a></span><span class="p">],</span>
-            <span class="nv">selectedImages</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/FlaneurImageDescription.html">FlaneurImageDescription</a></span><span class="p">])</span></code></pre>
+            <span class="nv">selectedImages</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/FlaneurImageDescriptor.html">FlaneurImageDescriptor</a></span><span class="p">])</span></code></pre>
 
                         </div>
                       </div>
@@ -356,7 +369,7 @@ from inside that object</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Notifies the view controller that its view is about to be added to a view hierarchy.</p>
 
                       </div>
                       <div class="declaration">
@@ -366,6 +379,25 @@ from inside that object</p>
                           <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">viewWillAppear</span><span class="p">(</span><span class="n">_</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>animated</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>If <code>true</code>, the view is being added to the window using an animation.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -383,7 +415,7 @@ from inside that object</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Notifies the view controller that its view was added to a view hierarchy.</p>
 
                       </div>
                       <div class="declaration">
@@ -393,6 +425,25 @@ from inside that object</p>
                           <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">viewDidAppear</span><span class="p">(</span><span class="n">_</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>animated</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>If <code>true</code>, the view was added to the window using an animation.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -598,7 +649,7 @@ to object of an adapter</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="http://flaneurapp.com" target="_blank" rel="external">Flâneur</a>. All rights reserved. (Last updated: 2018-02-20)</p>
+          <p>&copy; 2018 <a class="link" href="http://flaneurapp.com" target="_blank" rel="external">Flâneur</a>. All rights reserved. (Last updated: 2018-03-12)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

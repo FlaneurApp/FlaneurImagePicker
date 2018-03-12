@@ -5,7 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.6.1] -
+## Unreleased
+
+* Flattened code source files hierarchy under `Sources/Classes`
+* Renamed `FlaneurImageDescription` to `FlaneurImageDescriptor` that is now an enum
+* Created `ImageDiffableWrapper` as a placeholder for all `FlaneurImageDescription`'s support code
+* Added `PreUploadProcessor` and the `UIImage` extension
+
+## [0.6.1] - 2018-03-02
 
 * Fixed random crashes at view loading time [#4][4]
 

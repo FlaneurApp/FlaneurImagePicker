@@ -12,98 +12,47 @@ import FlaneurImagePicker
 import Photos
 
 class FlaneurImageDescriptionSpec: QuickSpec {
-    
-    let testJPGImageURL = "https://www.w3schools.com/html/pic_mountain.jpg"
-    let testPNGImageURL = "https://www.w3schools.com/html/pic_graph.png"
+    let testJPGImageURL = URL(string: "https://www.w3schools.com/html/pic_mountain.jpg")!
+    let testPNGImageURL = URL(string: "https://www.w3schools.com/html/pic_graph.png")!
     
     override func spec() {
-        describe("A FlaneurImageDescription") {
+        describe("A FlaneurImageDescriptor") {
+            let flaneurImageDescriptionJPG = FlaneurImageDescriptor.url(testJPGImageURL)
+            let flaneurImageDescriptionJPG_2 = FlaneurImageDescriptor.url(testJPGImageURL)
             
-            it("Should not be created on nil url") {
-                let flaneurImageDescription = FlaneurImageDescription(imageURL: nil)
-                expect(flaneurImageDescription).to(beNil())
-            }
+            let flaneurImageDescriptionPNG = FlaneurImageDescriptor.url(testPNGImageURL)
 
-            it("Should be created if url points to a jpg file and set to .urlBased") {
-                let flaneurImageDescription = FlaneurImageDescription(imageURLString: self.testJPGImageURL)
-                expect(flaneurImageDescription).toNot(beNil())
-                expect({
-                    guard case .url = flaneurImageDescription!.sourceType else {
-                        return .failed(reason: "wrong enum case")
-                    }
+            let data1 = try! Data(contentsOf: testJPGImageURL)
+            let image1 = UIImage(data: data1)!
 
-                    return .succeeded
-                }).to(succeed())
-            }
+            let data2 = try! Data(contentsOf: testJPGImageURL)
+            let image2 = UIImage(data: data2)!
             
-            it("Should not be created on nil image") {
-                let flaneurImageDescription = FlaneurImageDescription(image: nil)
-                expect(flaneurImageDescription).to(beNil())
-            }
-            
-            it("Should be created on existing image and set to .imageBased") {
-                let flaneurImageDescription = FlaneurImageDescription(image: UIImage())
-                expect(flaneurImageDescription).toNot(beNil())
-                expect({
-                    guard case .image = flaneurImageDescription!.sourceType else {
-                        return .failed(reason: "wrong enum case")
-                    }
-
-                    return .succeeded
-                }).to(succeed())
-            }
-            
-            it("Should be created on existing Asset and set to .phassetBased") {
-                let asset = PHAsset()
-                let flaneurImageDescription = FlaneurImageDescription(asset: asset)
-                expect(flaneurImageDescription).toNot(beNil())
-                expect({
-                    guard case .phAsset = flaneurImageDescription!.sourceType else {
-                        return .failed(reason: "wrong enum case")
-                    }
-
-                    return .succeeded
-                }).to(succeed())
-            }
-            
-            let flaneurImageDescriptionJPG = FlaneurImageDescription(imageURLString: testJPGImageURL)
-            let flaneurImageDescriptionJPG_2 = FlaneurImageDescription(imageURLString: testJPGImageURL)
-            
-            let flaneurImageDescriptionPNG = FlaneurImageDescription(imageURLString: testPNGImageURL)
-
-            let url = URL(string: testJPGImageURL)
-            let data = try! Data(contentsOf: url!)
-            let image1 = UIImage(data: data)
-
-            let url2 = URL(string: testJPGImageURL)
-            let data2 = try! Data(contentsOf: url2!)
-            let image2 = UIImage(data: data2)
-            
-            let flaneurImageDescription_1 = FlaneurImageDescription(image: image1)
-            let flaneurImageDescription_2 = FlaneurImageDescription(image: image2)
+            let flaneurImageDescription_1 = FlaneurImageDescriptor.image(image1)
+            let flaneurImageDescription_2 = FlaneurImageDescriptor.image(image2)
             
             context("After instances has been created") {
                 it("Should be equal") {
-                    expect(flaneurImageDescriptionJPG == flaneurImageDescriptionJPG_2) == true
+                    expect(flaneurImageDescriptionJPG == flaneurImageDescriptionJPG_2).to(beTrue())
                 }
                 
                 it("Should not be equal") {
-                    expect(flaneurImageDescriptionJPG) != flaneurImageDescriptionPNG
+                    expect(flaneurImageDescriptionJPG == flaneurImageDescriptionPNG).to(beFalse())
                 }
                 
                 it("Should not be equal") {
                     // OK, they are the same image BUT...
                     // 1. UIImage is supposed to be equatable so we should rely on it
                     // 2.
-                    expect(flaneurImageDescription_1) != flaneurImageDescription_2
+                    expect(flaneurImageDescription_1 == flaneurImageDescription_2).to(beFalse())
                 }
                 
                 it("Should not be equal") {
-                    expect(flaneurImageDescription_1) != FlaneurImageDescription(image: UIImage())
+                    expect(flaneurImageDescription_1 == FlaneurImageDescriptor.image(UIImage())).to(beFalse())
                 }
                 
                 it("Should not be equal") {
-                    expect(flaneurImageDescription_1) != flaneurImageDescriptionPNG
+                    expect(flaneurImageDescription_1 == flaneurImageDescriptionPNG).to(beFalse())
                 }
             }
         }

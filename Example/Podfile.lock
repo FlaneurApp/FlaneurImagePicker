@@ -1,15 +1,15 @@
 PODS:
   - ActionKit (2.3.2)
-  - FlaneurImagePicker (0.6.1):
+  - FlaneurImagePicker (0.7.0):
     - ActionKit (~> 2.1)
     - IGListKit (~> 3.0)
     - Kingfisher (~> 4.0)
-  - IGListKit (3.1.1):
-    - IGListKit/Default (= 3.1.1)
-  - IGListKit/Default (3.1.1):
+  - IGListKit (3.2.0):
+    - IGListKit/Default (= 3.2.0)
+  - IGListKit/Default (3.2.0):
     - IGListKit/Diffing
-  - IGListKit/Diffing (3.1.1)
-  - Kingfisher (4.5.0)
+  - IGListKit/Diffing (3.2.0)
+  - Kingfisher (4.6.2)
   - Nimble (7.0.3)
   - Quick (1.2.0)
 
@@ -24,9 +24,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   ActionKit: cf7ca5781f4a43342384d872105fadd58985f416
-  FlaneurImagePicker: 42a18bf85c37d36f7daa038643c3ea28efbcd961
-  IGListKit: cb97f405ae43e59fe1da74271e19427ec20d3c07
-  Kingfisher: 26ae0473102b77b575da51960c932431e3745407
+  FlaneurImagePicker: 3feafd3defef696d7b0d4328d98f2ac827bbe08d
+  IGListKit: ffe6f98a728ab0250aceea22e7957aa5477c5048
+  Kingfisher: 55b9c395bf8d3949676ad3861111923990ab68cf
   Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
 

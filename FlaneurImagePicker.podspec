@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'FlaneurImagePicker'
-  s.version          = '0.6.1'
+  s.version          = '0.7.0'
   s.summary          = 'FlaneurImagePicker is an iOS image picker'
 
   s.description      = <<-DESC
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 
   s.module_name  = 'FlaneurImagePicker'
 
-  s.source_files  = 'Sources/**/*'
+  s.source_files = 'Sources/Classes/**/*'
   s.resource_bundle = { 'FlaneurImagePicker' => "Sources/Assets/*" }
 
   # s.requires_arc = true
