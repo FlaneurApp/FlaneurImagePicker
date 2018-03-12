@@ -8,7 +8,12 @@
 import UIKit
 import Photos
 
+/// A utility wrapping `UIImageView` so that we can set images from descriptors and cancel asynchronous operations
+/// when relevant and necessary.
+///
+/// Since an extension wouldn't allow to store information, subclassing `UIImageView` was necessary.
 final public class FlaneurImageView: UIImageView {
+    /// Specifies if Photos Assets should be fetched as thumbnails or not.
     public var assetThumbnailMode: Bool = false
 
     enum AsynchronousState {
@@ -19,6 +24,9 @@ final public class FlaneurImageView: UIImageView {
 
     private var asynchronousState: AsynchronousState = .none
 
+    /// Sets the image using an image descriptor.
+    ///
+    /// - Parameter imageDescription: the descriptor of the image being used.
     public func setImage(with imageDescription: FlaneurImageDescriptor) {
         switch imageDescription {
         case .url(let imageURL):
@@ -46,6 +54,11 @@ final public class FlaneurImageView: UIImageView {
         }
     }
 
+    /// Prepares the instance to be reused.
+    ///
+    /// Since some asynchronous operations might be in progress, you should call this method to cancel them
+    /// before reusing the instance. For instance, if the instance has a `UITableViewCell` parent view, calling
+    /// this method is necessary to avoid races between operations.
     public func prepareForReuse() {
         switch asynchronousState {
         case .kingfisher:

@@ -65,6 +65,8 @@ public protocol FlaneurImagePickerControllerDelegate: AnyObject {
 final public class FlaneurImagePickerController: UIViewController {
 
     // MARK: - Views
+
+    /// The navigation bar of the view controller.
     public let navigationBar: UINavigationBar = {
         let navigationItem = UINavigationItem()
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel",
@@ -240,6 +242,9 @@ final public class FlaneurImagePickerController: UIViewController {
         createAdapters()
     }
 
+    /// Notifies the view controller that its view is about to be added to a view hierarchy.
+    ///
+    /// - Parameter animated: If `true`, the view is being added to the window using an animation.
     override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -248,6 +253,9 @@ final public class FlaneurImagePickerController: UIViewController {
         galleryCollectionView?.backgroundColor = config.backgroundColorForSection(.pickerView)
     }
 
+    /// Notifies the view controller that its view was added to a view hierarchy.
+    ///
+    /// - Parameter animated: If `true`, the view was added to the window using an animation.
     override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
