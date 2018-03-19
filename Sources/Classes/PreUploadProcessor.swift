@@ -1,5 +1,9 @@
 import CoreImage
 
+func floor(_ size: CGSize) -> CGSize {
+    return CGSize(width: floor(size.width), height: floor(size.height))
+}
+
 /// A processor containing useful utils before uploading an image on a server.
 public struct PreUploadProcessor {
     let context = CIContext()
@@ -20,8 +24,13 @@ public struct PreUploadProcessor {
         assert(targetWidth > 0.0)
 
         let scale = Double(targetWidth) / Double(image.size.width)
+        let cgScale = CGFloat(scale)
+        let targetSize = image.size.applying(CGAffineTransform(scaleX: cgScale, y: cgScale))
+        let targetFrame = CGRect(origin: .zero, size: floor(targetSize))
 
-        guard let ciImage = CIImage(image: image) else {
+        // We need to call `clampedToExtent` (and `cropped` further) to avoid edges artefacts
+        // Cf. https://stackoverflow.com/questions/49147109/how-can-i-fix-a-core-images-cilanczosscaletransform-filter-border-artifact/49309714#49309714
+        guard let ciImage = CIImage(image: image)?.clampedToExtent() else {
             fatalError("Couldn't create CIImage from image in input")
         }
 
@@ -36,7 +45,7 @@ public struct PreUploadProcessor {
             fatalError("No output on filter.")
         }
 
-        guard let cgImage = context.createCGImage(result, from: result.extent) else {
+        guard let cgImage = context.createCGImage(result.cropped(to: targetFrame), from: targetFrame) else {
             fatalError("Couldn't create CG Image")
         }
 
