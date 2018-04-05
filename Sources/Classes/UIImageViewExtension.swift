@@ -10,7 +10,19 @@
 import UIKit
 import Photos
 
+private var vmKey: Void?
+
 extension UIImageView {
+    var vm: ImageViewModel {
+        guard let res = objc_getAssociatedObject(self, &vmKey) as? ImageViewModel else {
+            let newViewModel = ImageViewModel(imageView: self)
+            objc_setAssociatedObject(self, &vmKey, newViewModel, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            return newViewModel
+        }
+
+        return res
+    }
+
     /// Asynchronously sets the image displayed in the image view, from a `PHAsset` instance.
     ///
     /// - Parameters:

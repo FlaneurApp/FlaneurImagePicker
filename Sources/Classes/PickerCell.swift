@@ -10,12 +10,12 @@ import UIKit
 import Photos
 
 final class PickerCell: UICollectionViewCell {
-    lazy var imageView: FlaneurImageView = {
-        let view = FlaneurImageView()
+    lazy var imageView: UIImageView = {
+        let view = UIImageView()
         view.backgroundColor = .black
         view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
-        view.assetThumbnailMode = true
+        view.vm.thumbnailMode = true
         self.contentView.addSubview(view)
         return view
     }()
@@ -26,12 +26,12 @@ final class PickerCell: UICollectionViewCell {
     }
     
     override func prepareForReuse() {
-        imageView.prepareForReuse()
+        imageView.vm.prepareForReuse()
         super.prepareForReuse()
     }
     
     func configure(with config: FlaneurImagePickerConfig,
                    andImageDescription imageDescription: FlaneurImageDescriptor) {
-        self.imageView.setImage(with: imageDescription)
+        imageView.vm.setImage(with: imageDescription)
     }
 }

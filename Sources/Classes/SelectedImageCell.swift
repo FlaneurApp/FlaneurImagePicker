@@ -12,11 +12,11 @@ import ActionKit
 final class SelectedImageCell: UICollectionViewCell {
     private let gridUnit: CGFloat = 8.0
 
-    lazy var imageView: FlaneurImageView = {
-        let view = FlaneurImageView()
+    lazy var imageView: UIImageView = {
+        let view = UIImageView()
         view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
-        view.assetThumbnailMode = false
+        view.vm.thumbnailMode = false
         self.contentView.addSubview(view)
         return view
     }()
@@ -63,7 +63,7 @@ final class SelectedImageCell: UICollectionViewCell {
     }
 
     override func prepareForReuse() {
-        imageView.prepareForReuse()
+        imageView.vm.prepareForReuse()
         super.prepareForReuse()
     }
 
@@ -71,7 +71,7 @@ final class SelectedImageCell: UICollectionViewCell {
                    config: FlaneurImagePickerConfig,
                    andRemoveClosure removeClosure: @escaping ActionKitControlClosure) {
         imageView.contentMode = config.selectedImagesContentMode
-        imageView.setImage(with: imageDescription)
+        imageView.vm.setImage(with: imageDescription)
 
         deleteButton.tag = imageDescription.hashValue
         deleteButton.addControlEvent(.touchUpInside, removeClosure)
