@@ -49,8 +49,6 @@ class MenuNavigationController: UINavigationController {
                 self.pushViewController(demoVC, animated: true)
             case .preUploadProcessor:
                 self.pushViewController(BenchmarkProcessorViewController(), animated: true)
-            default:
-                debugPrint("Unhandled menu option.")
             }
         }
     }

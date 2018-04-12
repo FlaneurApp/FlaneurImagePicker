@@ -10,7 +10,7 @@ task :pod_update => [ :pod_repo_update ] do |t|
   sh "bundle exec pod update --project-directory=Example"
 end
 
-desc "Update pods"
+desc "Update pods repos"
 task :pod_repo_update do |t|
   sh "bundle exec pod repo update"
 end

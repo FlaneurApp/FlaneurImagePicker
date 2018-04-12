@@ -15,7 +15,7 @@ protocol FlaneurImageProviderDelegate: AnyObject {
 }
 
 protocol FlaneurImageProvider {
-    weak var delegate: FlaneurImageProviderDelegate? { get set }
+    var delegate: FlaneurImageProviderDelegate? { get set }
 
     /// Whether or not the image provider's source is currently authorized.
     ///

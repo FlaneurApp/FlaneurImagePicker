@@ -9,8 +9,8 @@ PODS:
   - IGListKit/Default (3.2.0):
     - IGListKit/Diffing
   - IGListKit/Diffing (3.2.0)
-  - Kingfisher (4.6.3)
-  - Nimble (7.0.3)
+  - Kingfisher (4.7.0)
+  - Nimble (7.1.0)
   - Quick (1.2.0)
 
 DEPENDENCIES:
@@ -18,18 +18,26 @@ DEPENDENCIES:
   - Nimble (~> 7.0)
   - Quick (~> 1.2)
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - ActionKit
+    - IGListKit
+    - Kingfisher
+    - Nimble
+    - Quick
+
 EXTERNAL SOURCES:
   FlaneurImagePicker:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
   ActionKit: cf7ca5781f4a43342384d872105fadd58985f416
   FlaneurImagePicker: ad31b4f1580ab53057f2f3bdab8576c88096ae9e
   IGListKit: ffe6f98a728ab0250aceea22e7957aa5477c5048
-  Kingfisher: 98e6d5b5e807645743e8ed5ececd25d688d38452
-  Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
+  Kingfisher: da6b005aa96d37698e3e4f1ccfe96a5b9bbf27d6
+  Nimble: 9c6651c3021af6de54c3ed90a4a0a87d548f7359
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
 
 PODFILE CHECKSUM: 86df002a15c64144ec5e67c146afbe58cbb06376
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.0
