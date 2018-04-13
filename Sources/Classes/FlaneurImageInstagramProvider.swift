@@ -10,8 +10,6 @@ import UIKit
 import SafariServices
 
 final class FlaneurImageInstagramProvider: NSObject, FlaneurImageProvider {
-    let kInstagramTokenKey = "kInstagramTokenKey"
-
     weak var delegate: FlaneurImageProviderDelegate?
     weak var parentVC: UIViewController?
 
@@ -32,7 +30,7 @@ final class FlaneurImageInstagramProvider: NSObject, FlaneurImageProvider {
     }
     
     func isAuthorized() -> Bool {
-        return UserDefaults.standard.string(forKey: kInstagramTokenKey) != nil
+        return InstagramLoginManager.currentAccessToken != nil
     }
 
     func requestAuthorization(_ handler: @escaping (Bool) -> Void) {

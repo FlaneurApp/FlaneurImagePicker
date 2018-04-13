@@ -1,10 +1,16 @@
 import SafariServices
 
+public extension NSNotification.Name {
+    static let InstagramAPIAccessTokenDidChange = NSNotification.Name("com.flaneurapp.flaneurimagepicker.InstagramAPIAccessTokenDidChange")
+}
+
 /// An Instagram API wrapper for authorization.
 ///
 /// Beware, Instagram announced this API won't work from early 2020.s
 public class InstagramLoginManager {
     private let instagramBaseURL = URL(string: "https://api.instagram.com")!
+
+    static let kInstagramTokenKey = "kInstagramTokenKey"
 
     /// The client ID provided by Instagram (cf. https://www.instagram.com/developer/clients/manage/)
     let clientID: String
@@ -18,9 +24,13 @@ public class InstagramLoginManager {
     /// The completion handler that gets called once authorization succeeded or failed.
     var authorizationCompletionHandler: ((Bool) -> Void) = { _ in }
 
-    init(clientID: String, redirectURI: String) {
+    public init(clientID: String, redirectURI: String) {
         self.clientID = clientID
         self.redirectURI = redirectURI
+    }
+
+    static public var currentAccessToken: String? {
+        return UserDefaults.standard.string(forKey: kInstagramTokenKey)
     }
 
     var authorizationURL: URL {
@@ -56,7 +66,7 @@ public class InstagramLoginManager {
         return authURL
     }
 
-    func authenticate(from presentingViewController: UIViewController,
+    public func authenticate(from presentingViewController: UIViewController,
                       completionHandler: @escaping (Bool) -> Void) {
         authorizationCompletionHandler = completionHandler
         if #available(iOS 11.0, *) {
@@ -78,7 +88,12 @@ extension InstagramLoginManager: InstagramAuthenticationSessionDelegate {
         let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
         if let accessTokenSubstrings = components?.fragment?.split(separator: "="),
             accessTokenSubstrings.count == 2 && accessTokenSubstrings[0] == "access_token" {
-            self.accessToken = String(accessTokenSubstrings[1])
+            let newAccessToken = String(accessTokenSubstrings[1])
+            self.accessToken = newAccessToken
+
+            // Store and Send notification
+            UserDefaults.standard.set(newAccessToken, forKey: InstagramLoginManager.kInstagramTokenKey)
+            NotificationCenter.default.post(Notification(name: NSNotification.Name.InstagramAPIAccessTokenDidChange, object: accessToken, userInfo: nil))
             authorizationCompletionHandler(true)
         } else {
             authorizationCompletionHandler(false)
