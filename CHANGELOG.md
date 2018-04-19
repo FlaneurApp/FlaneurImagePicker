@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 
 * Split FlaneurImageInstagramProvider in 2: an image provider and a login/authorization manager
+* Made the `setImageFromPHAsset` extension of `UIImageView` public
 
 ## [0.7.1] - 2018-03-19
 

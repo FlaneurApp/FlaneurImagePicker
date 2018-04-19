@@ -10,7 +10,7 @@
 import UIKit
 import Photos
 
-extension UIImageView {
+public extension UIImageView {
     /// Asynchronously sets the image displayed in the image view, from a `PHAsset` instance.
     ///
     /// - Parameters:
@@ -19,7 +19,7 @@ extension UIImageView {
     ///   - deliveryMode: The requested image quality and delivery priority.
     ///   - completion: The completion block when an image is available.
     /// - Returns: A numeric identifier for the request. If you need to cancel the request before it completes, pass this identifier to the cancelImageRequest(_:) method.
-    func setImageFromPHAsset(asset: PHAsset,
+    public func setImageFromPHAsset(asset: PHAsset,
                              thumbnail: Bool,
                              deliveryMode: PHImageRequestOptionsDeliveryMode,
                              completion: ((UIImage?) -> Void)?) -> PHImageRequestID {

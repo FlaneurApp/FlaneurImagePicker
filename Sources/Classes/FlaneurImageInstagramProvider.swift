@@ -85,7 +85,11 @@ final class FlaneurImageInstagramProvider: NSObject, FlaneurImageProvider {
     }
     
     func fetchUserPictures(withURL maybeURL: URL? = nil) {
-        let url = maybeURL ?? loginManager.mediaURL()!
+        guard let url = maybeURL ?? loginManager.mediaURL() else {
+            delegate?.didFailLoadingImages(with: .instagram)
+            return
+        }
+
         let task = URLSession.shared.dataTask(with: url) { [weak self] data, resp, error in
             guard let data = data else {
                 self?.delegate?.didFailLoadingImages(with: .instagram)
