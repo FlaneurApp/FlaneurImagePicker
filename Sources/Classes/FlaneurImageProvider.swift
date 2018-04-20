@@ -9,12 +9,15 @@
 
 import UIKit
 
-protocol FlaneurImageProviderDelegate: AnyObject {
-    func didLoadImages(images: [FlaneurImageDescriptor])
-    func didFailLoadingImages(with unauthorizedSourcePermission: FlaneurImageSource)
+public protocol FlaneurImageProviderDelegate: AnyObject {
+    func presentingViewController(for: FlaneurImageProvider) -> UIViewController
+    func imageProvider(_: FlaneurImageProvider, didLoadImages: [FlaneurImageDescriptor])
+    func imageProvider(_: FlaneurImageProvider, didFailWithError: Error)
 }
 
-protocol FlaneurImageProvider {
+public protocol FlaneurImageProvider {
+    var name: String { get }
+
     var delegate: FlaneurImageProviderDelegate? { get set }
 
     /// Whether or not the image provider's source is currently authorized.

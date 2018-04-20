@@ -143,42 +143,18 @@ final public class FlaneurImagePickerController: UIViewController {
         }
     }
 
+    let imageProviders: [FlaneurImageProvider]
+
     /// Currently used image provider
-    var imageProvider: FlaneurImageProvider?
-
-    /// Currently selected image source
-    var currentImageSource: FlaneurImageSource? {
+    var currentImageProvider: FlaneurImageProvider {
         didSet {
-            // Not sure why this runs asynchronously, cf. #4
-            DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-                guard let existingSelf = self else { return }
-                guard let currentImageSource = existingSelf.currentImageSource else { return }
-                existingSelf.loadMoreManager = nil
-
-                switch currentImageSource {
-                    // FIXME: the fact that the image picker controller has to switch defeats the
-                // *plugin* intent of the providers.
-                case .camera:
-                    existingSelf.imageProvider = FlaneurImageCameraProvider(parentVC: existingSelf)
-                    existingSelf.imageProvider!.delegate = self
-                case .library:
-                    existingSelf.imageProvider = FlaneurImageLibraryProvider()
-                    existingSelf.imageProvider!.delegate = self
-                case .instagram:
-                    existingSelf.imageProvider = FlaneurImageInstagramProvider(parentVC: existingSelf)
-                    existingSelf.imageProvider!.delegate = self
-                    DispatchQueue.main.async {
-                        self?.setLoadMoreManager()
-                    }
-                }
-
-                if existingSelf.imageProvider!.isAuthorized() {
-                    existingSelf.imageProvider!.fetchImagesFromSource()
-                } else {
-                    DispatchQueue.main.async { [weak self] in
-                        self?.isChangingSource = false
-                        self?.pickerViewImages = []
-                    }
+            loadMoreManager = nil
+            if currentImageProvider.isAuthorized() {
+                currentImageProvider.fetchImagesFromSource()
+            } else {
+                DispatchQueue.main.async { [weak self] in
+                    self?.isChangingSource = false
+                    self?.pickerViewImages = []
                 }
             }
         }
@@ -190,24 +166,29 @@ final public class FlaneurImagePickerController: UIViewController {
     ///
     /// - Parameters:
     ///   - userInfo: Arbitrary data
-    ///   - sourcesDelegate: Array of image sources, aka: FlaneurImageSource
+    ///   - imageProviders: Array of image providers.
     ///   - selectedImages: An array of already selected images
     public init(userInfo: Any?,
-                sourcesDelegate: [FlaneurImageSource],
+                imageProviders: [FlaneurImageProvider],
                 selectedImages: [FlaneurImageDescriptor]) {
-        if sourcesDelegate.count != 0 {
-            self.config.imageSourcesArray = sourcesDelegate
-        }
-
+        self.imageProviders = imageProviders
         self.selectedImages = selectedImages
         self.userInfo = userInfo
+
+        // Since the camera requires a modal view, we don't want it as the 1st source being selected by the controller.
+        guard let firstSource = imageProviders.first(where: { !($0 is FlaneurImageCameraProvider) })
+            else {
+                fatalError("At least one source that is not camera must be set.")
+        }
+
+        self.currentImageProvider = firstSource
 
         super.init(nibName: nil, bundle: nil)
     }
 
     /// A required init
     required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        fatalError("not implemented")
     }
 
     deinit {
@@ -225,15 +206,6 @@ final public class FlaneurImagePickerController: UIViewController {
         _ = UIFont.registerFont(bundle: BundleLoader.assetsBundle,
                                 fontName: "Font Awesome 5 Free-Regular-400",
                                 fontExtension: "otf")
-
-        // Find the first image source that is not the camera
-        searchFirstSource: for imageSource in config.imageSourcesArray {
-            if imageSource != .camera {
-                debugPrint("Setting image source as \(imageSource)")
-                self.currentImageSource = imageSource
-                break searchFirstSource
-            }
-        }
 
         view.addSubview(navigationBar)
         layoutNavigationBar()
@@ -406,14 +378,13 @@ final public class FlaneurImagePickerController: UIViewController {
         guard let shouldManageFirstSelection = imageSourceSelectionCollectionView?.indexPathsForSelectedItems?.isEmpty else { return }
 
         if shouldManageFirstSelection {
-            if let imageSourceToSelect = self.currentImageSource {
-                if let sectionNumber = self.config.imageSourcesArray.index(of: imageSourceToSelect) {
-                    let myIndexPath = IndexPath(item: 0, section: sectionNumber)
-                    imageSourceSelectionCollectionView?.selectItem(at: myIndexPath,
-                                                                   animated: true,
-                                                                   scrollPosition: .left)
 
-                }
+            if let sectionNumber = imageProviders.index(where: { $0.name == currentImageProvider.name }) {
+                let myIndexPath = IndexPath(item: 0, section: sectionNumber)
+                imageSourceSelectionCollectionView?.selectItem(at: myIndexPath,
+                                                               animated: true,
+                                                               scrollPosition: .left)
+
             }
         }
     }
@@ -449,13 +420,13 @@ extension FlaneurImagePickerController {
         return adapters[sectionIndex]
     }
 
-    internal func imageSourceForText(imageSourceRawValue: String) -> FlaneurImageSource {
-        guard let candidate = FlaneurImageSource(rawValue: imageSourceRawValue) else {
-            fatalError("No source for \(imageSourceRawValue)")
-        }
-
-        return candidate
-    }
+    //    internal func imageSourceForText(imageSourceRawValue: String) -> FlaneurImageSource {
+    //        guard let candidate = FlaneurImageSource(rawValue: imageSourceRawValue) else {
+    //            fatalError("No source for \(imageSourceRawValue)")
+    //        }
+    //
+    //        return candidate
+    //    }
 
     internal func addImageToSelection(imageDescription: FlaneurImageDescriptor) {
         if let imageIndex = selectedImages.index(of: imageDescription) {
@@ -483,11 +454,10 @@ extension FlaneurImagePickerController {
         self.selectedImages = self.selectedImages.filter { $0.hashValue != hashValue }
     }
 
-    internal func switchToSource(withName imageSourceRawValue: String) {
-        let source = imageSourceForText(imageSourceRawValue: imageSourceRawValue)
-        if source != self.currentImageSource || source == .camera {
-            self.showChangingSourceSpinner(forSource: source)
-            self.currentImageSource = source
+    internal func switchToSource(_ newProvider: FlaneurImageProvider) {
+        if newProvider.name != currentImageProvider.name || newProvider is FlaneurImageCameraProvider {
+            showChangingSourceSpinner(forProvider: newProvider)
+            currentImageProvider = newProvider
         }
     }
 
@@ -531,7 +501,7 @@ extension FlaneurImagePickerController {
         loadMoreManager?.adapter = adapter
         loadMoreManager?.collectionView = adapter.collectionView
         loadMoreManager?.loadMoreClosure = { [weak self] in
-            self?.imageProvider?.fetchNextPage()
+            self?.currentImageProvider.fetchNextPage()
         }
     }
 
@@ -555,10 +525,9 @@ extension FlaneurImagePickerController {
                                            sizeBlock: sizeBlock)
     }
 
-    internal func showChangingSourceSpinner(forSource source: FlaneurImageSource) {
-        guard source != .camera else {
-            return
-        }
+    internal func showChangingSourceSpinner(forProvider provider: FlaneurImageProvider) {
+        guard !(provider is FlaneurImageCameraProvider) else { return }
+
         DispatchQueue.main.async { [weak self] in
             self!.isChangingSource = true
             self!.pickerViewImages = []
@@ -587,7 +556,7 @@ extension FlaneurImagePickerController: ListAdapterDataSource {
         case .selectedImages:
             return selectedImages.map { ImageDiffableWrapper(imageDescriptor: $0) }
         case .imageSources:
-            return self.config.imageSourcesArray.map { $0.rawValue } as [ListDiffable]
+            return imageProviders.map { ImageProviderWrapper($0) }
         case .pickerView:
             var objects: [ListDiffable] = pickerViewImages.map { ImageDiffableWrapper(imageDescriptor: $0) }
             if let loadMoreManager = self.loadMoreManager, loadMoreManager.isLoading == true {
@@ -624,13 +593,14 @@ extension FlaneurImagePickerController: ListAdapterDataSource {
             return selectedImagesSectionController
 
         case .imageSources:
-            guard let imageSourceName = object as? String else { fatalError("Invalid object") }
+            guard let wrapper = object as? ImageProviderWrapper else { fatalError("Invalid object") }
 
             let buttonTouchedClosure: ActionKitVoidClosure = { [weak self] in
-                self?.switchToSource(withName: imageSourceName)
+                self?.switchToSource(wrapper.imageProvider)
             }
 
             return ImageSourcesSectionController(with: config,
+                                                 numberOfSources: imageProviders.count,
                                                  andSelectHandler: buttonTouchedClosure)
 
         case .pickerView:
@@ -655,30 +625,25 @@ extension FlaneurImagePickerController: ListAdapterDataSource {
             self.delegate?.flaneurImagePickerControllerDidFail(.emptyViewError("no section for adapter"))
             return nil
         }
-        guard let imageProvider = imageProvider else {
-            self.delegate?.flaneurImagePickerControllerDidFail(.emptyViewError("no image provider set when it should have been"))
-            return nil
-        }
 
         let section = config.sectionsOrderArray[index]
-        if currentImageSource == nil // No current image source
-            || section != .pickerView // The section is not the picker view
-            || imageProvider.isAuthorized() // The image provider has already been authorized
+        if section != .pickerView // The section is not the picker view
+            || currentImageProvider.isAuthorized() // The image provider has already been authorized
         {
             return nil
         }
 
         let authorizeClosure: ActionKitVoidClosure = { [weak self] in
-            imageProvider.requestAuthorization { [weak self] isPermissionGiven in
+            self?.currentImageProvider.requestAuthorization { isPermissionGiven in
                 if isPermissionGiven {
-                    imageProvider.fetchImagesFromSource()
+                    self?.currentImageProvider.fetchImagesFromSource()
                 } else {
                     self?.presentAuthorizationSettingsAlert()
                 }
             }
         }
-        // At this point, we know that currentImageSource != nil
-        let sourceName: String = currentImageSource!.rawValue
+
+        let sourceName: String = currentImageProvider.name
 
         if let customViewClass = config.authorizationViewCustomClass,
             let validClass = customViewClass.self as? FlaneurAuthorizationView.Type {
@@ -693,9 +658,13 @@ extension FlaneurImagePickerController: ListAdapterDataSource {
 // MARK: - FlaneurImageProviderDelegate
 
 extension FlaneurImagePickerController: FlaneurImageProviderDelegate {
-    func didLoadImages(images: [FlaneurImageDescriptor]) {
+    public func presentingViewController(for: FlaneurImageProvider) -> UIViewController {
+        return self
+    }
+
+    public func imageProvider(_ provider: FlaneurImageProvider, didLoadImages images: [FlaneurImageDescriptor]) {
         DispatchQueue.main.async {
-            if self.currentImageSource! == .camera {
+            if self.currentImageProvider is FlaneurImageCameraProvider {
                 self.addImageToSelection(imageDescription: images[0])
             } else {
                 if let loadMoreManager = self.loadMoreManager, loadMoreManager.isLoading == true {
@@ -709,25 +678,11 @@ extension FlaneurImagePickerController: FlaneurImageProviderDelegate {
         }
     }
 
-    func didFailLoadingImages(with unauthorizedSourcePermission: FlaneurImageSource) {
+    public func imageProvider(_ provider: FlaneurImageProvider, didFailWithError error: Error) {
         let title = NSLocalizedString("Error", comment: "")
-        var message = ""
-
         self.pickerViewImages = []
-
-        // FIXME: this is not good.
-        // 1. Each source should be able to provide its own error, we shouldn't rely on the view controller
-        // to decide a source-dependent message.
-        // 2. We don't want NSLocalizedString in a library. We probably want to forward the error
-        // to the delegate and let it deal with it.
-        if unauthorizedSourcePermission == .camera {
-            message = NSLocalizedString("Camera is not accessible on the device", comment: "")
-        } else if unauthorizedSourcePermission == .instagram {
-            message = NSLocalizedString("Check your internet connection", comment: "")
-        }
-
         let alert = UIAlertController(title: title,
-                                      message: message,
+                                      message: error.localizedDescription,
                                       preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""),
                                       style: .cancel,

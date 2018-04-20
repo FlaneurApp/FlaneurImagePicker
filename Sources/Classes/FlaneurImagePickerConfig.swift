@@ -8,46 +8,38 @@
 
 import UIKit
 
-/// Used to reference an image source
-public enum FlaneurImageSource: String {
-    /// User's camera source, needs "Privacy - Camera Usage Description" set in info.plist
-    case camera
-    /// User's library source, needs "Privacy - Photo Library Usage Description" set in info.plist
-    case library
-    /// User's intagram source, needs "InstagramClientID" and "InstagramRedirectURI" set in info.plist
-    case instagram
-}
-
 /// Used to reference a section into the Image Picker
 public enum FlaneurImagePickerSection {
     /// Section where selected images go, top section by default
     case selectedImages
+
     /// Section allowing the user to select an image source, middle section by default
     case imageSources
+
     /// Section showing the pictures of the currently selected image source, bottom section by default
     case pickerView
 }
 
 /// An object used to set all the configurations relative to the FlaneurImagePicker
 public class FlaneurImagePickerConfig {
-    // MARK: - Source Selection
+    public static let defaultSources: [FlaneurImageProvider] = {
+        let libraryP = FlaneurImageLibraryProvider()
+        let cameraP = FlaneurImageCameraProvider()
+        let instagramP = FlaneurImageInstagramProvider()
+        return [ libraryP, cameraP, instagramP]
+    }()
 
-    /// Changes the order of the imageSources shown in the .imageSources section
-    public var imageSourcesArray: [FlaneurImageSource] = [
-        .library,
-        .camera,
-        .instagram
-    ]
+    // MARK: - Source Selection
 
     /// Title displayed for the image source selection button.
     ///
     /// If `nil` and `imageForImageSource` is also `nil`, it defaults to `FlaneurImageSource.rawValue`.
-    public var titleForImageSource: ((FlaneurImageSource) -> (String?)) = { imageSource in
+    public var titleForImageProvider: ((FlaneurImageProvider) -> (String?)) = { imageSource in
         return nil
     }
 
     /// Image displayed for the image source selection button.
-    public var imageForImageSource: ((FlaneurImageSource) -> (UIImage?)) = { _ in
+    public var imageForImageProvider: ((FlaneurImageProvider) -> (UIImage?)) = { _ in
         return nil
     }
 

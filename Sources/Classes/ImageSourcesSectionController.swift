@@ -12,12 +12,15 @@ import ActionKit
 
 final class ImageSourcesSectionController: ListSectionController {
     private let config: FlaneurImagePickerConfig
-    private var imageSource: FlaneurImageSource?
+    private let numberOfSources: Int
+    private var providerWrapper: ImageProviderWrapper?
     private var selectHandler: ActionKitVoidClosure
 
     init(with config: FlaneurImagePickerConfig,
+         numberOfSources: Int,
          andSelectHandler selectHandler: @escaping ActionKitVoidClosure) {
         self.config = config
+        self.numberOfSources = numberOfSources
         self.selectHandler = selectHandler
 
         super.init()
@@ -25,27 +28,24 @@ final class ImageSourcesSectionController: ListSectionController {
 
     override func sizeForItem(at index: Int) -> CGSize {
         let height = collectionContext!.containerSize.height
-        let width: CGFloat = config.imageSourcesCellWidth  ?? collectionContext!.containerSize.width / CGFloat(config.imageSourcesArray.count)
+        let width: CGFloat = config.imageSourcesCellWidth ?? collectionContext!.containerSize.width / CGFloat(numberOfSources)
         return CGSize(width: width, height: height)
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard imageSource != nil else { fatalError("no image source") }
+        guard let provider = providerWrapper?.imageProvider else { fatalError("no provider set") }
         guard let cell = collectionContext?.dequeueReusableCell(of: ImageSourcesCell.self,
                                                                 for: self, at: index) as? ImageSourcesCell
             else {
             fatalError()
         }
-        cell.configure(with: imageSource!,
-                       config: config)
-
+        cell.configure(with: provider, config: config)
         return cell
     }
 
     override func didUpdate(to object: Any) {
-        precondition(object is String)
-        let source = object as! String
-        imageSource = FlaneurImageSource(rawValue: source)
+        precondition(object is ImageProviderWrapper)
+        self.providerWrapper = object as? ImageProviderWrapper
     }
 
     override func didSelectItem(at index: Int) {

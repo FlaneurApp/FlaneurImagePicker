@@ -33,6 +33,5 @@ extension LoadMoreManager: UICollectionViewDelegate {
             adapter?.performUpdates(animated: true, completion: nil)
             loadMoreClosure?()
         }
-
     }
 }

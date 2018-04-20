@@ -9,9 +9,19 @@
 import UIKit
 import SafariServices
 
+enum FlaneurImageInstagramProviderError: LocalizedError {
+    case instagramInvalidURL
+
+    case instagramEmptyData
+
+    case instagramInvalidJSON
+}
+
+/// User's instagram source, needs "InstagramClientID" and "InstagramRedirectURI" set in info.plist
 final class FlaneurImageInstagramProvider: NSObject, FlaneurImageProvider {
     weak var delegate: FlaneurImageProviderDelegate?
-    weak var parentVC: UIViewController?
+
+    let name = "instagram"
 
     let loginManager: InstagramLoginManager = {
         guard let clientID = Bundle.main.object(forInfoDictionaryKey: "InstagramClientID") as? String,
@@ -24,17 +34,12 @@ final class FlaneurImageInstagramProvider: NSObject, FlaneurImageProvider {
 
     var nextPageURL: URL?
     
-    init(parentVC: UIViewController) {
-        self.parentVC = parentVC
-        super.init()
-    }
-    
     func isAuthorized() -> Bool {
         return InstagramLoginManager.currentAccessToken != nil
     }
 
     func requestAuthorization(_ handler: @escaping (Bool) -> Void) {
-        guard let presentingViewController = parentVC else { return }
+        guard let presentingViewController = delegate?.presentingViewController(for: self) else { return }
         loginManager.authenticate(from: presentingViewController,
                                   completionHandler: handler)
     }
@@ -81,18 +86,19 @@ final class FlaneurImageInstagramProvider: NSObject, FlaneurImageProvider {
             images.append(.url(imageURL))
         }
 
-        self.delegate?.didLoadImages(images: images)
+        delegate?.imageProvider(self, didLoadImages: images)
     }
     
     func fetchUserPictures(withURL maybeURL: URL? = nil) {
         guard let url = maybeURL ?? loginManager.mediaURL() else {
-            delegate?.didFailLoadingImages(with: .instagram)
+            delegate?.imageProvider(self, didFailWithError: FlaneurImageInstagramProviderError.instagramInvalidURL)
             return
         }
 
         let task = URLSession.shared.dataTask(with: url) { [weak self] data, resp, error in
             guard let data = data else {
-                self?.delegate?.didFailLoadingImages(with: .instagram)
+                guard let existingSelf = self else { return }
+                existingSelf.delegate?.imageProvider(existingSelf, didFailWithError: FlaneurImageInstagramProviderError.instagramEmptyData)
                 return
             }
 
@@ -102,7 +108,8 @@ final class FlaneurImageInstagramProvider: NSObject, FlaneurImageProvider {
                 }
             } catch {
                 print(error)
-                self?.delegate?.didFailLoadingImages(with: .instagram)
+                guard let existingSelf = self else { return }
+                existingSelf.delegate?.imageProvider(existingSelf, didFailWithError: FlaneurImageInstagramProviderError.instagramInvalidJSON)
             }
         }
         task.resume()
@@ -110,7 +117,7 @@ final class FlaneurImageInstagramProvider: NSObject, FlaneurImageProvider {
     
     func fetchNextPage() {
         guard let nextURL = nextPageURL else {
-            delegate?.didLoadImages(images: [])
+            delegate?.imageProvider(self, didLoadImages: [])
             return
         }
         fetchUserPictures(withURL: nextURL)

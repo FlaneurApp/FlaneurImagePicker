@@ -9,9 +9,11 @@
 import UIKit
 import Photos
 
-/// An image provider using the device's photo library.
-final class FlaneurImageLibraryProvider: NSObject, FlaneurImageProvider {
-    weak var delegate: FlaneurImageProviderDelegate?
+/// User's library source, needs "Privacy - Photo Library Usage Description" set in info.plist
+final public class FlaneurImageLibraryProvider: NSObject, FlaneurImageProvider {
+    weak public var delegate: FlaneurImageProviderDelegate?
+
+    public let name = "library"
 
     let fetchLimit: Int
     
@@ -20,17 +22,17 @@ final class FlaneurImageLibraryProvider: NSObject, FlaneurImageProvider {
         super.init()
     }
 
-    func isAuthorized() -> Bool {
+    public func isAuthorized() -> Bool {
         return PHPhotoLibrary.authorizationStatus() == .authorized
     }
     
-    func requestAuthorization(_ handler: @escaping (Bool) -> Void) {
+    public func requestAuthorization(_ handler: @escaping (Bool) -> Void) {
         PHPhotoLibrary.requestAuthorization { newStatus in
             handler(newStatus == .authorized)
         }
     }
     
-    func fetchImagesFromSource() {
+    public func fetchImagesFromSource() {
         guard let delegate = delegate else { return }
 
         let assetsList = PHAsset.fetchAssets(with: .image, options: .latest(fetchLimit))
@@ -39,11 +41,11 @@ final class FlaneurImageLibraryProvider: NSObject, FlaneurImageProvider {
         for i in 0..<assetsList.count {
             images.append(FlaneurImageDescriptor.phAsset(assetsList[i]))
         }
-        
-        delegate.didLoadImages(images: images)
+
+        delegate.imageProvider(self, didLoadImages: images)
     }
     
-    func fetchNextPage() {
+    public func fetchNextPage() {
         ()
     }
 }

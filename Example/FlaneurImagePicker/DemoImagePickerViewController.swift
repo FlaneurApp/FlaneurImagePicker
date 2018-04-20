@@ -21,7 +21,7 @@ class DemoImagePickerViewController: UIViewController {
         ]
 
         let flaneurPicker = FlaneurImagePickerController(userInfo: nil,
-                                                         sourcesDelegate: [],
+                                                         imageProviders: FlaneurImagePickerConfig.defaultSources,
                                                          selectedImages: images)
 
         flaneurPicker.view.backgroundColor = .red
@@ -59,16 +59,16 @@ class DemoImagePickerViewController: UIViewController {
                                                                        bottom: 2.0,
                                                                        right: 2.0)
 
-        flaneurPicker.config.imageForImageSource = { imageSource in
-            switch imageSource {
-            case .library:
+        flaneurPicker.config.imageForImageProvider = { provider in
+            switch provider.name {
+            case "library":
                 return UIImage(named: "Rectangle")
             default:
                 return nil
             }
         }
 
-        flaneurPicker.config.titleForImageSource = { imageSource in
+        flaneurPicker.config.titleForImageProvider = { imageSource in
             return nil
         }
 

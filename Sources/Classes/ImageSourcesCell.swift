@@ -35,14 +35,14 @@ final class ImageSourcesCell: UICollectionViewCell {
         button.frame = contentView.bounds
     }
     
-    func configure(with imageSource: FlaneurImageSource,
+    func configure(with provider: FlaneurImageProvider,
                    config: FlaneurImagePickerConfig) {
-        let image: UIImage? = config.imageForImageSource(imageSource)
-        let title: String? = config.titleForImageSource(imageSource)
+        let image: UIImage? = config.imageForImageProvider(provider)
+        let title: String? = config.titleForImageProvider(provider)
 
         if image == nil && title == nil {
             button.setImage(nil, for: .normal)
-            button.setTitle(imageSource.rawValue, for: .normal)
+            button.setTitle(provider.name, for: .normal)
         } else {
             button.setImage(image, for: .normal)
             button.setTitle(title, for: .normal)
