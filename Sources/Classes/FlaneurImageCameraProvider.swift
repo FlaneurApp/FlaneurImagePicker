@@ -47,7 +47,7 @@ final public class FlaneurImageCameraProvider: NSObject, FlaneurImageProvider {
     }
     
     public func fetchNextPage() {
-        // Not usefull here
+        debugPrint("no pagination for provider: \(name)")
     }
 }
 

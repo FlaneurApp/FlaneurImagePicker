@@ -116,6 +116,7 @@ final class FlaneurImageInstagramProvider: NSObject, FlaneurImageProvider {
     }
     
     func fetchNextPage() {
+        debugPrint("fetching next page for provider: \(name)")
         guard let nextURL = nextPageURL else {
             delegate?.imageProvider(self, didLoadImages: [])
             return

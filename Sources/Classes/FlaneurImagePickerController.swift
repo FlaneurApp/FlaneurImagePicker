@@ -143,20 +143,12 @@ final public class FlaneurImagePickerController: UIViewController {
         }
     }
 
-    let imageProviders: [FlaneurImageProvider]
+    private var imageProviders: [FlaneurImageProvider]
 
     /// Currently used image provider
     var currentImageProvider: FlaneurImageProvider {
         didSet {
-            loadMoreManager = nil
-            if currentImageProvider.isAuthorized() {
-                currentImageProvider.fetchImagesFromSource()
-            } else {
-                DispatchQueue.main.async { [weak self] in
-                    self?.isChangingSource = false
-                    self?.pickerViewImages = []
-                }
-            }
+            fetchImagesForCurrentImageProvider()
         }
     }
 
@@ -184,6 +176,10 @@ final public class FlaneurImagePickerController: UIViewController {
         self.currentImageProvider = firstSource
 
         super.init(nibName: nil, bundle: nil)
+
+        for (index, _) in self.imageProviders.enumerated() {
+            self.imageProviders[index].delegate = self
+        }
     }
 
     /// A required init
@@ -212,6 +208,7 @@ final public class FlaneurImagePickerController: UIViewController {
 
         createCollectionViews()
         createAdapters()
+        fetchImagesForCurrentImageProvider()
     }
 
     /// Notifies the view controller that its view is about to be added to a view hierarchy.
@@ -374,11 +371,31 @@ final public class FlaneurImagePickerController: UIViewController {
 
     // MARK: - Managing first Image Source selection
 
+    func fetchImagesForCurrentImageProvider() {
+        guard galleryCollectionView != nil else { return }
+
+        // MFL comment: not sure why this is needed but it was there before so
+        // I kept it during some refactoring. The load more manager sounds like
+        // not such a great idea so this should be improved at some point
+        DispatchQueue.main.async {
+            self.setLoadMoreManager()
+        }
+
+        if currentImageProvider.isAuthorized() {
+            debugPrint("Fetching images from source: \(currentImageProvider.name)")
+            currentImageProvider.fetchImagesFromSource()
+        } else {
+            DispatchQueue.main.async { [weak self] in
+                self?.isChangingSource = false
+                self?.pickerViewImages = []
+            }
+        }
+    }
+
     func selectDefaultImageSource(finished: Bool) {
         guard let shouldManageFirstSelection = imageSourceSelectionCollectionView?.indexPathsForSelectedItems?.isEmpty else { return }
 
         if shouldManageFirstSelection {
-
             if let sectionNumber = imageProviders.index(where: { $0.name == currentImageProvider.name }) {
                 let myIndexPath = IndexPath(item: 0, section: sectionNumber)
                 imageSourceSelectionCollectionView?.selectItem(at: myIndexPath,
@@ -419,14 +436,6 @@ extension FlaneurImagePickerController {
         }
         return adapters[sectionIndex]
     }
-
-    //    internal func imageSourceForText(imageSourceRawValue: String) -> FlaneurImageSource {
-    //        guard let candidate = FlaneurImageSource(rawValue: imageSourceRawValue) else {
-    //            fatalError("No source for \(imageSourceRawValue)")
-    //        }
-    //
-    //        return candidate
-    //    }
 
     internal func addImageToSelection(imageDescription: FlaneurImageDescriptor) {
         if let imageIndex = selectedImages.index(of: imageDescription) {
