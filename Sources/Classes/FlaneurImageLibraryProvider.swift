@@ -17,7 +17,7 @@ final public class FlaneurImageLibraryProvider: NSObject, FlaneurImageProvider {
 
     let fetchLimit: Int
     
-    init(fetchLimit: Int = 0) {
+    public init(fetchLimit: Int = 0) {
         self.fetchLimit = fetchLimit
         super.init()
     }

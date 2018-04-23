@@ -27,6 +27,7 @@ public class InstagramLoginManager {
     public init(clientID: String, redirectURI: String) {
         self.clientID = clientID
         self.redirectURI = redirectURI
+        self.accessToken = InstagramLoginManager.currentAccessToken
     }
 
     static public var currentAccessToken: String? {
